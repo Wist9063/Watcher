@@ -1,6 +1,6 @@
 module.exports = {
-    "owners": ["187771864435785728", "184837412629774336"], // Noah & Jason
-    "admins": ["129693097431924736", "120021085210148864"], // Mystic, Monkey
+    "owners": ["166228540214214657", "184837412629774336"], // Wist & Jason
+    "admins": [], 
     "mods": [],
     "helpers": [],
     "token": "NTA1NTcxNTM5MzMzMTUyNzgx.DrVl-w.xpJwauOaS85MlJiMX6jMmsSXeLQ",
