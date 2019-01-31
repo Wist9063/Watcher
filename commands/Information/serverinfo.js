@@ -1,4 +1,5 @@
 const Command = require('../../handlers/command.js');
+const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
     constructor(client, filePath) {
@@ -10,7 +11,7 @@ module.exports = class extends Command {
 
     execute(message) {
 
-        const embed = new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
         .setColor("#7289DA")
         .setTitle(`Serverinfo for "${message.guild.name}"`)
         .setDescription(`This server has `)

@@ -1,15 +1,16 @@
 const { MessageEmbed } = require("discord.js");
 const Command = require("../../handlers/command.js");
 
+
 module.exports = class extends Command {
-    constructor(client, filePath) {
-        super(client, filePath, {
-            name: "help",
-            aliases: ["cmds", "commands"]
-        });
-    }
-    execute(message) {
-        const embed = new MessageEmbed()
+  constructor(client, filePath) {
+    super(client, filePath, {
+      name: "help",
+      aliases: ["cmds", "commands"]
+    });
+  }
+  execute(message) {
+    const embed = new MessageEmbed()
         .setColor("#7289DA")
         .setTitle("Watcher | The Advanced Logging Bot")
         .setDescription(`**Prefix**: \`w!\`\n\nWatcher provides your server with feature-rich advanced customizable logging features, to enhance your user experience.\n\nEvents we currently support:\n\`\`\`channelCreate, channelDelete, guildBanAdd, guildBanRemove, guildMemberAdd, guildMemberRemove, guildMemberUpdate, messageDelete, messageUpdate, voiceStateUpdate\`\`\``)
