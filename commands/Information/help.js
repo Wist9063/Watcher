@@ -21,7 +21,7 @@ module.exports = class extends Command {
         .addField("Settings [14]", `\`channelcreate\`, \`channeldelete\`, \`all-off\`, \`all-on\`, \`guildbanadd\`, \`guildbanremove\`, \`guildmemberadd\`, \`guildmemberremove\`, \`guildmemberupdate\`, \`log-channel\`, \`messagedelete\`, \`messagebulkdelete\`, \`messageupdate\`, \`voicestateupdate\``)
         .addField("Support Server", "[https://discord.gg/EH7jKFH](https://discord.gg/EH7jKFH)")
         .addField("Setup Guide", "Run the command `w!setup`.")
-        .setFooter(`Programmed by jason.#0001, with the Discord.js library.`)
+        .setFooter(`Originally maintained by jason.#0001, now maintained by Wistful__#9063. Made with the Discord.js library. On Runtime Node.js`)
         return message.channel.send(embed);
     }
 }
