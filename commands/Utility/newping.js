@@ -14,7 +14,6 @@ module.exports = class extends Command {
           if (!this.client.getAllShardsAvailable()) throw new Error();
           p = await this.client.shard.broadcastEval("this.ping");
         } catch (e) {
-          this.end(m.channel);
           return m.channel.send(`There was an issue pinging all shards. This shard took ` +
             `${this.client.shard.ping.toFixed(0)} milliseconds to ping back.`);
         }
