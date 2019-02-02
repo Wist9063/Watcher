@@ -1,8 +1,6 @@
 const Command = require('../../handlers/command.js');
-const util = require('util');
 const MessageEmbed = require('discord.js').MessageEmbed;
-const db = require('quick.db');
-
+const config = require('./config.js');
 module.exports = class extends Command {
   constructor(client, filePath) {
     super(client, filePath, {
@@ -13,14 +11,34 @@ module.exports = class extends Command {
     };
   }
 
-  execute(message) {
+  async execute(message) {
     if (message.perm < 9) return;
-    const code = message.content.slice(message.content.search(' ') + 1);
-    if (!code.length) return message.channel.send('No code input.');
-    if (code.match(/token/gi)) return message.channel.send('The input requests the user token.');
-    try {
-      return message.channel.send(`\`\`\`js\n${eval(code)}\n\`\`\``);
-    } catch (err) {
-      return message.channel.send(`\`\`\`js\n${err}\n\`\`\``);
+    const a = message.content.join(' ');
+    if (!a) {
+      return message.channel.send('You must provide some code to evaluate!');
     }
+  
+    try {
+      let res = eval(a);
+      res = await res;
+      if (typeof res !== 'string') res = require('util').inspect(res);
+            
+  
+      await message.channel.send('```js\n' + '> ' + clean(res) + '\n```');
+    } catch (e) {
+      message.channel.send('```js\n' + '> ' + e + '\n```');
+    }
+
+
   }};
+
+function clean(text) {
+  text = text.toString();
+  if (text.includes(config.token)) {
+    text = text.replace(config.token, 'reeeeeeeeeeeee don\'t try to take my token');
+  }
+  if (typeof(text) === 'string') {
+    return text.replace(/`/g, `\`${String.fromCharCode(8203)}`).replace(/@/g, `@${String.fromCharCode(8203)}`);
+  }
+  return text;
+}
