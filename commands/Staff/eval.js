@@ -5,6 +5,7 @@ module.exports = class extends Command {
   constructor(client, filePath) {
     super(client, filePath, {
       name: 'ev',
+      aliases: ['eval']
     });
     this.embed = function(input, output, error = false) {
       return new MessageEmbed().setColor(error ? 0xFF0000 : 0x00FF00).addField(':desktop: Input', input).addField(error ? ':error: Error' : 'Output', `\`\`\`${error ? '' : 'js'}\n${output}\n\`\`\``).setFooter(`${this.client.user.username} Eval`);
