@@ -10,7 +10,7 @@ module.exports = class extends BotEvent {
 
   execute() {
     console.log(log.info(`[Discord] Client Info: \nUser: ${this.user.tag}\nGuilds: ${this.guilds.size}\nChannels: ${this.channels.size}\nUsers: ${this.users.size}`));
-    this.game_cycle = () => {
+    this.client.game_cycle = () => {
       const games = [
         'your server. | w!help',
         `${this.guilds.size} guilds! | w!help`,
@@ -27,7 +27,7 @@ module.exports = class extends BotEvent {
       ];
       this.client.user.setActivity(games[Math.round(Math.random() * (games.length - 1))], {'url': 'https://www.twitch.tv/monstercat', 'type': 'WATCHING' });
       return setTimeout(() => {
-        this.user.game_cycle();
+        this.client.game_cycle();
       }, 300000);
     };
   }
