@@ -14,7 +14,7 @@ module.exports = class extends Command {
 
   async execute(message) {
     if (message.perm < 9) return;
-    const a = message.content.join(' ');
+    const a = message.content.slice(message.content.search(' ') + 1);
     if (!a) {
       return message.channel.send('You must provide some code to evaluate!');
     }
