@@ -1,6 +1,6 @@
 const Command = require('../../handlers/command.js');
 const MessageEmbed = require('discord.js').MessageEmbed;
-const config = require('./config.js');
+const config = require('../../config.js');
 module.exports = class extends Command {
   constructor(client, filePath) {
     super(client, filePath, {
