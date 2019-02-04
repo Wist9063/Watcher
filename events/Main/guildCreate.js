@@ -1,7 +1,6 @@
 const BotEvent = require('../../handlers/event.js');
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
-const snekfetch = require('node-superfetch');
 
 module.exports = class extends BotEvent {
   constructor(client, filePath) {
@@ -19,9 +18,10 @@ module.exports = class extends BotEvent {
     const systemChannel = guild.channels.get(guild.systemChannelID);
     if (!systemChannel) return;
     if (!systemChannel.permissionsFor(guild.me.id).has('SEND_MESSAGES')) return;
-    systemChannel.send('Hello there, I was invited by a guild admin! 👀 To start using Watcher, run the command `w!setup` & `w!help` to get started! If you are facing any issues setting up the bot, please join our support server: **https://discord.gg/EH7jKFH**.').catch(e => { return; });
+    systemChannel.send('Hello there, I was invited by a guild admin! 👀 To start using Watcher, run the command `w!setup` & `w!help` to get started! If you are facing any issues setting up the bot, please join our support server: **https://discord.gg/EH7jKFH**.').catch(() => { return; });
     return;
   }
+  /*
   async updateSites() {
     // https://discordbots.group/
     snekfetch.post('https://discordbots.group/api/bot/505571539333152781')
@@ -37,4 +37,5 @@ module.exports = class extends BotEvent {
       .send({ 'server_count': client.guilds.size })
       .catch(err => console.log(err));
   }
+  */
 };
