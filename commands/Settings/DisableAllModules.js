@@ -10,7 +10,7 @@ module.exports = class extends Command {
   }
 
   async execute(message) {
-    if (message.perm < 2) return message.channel.send(`${message.author} | Insufficient permissions required to execute this command.`).then(msg => msg.delete({timeout:15000}));
+    if (message.perm < 2) return message.channel.send(`${message.author} | Insufficient permissions required to execute this command.`);
     await db.set(`channelCreate_${message.guild.id}`, { value: false });
     await db.set(`channelDelete_${message.guild.id}`, { value: false });
     await db.set(`guildBanAdd_${message.guild.id}`, { value: false });
@@ -23,6 +23,6 @@ module.exports = class extends Command {
     await db.set(`messageUpdate_${message.guild.id}`, { value: false });       
     await db.set(`voiceStateUpdate_${message.guild.id}`, { value: false });
     await db.set(`messageReactionAdd_${message.guild.id}`, { value: false });
-    return message.channel.send(`${message.author} | Disabled all log events \`all\`, database updated.`).then(msg => msg.delete({timeout:10000}));
+    return message.channel.send(`${message.author} | Disabled all log events \`all\`, database updated.`);
   }
 };
