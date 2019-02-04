@@ -1,4 +1,5 @@
 const BotEvent = require('../../handlers/event.js');
+const moment = require('moment-timezone');
 
 module.exports = class extends BotEvent {
   constructor(client, filePath) {
@@ -24,7 +25,7 @@ module.exports = class extends BotEvent {
     const command = await this.fetchCommand(content.split(' ')[0]);
     if (!command) return;
     if (!message.channel.permissionsFor(message.guild.me).has(this.config.requiredPermissions)) return message.channel.send(`INVALID PERMISSIONS: Watcher requires the following permissions: \n${this.config.requiredPermissions.map(p => p)}`);
-    console.log(`User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
+    console.log(`[${moment().tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] | User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
     command.execute(message);
   }
 };
