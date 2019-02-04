@@ -22,7 +22,7 @@ module.exports = class extends BotEvent {
         .setColor('#7289DA')
         .setTitle('Reaction Added')
         .setURL('https://discord.gg/EH7jKFH')
-        .setDescription(`**${user.tag} added reaction to a message.**\n\`\`\`autohotkey\nCategory Name: ${message.channel.parent ? message.channel.parent.name : 'None'}\n Channel: ${message.channel.name}\nChannel ID: ${message.channel.id}\`\`\``)
+        .setDescription(`**${user.tag} added reaction to a message.**\n*User ID: ${user.id}*\n\`\`\`autohotkey\nCategory Name: ${message.channel.parent ? message.channel.parent.name : 'None'}\nChannel: #${message.channel.name}\nChannel ID: ${message.channel.id}\`\`\``)
         .setFooter(`Message ID: ${message.id}`)
         .setTimestamp();
       return logChannel.send(embed);
