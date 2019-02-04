@@ -7,7 +7,7 @@ module.exports = class extends BotEvent {
     super(client, filePath, {
       name: 'guildCreate'
     });
-    this.updateSites();
+    //this.updateSites();
   }
   async execute(guild) {
     const logChannel = this.channels.get('506299766955835392');
