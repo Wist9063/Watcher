@@ -1,5 +1,4 @@
 const Command = require('../../handlers/command.js');
-const Discord = require('discord.js');
 const db = require('quick.db');
 
 module.exports = class extends Command {

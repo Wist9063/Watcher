@@ -45,7 +45,7 @@ new class extends Client {
   }
 
   fetchCommand(text) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       if (this.commands.has(text)) return resolve(this.commands.get(text));
       this.commands.forEach(c => { if (c.aliases && c.aliases.includes(text)) return resolve(c); });
       return resolve();
