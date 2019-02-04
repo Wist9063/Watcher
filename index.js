@@ -93,6 +93,5 @@ new class extends Client {
   }
 };
 
-process.on('message', msg => log.error(msg))
-  .on('uncaughtException', err => log.error(err.stack, true))
-  .on('unhandledRejection', err => log.error(err.stack, true));
+process.on('uncaughtException', err => log.error(err.stack, true));
+process.on('unhandledRejection', err => log.error(err.stack, true));
