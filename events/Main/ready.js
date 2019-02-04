@@ -26,7 +26,7 @@ module.exports = class extends BotEvent {
         'my code. | w!help',
         'youtube. | w!help'
       ];
-      this.user.setPresence({ activity: { name: games[Math.round(Math.random() * (games.length - 1))], type: 'WATCHING' } });
+      return this.user.setPresence({ activity: { name: games[Math.round(Math.random() * (games.length - 1))], type: 'WATCHING' } });
     }, 300000);
   }
 };

@@ -24,6 +24,7 @@ module.exports = class extends Command {
     await db.set(`messageUpdate_${message.guild.id}`, { value: true });       
     await db.set(`voiceStateUpdate_${message.guild.id}`, { value: true });
     await db.set(`messageReactionAdd_${message.guild.id}`, { value: true });
+    await db.set(`messageReactionRemove_${message.guild.id}`, { value: true });
     return message.channel.send(`${message.author} | Enabled all log events \`all\`, database updated.`);
   }
 };

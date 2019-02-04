@@ -28,6 +28,7 @@ module.exports = class extends Command {
     let messageUpdate = db.get(`messageUpdate_${message.guild.id}.value`);
     let voiceStateUpdate = db.get(`voiceStateUpdate_${message.guild.id}.value`);
     let messageReactionAdd = db.get(`messageReactionAdd_${message.guild.id}.value`);
+    let messageReactionRemove = db.get(`messageReactionRemove_${message.guild.id}.value`);
 
     // FETCH VALUES
     if (logChannel) logChannel = `<#${logChannel}>`;
@@ -54,10 +55,12 @@ module.exports = class extends Command {
     else voiceStateUpdate = tick;
     if (messageReactionAdd) messageReactionAdd = check;
     else messageReactionAdd = tick;
+    if (messageReactionRemove) messageReactionRemove = check;
+    else messageReactionRemove = tick;
 
     const embed = new MessageEmbed()
       .addField('⚙ Channel Settings', `**Log Channel**: ${logChannel}\n**channelCreate**: ${channelCreate}\n**channelDelete**: ${channelDelete}`, true)
-      .addField('💬 Message Settings', `**messageDelete**: ${messageDelete}\n**messageUpdate**: ${messageUpdate}\n**voiceStateUpdate**: ${voiceStateUpdate}\n**messageReactionAdd**: ${messageReactionAdd}`, true)
+      .addField('💬 Message Settings', `**messageDelete**: ${messageDelete}\n**messageUpdate**: ${messageUpdate}\n**voiceStateUpdate**: ${voiceStateUpdate}\n**messageReactionAdd**: ${messageReactionAdd}\n**messageReactionAdd**: ${messageReactionRemove}`, true)
       .addField('🗒 Guild Settings', `**guildBanAdd**: ${guildBanAdd}\n**guidBanRemove**: ${guildBanRemove}\n**guildMemberAdd**: ${guildMemberAdd}\n**guildMemberUpdate**: ${guildMemberUpdate}\n**guildMemberRemove**: ${guildMemberRemove}`, true)
       .setFooter('w!<setting> <value> - Edit a setting, or run w!enable-all to turn all settings on, and w!disable-all to turn all settings off.');
 
