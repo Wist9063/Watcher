@@ -16,7 +16,7 @@ new class extends Client {
     this.commands = new Collection();
     this.init();
     this.initEvents();
-    this.gameCycle();
+    this.gameCycle(Client);
     this.login(this.config.token);
   }
 
@@ -33,7 +33,7 @@ new class extends Client {
     return true;
   }
 
-  gameCycle() {
+  gameCycle(Client) {
     const games = [
       'your server. | w!help',
       `${this.guilds.size} guilds! | w!help`,
@@ -48,7 +48,7 @@ new class extends Client {
       'my code. | w!help',
       'youtube. | w!help'
     ];
-    this.user.setPresence({ activity: { name: games[Math.round(Math.random() * (games.length - 1))], type: 'WATCHING' } });
+    Client.user.setPresence({ activity: { name: games[Math.round(Math.random() * (games.length - 1))], type: 'WATCHING' } });
     return setTimeout(() => {
       this.user.gameCycle();
     }, 300000);
