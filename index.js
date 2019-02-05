@@ -16,7 +16,7 @@ new class extends Client {
     this.commands = new Collection();
     this.init();
     this.initEvents();
-    this.gameCycle(Client);
+    this.gameCycle(discord);
     this.login(this.config.token);
   }
 
