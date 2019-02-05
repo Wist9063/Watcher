@@ -11,7 +11,8 @@ module.exports = class extends BotEvent {
   execute() {
     console.log(log.info(`[Discord] Client Info: \nUser: ${this.user.tag}\nGuilds: ${this.guilds.size}\nChannels: ${this.channels.size}\nUsers: ${this.users.size}`));
     this.user.setPresence({ activity: { name: 'your server | w!help', type: 'WATCHING' } });
-    setTimeout(() => {
+    
+    this.user.gameCycle = () => {
       const games = [
         'your server. | w!help',
         `${this.guilds.size} guilds! | w!help`,
@@ -26,7 +27,10 @@ module.exports = class extends BotEvent {
         'my code. | w!help',
         'youtube. | w!help'
       ];
-      return this.user.setPresence({ activity: { name: games[Math.round(Math.random() * (games.length - 1))], type: 'WATCHING' } });
-    }, 300000);
+      this.user.setPresence({ activity: { name: games[Math.round(Math.random() * (games.length - 1))], type: 'WATCHING' } });
+      return setTimeout(() => {
+        this.user.gameCycle();
+      }, 300000);
+    };
   }
 };
