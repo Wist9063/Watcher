@@ -1,5 +1,4 @@
 const Command = require('../../handlers/command.js');
-const { Collection } = require('discord.js');
 
 module.exports = class extends Command {
   constructor(client, filePath) {
@@ -9,9 +8,15 @@ module.exports = class extends Command {
     });
   }
 
-  execute(message) {
+  async execute(message) {
     if (message.perm < 9) return;
-    this.client.reloadCommands();
-    return message.channel.send('<a:loading:503081230309392384>**Reloading...**').then(msg => setTimeout(() => { msg.edit('<:yes:501906738119835649>**Command module successfully reloaded.**');},1500));
+    await this.client.reloadCommands();
+    return message.channel.send('<a:loading:503081230309392384>**Reloading...**')
+      .then(msg => { 
+        setTimeout(() => { 
+          msg.edit('<:yes:501906738119835649>**Command module successfully reloaded.**'); 
+        } ,1500);
+      }
+      );
   }
 };
