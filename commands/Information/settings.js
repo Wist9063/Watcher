@@ -1,8 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const db = require('quick.db');
 const Command = require('../../handlers/command.js');
-const check = '<:yes:501906738119835649>';
-const tick = '<:no:501906738224562177>';
 
 module.exports = class extends Command {
   constructor(client, filePath) {
@@ -13,6 +11,9 @@ module.exports = class extends Command {
   }
 
   execute(message) {
+    const check = this.client.emojis.get('501906738119835649');
+    const tick = this.client.emojis.get('501906738224562177');
+
     if (message.perm <= 0) return message.channel.send(`${message.author} | Insufficient permissions required to execute this command.`).then(msg => msg.delete({timeout:15000}));
         
     // LIST OF EVENTS
