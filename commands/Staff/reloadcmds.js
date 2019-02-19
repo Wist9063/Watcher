@@ -11,10 +11,11 @@ module.exports = class extends Command {
   async execute(message) {
     if (message.perm < 9) return;
     await this.client.reloadCommands();
-    return message.channel.send('<a:loading:503081230309392384>**Reloading...**')
+    return message.channel.send(`${this.client.emojis.get('503081230309392384')}**Reloading...**`)
       .then(msg => { 
+
         setTimeout(() => { 
-          msg.edit('<:yes:501906738119835649>**Command module successfully reloaded.**'); 
+          msg.edit(`${this.client.emojis.get('506673019838660608')}**Command module successfully reloaded.**`); 
         } ,1500);
       }
       );
