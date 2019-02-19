@@ -16,7 +16,7 @@ module.exports = class extends Command {
       .setTitle(`Serverinfo for "${message.guild.name}"`)
       .setDescription('This server has ')
       .setURL('https://discord.gg/EH7jKFH')
-      .addField('❯❯ General Information', `Servers - \`${this.client.guilds.size.toLocaleString()}\`\nUsers - \`${this.client.users.size.toLocaleString()}\`\nUptime - \`${this.client.convertTime(this.client.uptime)}\``, true)
+      .addField('❯❯ General Information', `Servers - \`${this.client.guilds.size.toLocaleString()}\`\nUsers - \`${this.client.users.size.toLocaleString()}\`\n`, true)
       .addField('❯❯ Module Information', `\`\nNode.js - \`${process.version}\``, true);
 
     message.channel.send(embed);

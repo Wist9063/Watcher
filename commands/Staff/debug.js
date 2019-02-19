@@ -19,8 +19,7 @@ module.exports = class extends Command {
                 + `**Node**: ${process.version}\n\n`
                 + `**Guilds**: ${this.client.guilds.size}\n`
                 + `**Channels**: ${this.client.channels.size}\n`
-                + `**Users**: ${this.client.users.size}\n`
-                + `**Uptime:** ${this.client.convertTime(this.client.uptime)}`);
+                + `**Users**: ${this.client.users.size}\n`);
     message.channel.send(embed);
   }
 };
