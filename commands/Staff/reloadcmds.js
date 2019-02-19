@@ -15,7 +15,7 @@ module.exports = class extends Command {
       .then(msg => { 
 
         setTimeout(() => { 
-          msg.edit(`${this.client.emojis.get('501906738119835649')}**Command module successfully reloaded.**`); 
+          msg.edit(`${this.client.emojis.get('506673019838660608')}**Command module successfully reloaded.**`); 
         } ,1500);
       }
       );

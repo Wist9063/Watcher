@@ -46,7 +46,7 @@ module.exports = class extends Command {
           .setImage(search.avatarURL({ 'size': 2048 }));
         return message.channel.send(embed);
       } else {
-        return message.channel.send('', { embed: { 'author': { 'name': message.author.tag, 'icon_url': message.author.avatarURL() }, 'description': `${this.client.emojis.get('501906738224562177')} **Too many users found, please try being more specific.**`, 'color': 0xFF0000 } });
+        return message.channel.send('', { embed: { 'author': { 'name': message.author.tag, 'icon_url': message.author.avatarURL() }, 'description': `${this.client.emojis.get('506673020014952448')} **Too many users found, please try being more specific.**`, 'color': 0xFF0000 } });
       }
     }
   }
