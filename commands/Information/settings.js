@@ -11,8 +11,8 @@ module.exports = class extends Command {
   }
 
   execute(message) {
-    const check = this.client.emojis.get('506673020014952448');
-    const tick = this.client.emojis.get('501906738224562177');
+    const check = this.client.emojis.get('506673019838660608');
+    const tick = this.client.emojis.get('506673020014952448');
 
     if (message.perm <= 0) return message.channel.send(`${message.author} | Insufficient permissions required to execute this command.`).then(msg => msg.delete({timeout:15000}));
         
