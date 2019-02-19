@@ -29,7 +29,6 @@
     "node-superfetch": "^0.1.9",
     "quick.db": "^7.0.0-b21",
     "snekfetch": "^4.0.4",
-    "sodium": "^3.0.2",
     "string-similarity": "^3.0.0",
     "umi-log": "^3.0.4",
     "zlib-sync": "^0.1.4"
