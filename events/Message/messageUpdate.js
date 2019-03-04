@@ -26,8 +26,18 @@ module.exports = class extends BotEvent {
       let newContent = newMessage.content;
       if (oldContent.length > 200) newContent = newContent.substring(0, 199) + '...';
       if (oldContent.length > 1000 || newContent.length > 1000) return;
+
+
+      
       const embed = new MessageEmbed()
-        .setColor('#7289DA').setTitle('Message Updated').setURL('https://discord.gg/EH7jKFH').setDescription(`${newMessage.author.tag} (ID:${newMessage.author.id}) edited their message in ${oldMessage.channel}.`).setFooter(`ID: ${oldMessage.id}`).setTimestamp().addField('Previous Message', oldContent).addField('Current Message', newContent);
+        .setColor('#7289DA')
+        .setTitle('Message Updated')
+        .setURL('https://discord.gg/EH7jKFH')
+        .setDescription(`${newMessage.author.tag} (ID:${newMessage.author.id}) edited their message in ${oldMessage.channel}.`).setFooter(`ID: ${oldMessage.id}`)
+        .setTimestamp()
+        .addField('Previous Message', oldContent)
+        .addField('Current Message', newContent)
+        .addField('Jump to Message', `[Click Here](${newMessage.url})`);
       return logChannel.send(embed);
     } else {
       return;

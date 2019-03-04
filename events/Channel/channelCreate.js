@@ -18,9 +18,40 @@ module.exports = class extends BotEvent {
       if (fetched === null) return;
       const logChannel = channel.guild.channels.get(fetched);
       if (!logChannel) return;
-      const embed = new MessageEmbed()
-        .setColor('#7289DA').setTitle('Channel Created').setURL('https://discord.gg/EH7jKFH').setDescription(`**A channel has been created: ${channel}**.`).setFooter(`ID: ${channel.id}`).setTimestamp();
-      return logChannel.send(embed);
+
+      if (channel.type === 'text') {
+        const embed = new MessageEmbed()
+          .setColor('#7289DA').setTitle('Text Channel Created')
+          .setURL('https://discord.gg/EH7jKFH')
+          .setDescription(`**A text channel has been created: ${channel}**.`)
+          .setFooter(`ID: ${channel.id}`)
+          .setTimestamp();
+        return logChannel.send(embed);
+      } else if (channel.type === 'voice') {
+        const embed = new MessageEmbed()
+          .setColor('#7289DA').setTitle('Voice Channel Created')
+          .setURL('https://discord.gg/EH7jKFH')
+          .setDescription(`**A voice channel has been created: ${channel.name}**.`)
+          .setFooter(`ID: ${channel.id}`)
+          .setTimestamp();
+        return logChannel.send(embed);
+      } else if (channel.type === 'category') {
+        const embed = new MessageEmbed()
+          .setColor('#7289DA').setTitle('Category Created')
+          .setURL('https://discord.gg/EH7jKFH')
+          .setDescription(`**A Category has been created: ${channel.name}**.`)
+          .setFooter(`ID: ${channel.id}`)
+          .setTimestamp();
+        return logChannel.send(embed);
+      } else {
+        const embed = new MessageEmbed()
+          .setColor('#7289DA').setTitle('Unknown Channel Created')
+          .setURL('https://discord.gg/EH7jKFH')
+          .setDescription(`**An unknown channel type has been created: ${channel.name}**.`)
+          .setFooter(`ID: ${channel.id}`)
+          .setTimestamp();
+        return logChannel.send(embed);
+      }
     } else {
       return;
     }

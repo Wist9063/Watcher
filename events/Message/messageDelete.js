@@ -24,7 +24,12 @@ module.exports = class extends BotEvent {
       let contentValue = message.content;
       if (contentValue.length > 500) contentValue = contentValue.substring(0, 499) + '...';
       const embed = new MessageEmbed()
-        .setColor('#D92C2C').setTitle('Message Deleted').setURL('https://discord.gg/EH7jKFH').setDescription(`${message.author.tag} (ID:${message.author.id}) has deleted their message sent in ${message.channel}.\n\n\`\`\`${contentValue}\`\`\``).setFooter(`ID: ${message.id}`).setTimestamp();
+        .setColor('#D92C2C')
+        .setTitle('Message Deleted')
+        .setURL('https://discord.gg/EH7jKFH')
+        .setDescription(`${message.author.tag} (ID:${message.author.id}) has deleted their message sent in ${message.channel}.\n\n\`\`\`${contentValue}\`\`\``)
+        .setFooter(`ID: ${message.id}`)
+        .setTimestamp();
       return logChannel.send(embed);
     } else {
       return;

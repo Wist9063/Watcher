@@ -17,9 +17,40 @@ module.exports = class extends BotEvent {
       if (fetched === null) return;
       const logChannel = channel.guild.channels.get(fetched);
       if (!logChannel) return;
-      const embed = new MessageEmbed()
-        .setColor('#D92C2C').setTitle('Channel Deleted').setURL('https://discord.gg/EH7jKFH').setDescription(`**A channel has been deleted: #${channel.name}**.`).setFooter(`ID: ${channel.id}`).setTimestamp();
-      return logChannel.send(embed);
+
+      if (channel.type === 'text') {
+        const embed = new MessageEmbed()
+          .setColor('#7289DA').setTitle('Text Channel Deleted')
+          .setURL('https://discord.gg/EH7jKFH')
+          .setDescription(`**A text channel has been deleted: ${channel}**.`)
+          .setFooter(`ID: ${channel.id}`)
+          .setTimestamp();
+        return logChannel.send(embed);
+      } else if (channel.type === 'voice') {
+        const embed = new MessageEmbed()
+          .setColor('#7289DA').setTitle('Voice Channel Deleted')
+          .setURL('https://discord.gg/EH7jKFH')
+          .setDescription(`**A voice channel has been deleted: ${channel.name}**.`)
+          .setFooter(`ID: ${channel.id}`)
+          .setTimestamp();
+        return logChannel.send(embed);
+      } else if (channel.type === 'category') {
+        const embed = new MessageEmbed()
+          .setColor('#7289DA').setTitle('Category Deleted')
+          .setURL('https://discord.gg/EH7jKFH')
+          .setDescription(`**A Category has been deleted: ${channel.name}**.`)
+          .setFooter(`ID: ${channel.id}`)
+          .setTimestamp();
+        return logChannel.send(embed);
+      } else {
+        const embed = new MessageEmbed()
+          .setColor('#7289DA').setTitle('Unknown Channel Deleted')
+          .setURL('https://discord.gg/EH7jKFH')
+          .setDescription(`**An unknown channel type has been deleted: ${channel.name}**.`)
+          .setFooter(`ID: ${channel.id}`)
+          .setTimestamp();
+        return logChannel.send(embed);
+      }
     } else {
       return;
     }
