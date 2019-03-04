@@ -13,7 +13,10 @@ module.exports = class extends BotEvent {
     const message = messageReaction.message;
     const fetched = await db.get(`log-channel_${message.guild.id}.channelid`);
     const fetch = await db.get(`messageReactionRemove_${message.guild.id}.value`);
-    if (fetch === null) return;
+    const ignoreFetch = await db.get(`ignoreChannel_${message.guild.id}_${message.channel.id}.channelid`);
+    if (ignoreFetch) {
+      if (message.channel.id === ignoreFetch) return;
+    } else if (fetch === null) return;
     if (fetch === true) {
       if (fetched === null) return;
       const logChannel = message.guild.channels.get(fetched);
@@ -24,6 +27,7 @@ module.exports = class extends BotEvent {
         .setURL('https://discord.gg/EH7jKFH')
         .setDescription(`**${user.tag} removed reaction to a message.**\n*User ID: ${user.id}*\n\`\`\`autohotkey\nEmoji Name: ${messageReaction.emoji.name}\n(ID: ${messageReaction.emoji.id})\nEmoji Animated? ${messageReaction.emoji.animated ? 'Yes' : 'No'}\n---\nCategory Name: ${message.channel.parent ? message.channel.parent.name : 'None'}\nChannel: #${message.channel.name}\n(ID: ${message.channel.id})\n\`\`\``)
         .setFooter(`Message ID: ${message.id}`)
+        .addField('Jump to Message', `[Click Here](${messageReaction.message.url})`)
         .setTimestamp();
       return logChannel.send(embed);
     } else {
