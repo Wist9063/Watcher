@@ -17,8 +17,8 @@ module.exports = class extends BotEvent {
     if (!systemChannel) return;
     if (!systemChannel.permissionsFor(guild.me.id).has('SEND_MESSAGES')) return;
     if (systemChannel) return systemChannel.send('Hello there, I was invited by a guild admin! 👀 To start using Watcher, run the command `w!setup` & `w!help` to get started! If you are facing any issues setting up the bot, please join our support server: **https://discord.gg/EH7jKFH**.').catch(() => { return; });
-    db.set(`guild_${guild.id}.enabled`, false);
-    db.set(`guild_${guild.id}.guildID`, { id: guild.id });
+    await db.set(`guild_${guild.id}.enabled`, false);
+    await db.set(`guild_${guild.id}.guildID`, { id: guild.id });
         
 
     const hook = new WebhookClient('549476222686461972', this.config.wenhookToken);

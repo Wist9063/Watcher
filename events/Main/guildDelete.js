@@ -1,6 +1,7 @@
 const BotEvent = require('../../handlers/event.js');
 const { WebhookClient, MessageEmbed } = require('discord.js');
 const moment = require('moment');
+const db = require('quick.db');
 
 module.exports = class extends BotEvent {
   constructor(client, filePath) {
@@ -12,6 +13,8 @@ module.exports = class extends BotEvent {
   async execute(guild) {
 
     const hook = new WebhookClient('549476222686461972', this.config.wenhookToken);
+
+    await db.delete(`guild_${guild.id}`);
 
     const embed = new MessageEmbed()
       .setColor('#D92C2C')
