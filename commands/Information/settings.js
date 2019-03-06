@@ -17,19 +17,19 @@ module.exports = class extends Command {
     if (message.perm <= 0) return message.channel.send(`${message.author} | Insufficient permissions required to execute this command.`).then(msg => msg.delete({timeout:15000}));
         
     // LIST OF EVENTS
-    let logChannel = db.get(`log-channel_${message.guild.id}.channelid`);
-    let channelCreate = db.get(`channelCreate_${message.guild.id}.value`);
-    let channelDelete = db.get(`channelDelete_${message.guild.id}.value`);
-    let guildBanAdd = db.get(`guildBanAdd_${message.guild.id}.value`);
-    let guildBanRemove = db.get(`guildBanRemove_${message.guild.id}.value`);
-    let guildMemberAdd = db.get(`guildMemberAdd_${message.guild.id}.value`);
-    let guildMemberUpdate = db.get(`guildMemberUpdate_${message.guild.id}.value`);
-    let guildMemberRemove = db.get(`guildMemberRemove_${message.guild.id}.value`);
-    let messageDelete = db.get(`messageDelete_${message.guild.id}.value`);
-    let messageUpdate = db.get(`messageUpdate_${message.guild.id}.value`);
-    let voiceStateUpdate = db.get(`voiceStateUpdate_${message.guild.id}.value`);
-    let messageReactionAdd = db.get(`messageReactionAdd_${message.guild.id}.value`);
-    let messageReactionRemove = db.get(`messageReactionRemove_${message.guild.id}.value`);
+    let logChannel = db.get(`guild_${message.guild.id}.logChannel`);
+    let channelCreate = db.get(`guild_${message.guild.id}.events.channelCreate`);
+    let channelDelete = db.get(`guild_${message.guild.id}.events.channnelDelete`);
+    let guildBanAdd = db.get(`guild_${message.guild.id}.events.guildBanAdd`);
+    let guildBanRemove = db.get(`guild_${message.guild.id}.events.guildBanRemove`);
+    let guildMemberAdd = db.get(`guild_${message.guild.id}.events.guildMemberAdd`);
+    let guildMemberUpdate = db.get(`guild_${message.guild.id}.events.guildMemberUpdate`);
+    let guildMemberRemove = db.get(`guild_${message.guild.id}.events.guildMemberRemove`);
+    let messageDelete = db.get(`guild_${message.guild.id}.events.messageDelete`);
+    let messageUpdate = db.get(`guild_${message.guild.id}.events.messageUpdate`);
+    let voiceStateUpdate = db.get(`guild_${message.guild.id}.events.voiceStateUpdate`);
+    let messageReactionAdd = db.get(`guild_${message.guild.id}.events.messageReactionAdd`);
+    let messageReactionRemove = db.get(`guild_${message.guild.id}.events.messageReactionRemove`);
 
     // FETCH VALUES
     if (logChannel) logChannel = `<#${logChannel}>`;

@@ -10,14 +10,14 @@ module.exports = class extends Command {
     });
   }
   execute(message) {
-    if (!db.has(`log-channel_${message.guild.id}`)) {
+    if (!db.has(`guild_${message.guild.id}.logChannel`)) {
       message.channel.send(`${message.author} | You didn't setup a log channel yet! Run w!setup to setup one.`);
     } else {
 
       if (message.perm < 2) return message.channel.send(`${message.author} | Insufficient permissions required to execute this command.`).then(msg => msg.delete({timeout:15000}));
       let channelList = '';
       message.guild.channels.forEach(c => {
-        const fetched = db.get(`ignoreChannel_${c.guild.id}_${c.id}.channelid`);
+        const fetched = db.get(`guild_${c.guild.id}.ignoreChannel.${c.id}`);
         if (fetched) {
           channelList += `**#${c.name}** \`(ID:${c.id})\`` + '\n';
         }

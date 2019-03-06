@@ -11,9 +11,9 @@ module.exports = class extends BotEvent {
 
   async execute(messageReaction, user) {
     const message = messageReaction.message;
-    const fetched = await db.get(`log-channel_${message.guild.id}.channelid`);
-    const fetch = await db.get(`messageReactionRemove_${message.guild.id}.value`);
-    const ignoreFetch = await db.get(`ignoreChannel_${message.guild.id}_${message.channel.id}.channelid`);
+    const fetched = await db.get(`guild_${message.guild.id}.logChannel.id`);
+    const fetch = await db.get(`guild_${message.guild.id}.events.messageReactionRemove`);
+    const ignoreFetch = await db.get(`guild_${message.guild.id}.ignoreChannel.${message.channel.id}`);
     if (ignoreFetch) {
       if (message.channel.id === ignoreFetch) return;
     } else if (fetch === null) return;
@@ -25,7 +25,7 @@ module.exports = class extends BotEvent {
         .setColor('#D92C2C')
         .setTitle('Reaction Removed')
         .setURL('https://discord.gg/EH7jKFH')
-        .setDescription(`**${user.tag} removed reaction to a message.**\n*User ID: ${user.id}*\n\`\`\`autohotkey\nEmoji Name: ${messageReaction.emoji.name}\n(ID: ${messageReaction.emoji.id})\nEmoji Animated? ${messageReaction.emoji.animated ? 'Yes' : 'No'}\n---\nCategory Name: ${message.channel.parent ? message.channel.parent.name : 'None'}\nChannel: #${message.channel.name}\n(ID: ${message.channel.id})\n\`\`\``)
+        .setDescription(`**${user.tag} removed reaction to a message.**\n*User ID: ${user.id}*\n\`\`\`autohotkey\nEmoji Name: ${messageReaction.emoji.name}\n(ID: ${messageReaction.emoji.id})\nEmoji Animated? ${messageReaction.emoji.animated ? 'Yes' : 'No'}\n---\nCategory Name:\n${message.channel.parent ? message.channel.parent.name : 'None'}\nChannel: #${message.channel.name}\n(ID: ${message.channel.id})\n\`\`\``)
         .setFooter(`Message ID: ${message.id}`)
         .addField('Jump to Message', `[Click Here](${messageReaction.message.url})`)
         .setTimestamp();

@@ -12,9 +12,9 @@ module.exports = class extends BotEvent {
   async execute(oldMessage, newMessage) {
     if (newMessage.author.bot) return;
     if (oldMessage.content === newMessage.content) return;
-    const fetched = await db.get(`log-channel_${newMessage.guild.id}.channelid`);
-    const fetch = await db.get(`messageUpdate_${newMessage.guild.id}.value`);
-    const ignoreFetch = await db.get(`ignoreChannel_${newMessage.guild.id}_${newMessage.channel.id}.channelid`);
+    const fetched = await db.get(`guild_${newMessage.guild.id}.logChannel.id`);
+    const fetch = await db.get(`guild_${newMessage.guild.id}.events.messageUpdate`);
+    const ignoreFetch = await db.get(`guild_${newMessage.guild.id}.ignoreChannel.${newMessage.channel.id}`);
     if (ignoreFetch === newMessage.channel.id) return;
     if (fetch === null) return;
     if (fetch === true) {

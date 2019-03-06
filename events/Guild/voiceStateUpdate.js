@@ -10,15 +10,14 @@ module.exports = class extends BotEvent {
   }
 
   async execute(oldState, newState) {
-    const fetched = await db.get(`log-channel_${oldState.guild.id}.channelid`);
-    const fetch = await db.get(`voiceStateUpdate_${oldState.guild.id}.value`);
+    const fetched = await db.get(`guild_${oldState.guild.id}.logChannel.id`);
+    const fetch = await db.get(`guild_${oldState.guild.id}.events.channelDelete`);
     if (fetch === null) return;
     if (fetch === true) {
       if (fetched === null) return;
       const logChannel = oldState.guild.channels.get(fetched);
       if (!logChannel) return;
 
-      const user = newState.user;
       const voice1 = (oldState.channel ? oldState.channel.name : 'None');
       const voice2 = (newState.channel ? newState.channel.name : 'Left');
 

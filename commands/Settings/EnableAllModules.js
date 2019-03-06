@@ -10,25 +10,25 @@ module.exports = class extends Command {
   }
 
   async execute(message) {
-    if (!db.has(`log-channel_${message.guild.id}`)) {
+    if (!db.has(`guild_${message.guild.id}.logChannel`)) {
       message.channel.send(`${message.author} | You didn't setup a log channel yet! Run w!setup to setup one.`);
     } else {
 
       if (message.perm < 2) return message.channel.send(`${message.author} | Insufficient permissions required to execute this command.`);
       if (!message.channel.permissionsFor(this.client.user.id).has('SEND_MESSAGES')) return message.author.send(`Please ensure that I have permissions to speak in ${message.channel}.`);
-      await db.set(`channelCreate_${message.guild.id}`, { value: true });
-      await db.set(`channelDelete_${message.guild.id}`, { value: true });
-      await db.set(`guildBanAdd_${message.guild.id}`, { value: true });
-      await db.set(`guildBanRemove_${message.guild.id}`, { value: true });
-      await db.set(`guildMemberAdd_${message.guild.id}`, { value: true });
-      await db.set(`guildMemberRemove_${message.guild.id}`, { value: true });
-      await db.set(`guildMemberUpdate_${message.guild.id}`, { value: true });
-      await db.set(`messageDelete_${message.guild.id}`, { value: true });
-      await db.set(`messageDeleteBulk_${message.guild.id}`, { value: true });
-      await db.set(`messageUpdate_${message.guild.id}`, { value: true });       
-      await db.set(`voiceStateUpdate_${message.guild.id}`, { value: true });
-      await db.set(`messageReactionAdd_${message.guild.id}`, { value: true });
-      await db.set(`messageReactionRemove_${message.guild.id}`, { value: true });
+      await db.set(`guild_${message.guild.id}.events.channelCreate`, true);
+      await db.set(`guild_${message.guild.id}.events.channelDelete`, true);
+      await db.set(`guild_${message.guild.id}.events.guildBanAdd`, true);
+      await db.set(`guild_${message.guild.id}.events.guildBanRemove`, true);
+      await db.set(`guild_${message.guild.id}.events.guildMemberAdd`, true);
+      await db.set(`guild_${message.guild.id}.events.guildMemberRemove`, true);
+      await db.set(`guild_${message.guild.id}.events.guildMemberUpdate`, true);
+      await db.set(`guild_${message.guild.id}.events.messageDelete`, true);
+      await db.set(`guild_${message.guild.id}.events.messageDeleteBulk`, true);
+      await db.set(`guild_${message.guild.id}.events.messageUpdate`, true);       
+      await db.set(`guild_${message.guild.id}.events.voiceStateUpdate`, true);
+      await db.set(`guild_${message.guild.id}.events.messageReactionAdd`, true);
+      await db.set(`guild_${message.guild.id}.events.messageReactionRemove`, true);
       return message.channel.send(`${message.author} | Enabled **all** log events, database updated.`);
     }
   }
