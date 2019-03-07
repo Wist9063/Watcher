@@ -21,7 +21,7 @@ module.exports = class extends Command {
       .setURL('https://discord.gg/EH7jKFH')
       .addField('❯❯ General Information', `Servers - \`${this.client.guilds.size.toLocaleString()}\`\nUsers - \`${this.client.users.size.toLocaleString()}\`\nUptime - \`${duration}\``, true)
       .addField('❯❯ Module Information', `Discord.js - \`${Discord.version}\`\nNode.js - \`${process.version}\`\nDatabase Version - \`${db.version}\``, true)
-      .addField('❯❯ Additional Information', `\nMemory Usage - \`${(process.memoryUsage().rss / 1024 / 1024).toFixed(2)}\`MB\nHeap Usage - \`${bytes(process.memoryUsage().heapUsed)}\`\nServer powered by DigitalOcean.`);
+      .addField('❯❯ Additional Information', `\nMemory Usage - \`${(process.memoryUsage().rss / 1024 / 1024).toFixed(2)}\`MB\nHeap Usage - \`${bytes(process.memoryUsage().heapUsed)}\`\nServer powered by RamNode.`);
     return message.channel.send(embed).catch(e => message.channel.send(`\`\`\`${e}\`\`\``));
   }
 };
