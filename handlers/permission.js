@@ -4,10 +4,10 @@ class PermissionLevel {
 
   fetch(client, message) {
 
-    if (config.owners.includes(message.author.id)) return [10, 'Owner - <:VerifiedBotTechnician:503405757719511063> **Verified Bot Technician**'];
-    if (config.helpers.includes(message.author.id)) return [9, 'Development Team - <:VerifiedBotTechnician:503405757719511063> **Verified Bot Technician**'];
-    if (config.admins.includes(message.author.id)) return [8, 'Global Admin - <:VerifiedBotTechnician:503405757719511063> **Verified Bot Technician**'];
-    if (config.mods.includes(message.author.id)) return [7, 'Global Mod - <:VerifiedBotTechnician:503405757719511063> **Verified Bot Technician**'];
+    if (config.owners.includes(message.author.id)) return [10, '**Owner**\n<:VerifiedBotTechnician:503405757719511063> **Verified Bot Technician**'];
+    if (config.helpers.includes(message.author.id)) return [9, '**Development Team**\n<:VerifiedBotTechnician:503405757719511063> **Verified Bot Technician**'];
+    if (config.admins.includes(message.author.id)) return [8, '**Global Admin**\n<:VerifiedBotTechnician:503405757719511063> **Verified Bot Technician**'];
+    if (config.mods.includes(message.author.id)) return [7, '**Global Mod**\n<:VerifiedBotTechnician:503405757719511063> **Verified Bot Technician**'];
     if (message.author.id === message.guild.owner.id) return [4, 'Guild Owner'];
     if (message.member.hasPermission('ADMINISTRATOR')) return [3, 'Guild Admin'];
     if (message.member.hasPermission('MANAGE_GUILD')) return [2, 'Guild Mod'];
