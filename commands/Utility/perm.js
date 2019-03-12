@@ -26,7 +26,7 @@ module.exports = class extends Command {
 
     const embed = new MessageEmbed()
       .setTitle(`Permission Level for ${match[1] ? message.guild.members.get(match[1]).user.username : message.author.username}`)
-      .setDescription(`Level: __***${level}***__ | ${def}`)
+      .setDescription(`${def}\n**Permission Level:** **${level}**`)
       .setFooter(`Requested by ${message.author.tag}`)
       .setColor(0xcc8822);
     message.channel.send(embed);

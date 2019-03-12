@@ -17,9 +17,10 @@ module.exports = class extends Command {
     if (message.perm <= 0) return message.channel.send(`${message.author} | Insufficient permissions required to execute this command.`).then(msg => msg.delete({timeout:15000}));
         
     // LIST OF EVENTS
-    let logChannel = db.get(`guild_${message.guild.id}.logChannel`);
+    let logChannel = db.get(`guild_${message.guild.id}.logChannel.id`);
+    let textLog = db.get(`guild_${message.guild.id}.textLog`);
     let channelCreate = db.get(`guild_${message.guild.id}.events.channelCreate`);
-    let channelDelete = db.get(`guild_${message.guild.id}.events.channnelDelete`);
+    let channelDelete = db.get(`guild_${message.guild.id}.events.channelDelete`);
     let guildBanAdd = db.get(`guild_${message.guild.id}.events.guildBanAdd`);
     let guildBanRemove = db.get(`guild_${message.guild.id}.events.guildBanRemove`);
     let guildMemberAdd = db.get(`guild_${message.guild.id}.events.guildMemberAdd`);
@@ -36,6 +37,8 @@ module.exports = class extends Command {
     else logChannel = 'None set.';
     if (channelCreate) channelCreate = check;
     else channelCreate = tick;
+    if (textLog) textLog = check;
+    else textLog = tick;
     if (channelDelete) channelDelete = check;
     else channelDelete = tick;
     if (guildBanAdd) guildBanAdd = check;
@@ -60,7 +63,7 @@ module.exports = class extends Command {
     else messageReactionRemove = tick;
 
     const embed = new MessageEmbed()
-      .addField('⚙ Channel Settings', `**Log Channel**: ${logChannel}\n**channelCreate**: ${channelCreate}\n**channelDelete**: ${channelDelete}`, true)
+      .addField('⚙ Channel Settings', `**Log Channel**: ${logChannel}\n**channelCreate**: ${channelCreate}\n**channelDelete**: ${channelDelete}\n**Text Log Enabled?** ${textLog}`, true)
       .addField('💬 Message Settings', `**messageDelete**: ${messageDelete}\n**messageUpdate**: ${messageUpdate}\n**voiceStateUpdate**: ${voiceStateUpdate}\n**messageReactionAdd**: ${messageReactionAdd}\n**messageReactionAdd**: ${messageReactionRemove}`, true)
       .addField('🗒 Guild Settings', `**guildBanAdd**: ${guildBanAdd}\n**guidBanRemove**: ${guildBanRemove}\n**guildMemberAdd**: ${guildMemberAdd}\n**guildMemberUpdate**: ${guildMemberUpdate}\n**guildMemberRemove**: ${guildMemberRemove}`, true)
       .setFooter('w!<setting> <value> - Edit a setting, or run w!enable-all to turn all settings on, and w!disable-all to turn all settings off.');
