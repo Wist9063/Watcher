@@ -17,9 +17,9 @@ module.exports = class extends Command {
     const embed = new Discord.MessageEmbed()
       .setColor('#7289DA')
       .setTitle(`${this.client.user.tag} | General Statistics`)
-      .setDescription(`Quick overview, ${this.client.user.username} is in ${this.client.guilds.size.toLocaleString()} servers, has ${this.client.users.size.toLocaleString()} users globally, and obtains an uptime of ${duration}`)
+      .setDescription(`Quick overview, ${this.client.user.username} is in ${this.client.guilds.size.toLocaleString()} servers, has ${this.client.users.size.toLocaleString()} users globally, and obtains an uptime of ${duration}.`)
       .setURL('https://discord.gg/EH7jKFH')
-      .addField('❯❯ General Information', `Servers - \`${this.client.guilds.size.toLocaleString()}\`\nUsers - \`${this.client.users.size.toLocaleString()}\`\nUptime - \`${duration}\``, true)
+      .addField('❯❯ General Information', `Servers - \`${this.client.guilds.size.toLocaleString()}\`\nUsers - \`${this.client.users.size.toLocaleString()}\`\nUptime - \`${duration}\`\nDataBase Entries - \`${db.all().length}\``, true)
       .addField('❯❯ Module Information', `Discord.js - \`${Discord.version}\`\nNode.js - \`${process.version}\`\nDatabase Version - \`${db.version}\``, true)
       .addField('❯❯ Additional Information', `\nMemory Usage - \`${(process.memoryUsage().rss / 1024 / 1024).toFixed(2)}\`MB\nHeap Usage - \`${bytes(process.memoryUsage().heapUsed)}\`\nServer powered by RamNode.`);
     return message.channel.send(embed).catch(e => message.channel.send(`\`\`\`${e}\`\`\``));

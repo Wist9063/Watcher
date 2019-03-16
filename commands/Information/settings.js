@@ -18,7 +18,7 @@ module.exports = class extends Command {
         
     // LIST OF EVENTS
     let logChannel = db.get(`guild_${message.guild.id}.logChannel.id`);
-    let textLog = db.get(`guild_${message.guild.id}.textLog`);
+    //let textLog = db.get(`guild_${message.guild.id}.textLog`);
     let channelCreate = db.get(`guild_${message.guild.id}.events.channelCreate`);
     let channelDelete = db.get(`guild_${message.guild.id}.events.channelDelete`);
     let guildBanAdd = db.get(`guild_${message.guild.id}.events.guildBanAdd`);
@@ -37,8 +37,8 @@ module.exports = class extends Command {
     else logChannel = 'None set.';
     if (channelCreate) channelCreate = check;
     else channelCreate = tick;
-    if (textLog) textLog = check;
-    else textLog = tick;
+    //if (textLog) textLog = check;
+    //else textLog = tick;
     if (channelDelete) channelDelete = check;
     else channelDelete = tick;
     if (guildBanAdd) guildBanAdd = check;
@@ -63,10 +63,10 @@ module.exports = class extends Command {
     else messageReactionRemove = tick;
 
     const embed = new MessageEmbed()
-      .addField('⚙ Channel Settings', `**Log Channel**: ${logChannel}\n**channelCreate**: ${channelCreate}\n**channelDelete**: ${channelDelete}\n**Text Log Enabled?** ${textLog}`, true)
+      .addField('⚙ Channel Settings', `**Log Channel**: ${logChannel}\n**channelCreate**: ${channelCreate}\n**channelDelete**: ${channelDelete}`, true)
       .addField('💬 Message Settings', `**messageDelete**: ${messageDelete}\n**messageUpdate**: ${messageUpdate}\n**voiceStateUpdate**: ${voiceStateUpdate}\n**messageReactionAdd**: ${messageReactionAdd}\n**messageReactionAdd**: ${messageReactionRemove}`, true)
       .addField('🗒 Guild Settings', `**guildBanAdd**: ${guildBanAdd}\n**guidBanRemove**: ${guildBanRemove}\n**guildMemberAdd**: ${guildMemberAdd}\n**guildMemberUpdate**: ${guildMemberUpdate}\n**guildMemberRemove**: ${guildMemberRemove}`, true)
-      .setFooter('w!<setting> <value> - Edit a setting, or run w!enable-all to turn all settings on, and w!disable-all to turn all settings off.');
+      .setFooter('w!<setting> <value> - Edit a setting, or run w!enable-all to turn all settings on, and w!disable-all to turn all settings off. To enable text instead of embed logging, run w!enable-text.');
 
     return message.channel.send(`${check} **Displaying module information for \`${message.guild.name}\`**.`, embed).then(msg => msg.delete({timeout:30000}));
   }
