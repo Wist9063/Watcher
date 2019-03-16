@@ -22,13 +22,13 @@ module.exports = class extends BotEvent {
       const voice2 = (newState.channel ? newState.channel.name : 'Left');
 
       if (voice1 == 'None') {
-        const embed = new MessageEmbed().setColor('#7289DA').setTitle('Voice State Update').setURL('https://discord.gg/EH7jKFH').setDescription(`${oldState.member.user.tag} (ID:${oldState.member.user.id}) joined voice channel **${newState.member.voice.channel.name}**.`).setTimestamp();
+        const embed = new MessageEmbed().setColor('#7289DA').setTitle('Voice State Update').setURL('https://discord.gg/EH7jKFH').setDescription(`${newState.member.user.tag} (ID:${newState.member.user.id}) joined voice channel **${newState.member.voice.channel.name}**.`).setTimestamp();
         return logChannel.send(embed);
       } else if (voice2 == 'Left') {
-        const embed = new MessageEmbed().setColor('#D92C2C').setTitle('Voice State Update').setURL('https://discord.gg/EH7jKFH').setDescription(`${oldState.member.user.tag} (ID:${oldState.member.user.id}) left voice channel **${voice1}**.`).setTimestamp();
+        const embed = new MessageEmbed().setColor('#D92C2C').setTitle('Voice State Update').setURL('https://discord.gg/EH7jKFH').setDescription(`${newState.member.user.tag} (ID:${newState.member.user.id}) left voice channel **${voice1}**.`).setTimestamp();
         return logChannel.send(embed);
       } else if (voice1 != newState.channel.name) {
-        const embed = new MessageEmbed().setColor('#D92C2C').setTitle('Voice State Update').setURL('https://discord.gg/EH7jKFH').setDescription(`${oldState.member.user.tag} (ID:${oldState.member.user.id}) moved from **${voice1}** -> **${newState.channel.name}**.`).setTimestamp();
+        const embed = new MessageEmbed().setColor('#D92C2C').setTitle('Voice State Update').setURL('https://discord.gg/EH7jKFH').setDescription(`${newState.member.user.tag} (ID:${newState.member.user.id}) moved from **${voice1}** -> **${newState.channel.name}**.`).setTimestamp();
         return logChannel.send(embed);
       }
     } else {
