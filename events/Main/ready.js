@@ -10,6 +10,6 @@ module.exports = class extends BotEvent {
 
   execute() {
     console.log(log.info(`[Discord] Client Info: \nUser: ${this.user.tag}\nGuilds: ${this.guilds.size}\nChannels: ${this.channels.size}\nUsers: ${this.users.size}`));
-    this.user.setPresence({ activity: { name: 'my beta version.', type: 'WATCHING' } });
+    this.user.setPresence({ activity: { name: 'servers. | w!help', type: 'WATCHING' } });
   }
 };
