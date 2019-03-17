@@ -24,10 +24,10 @@ module.exports = class extends BotEvent {
       const embed = new MessageEmbed()
         .setColor('#7289DA')
         .setTitle('Reaction Added')
+        .setAuthor(message.author.tag, message.author.displayAvatarURL())
         .setURL('https://discord.gg/EH7jKFH')
-        .setDescription(`**${user.tag} added reaction to a message.**\n*User ID: ${user.id}*\n\`\`\`autohotkey\nEmoji Name: ${messageReaction.emoji.name}\n(ID: ${messageReaction.emoji.id})\nEmoji Animated? ${messageReaction.emoji.animated ? 'Yes' : 'No'}\n---\nCategory Name:\n${message.channel.parent ? message.channel.parent.name : 'None'}\nChannel: #${message.channel.name}\n(ID: ${message.channel.id})\n\`\`\``)
-        .setFooter(`Message ID: ${message.id}`)
-        .addField('Jump to Message', `[Click Here](${messageReaction.message.url})`)
+        .setDescription(`Jump To Message: [Click Here](${messageReaction.message.url})\n\`\`\`autohotkey\nEmoji Name: ${messageReaction.emoji.name}\n(ID: ${messageReaction.emoji.id})\nEmoji Animated? ${messageReaction.emoji.animated ? 'Yes' : 'No'}\n---\nCategory Name:\n${message.channel.parent ? message.channel.parent.name : 'None'}\nChannel: #${message.channel.name}\n(ID: ${message.channel.id})\n\`\`\``)
+        .setFooter(`Message ID: ${message.id} • Author ID: ${user.id}`)
         .setTimestamp();
       return logChannel.send(embed);
     } else {

@@ -31,13 +31,12 @@ module.exports = class extends BotEvent {
       
       const embed = new MessageEmbed()
         .setColor('#7289DA')
-        .setTitle('Message Updated')
+        .setTitle('Message Edited/Updated')
         .setURL('https://discord.gg/EH7jKFH')
-        .setDescription(`${newMessage.author.tag} (ID:${newMessage.author.id}) edited their message in ${oldMessage.channel}.`).setFooter(`ID: ${oldMessage.id}`)
-        .setTimestamp()
-        .addField('Previous Message', oldContent)
-        .addField('Current Message', newContent)
-        .addField('Jump to Message', `[Click Here](${newMessage.url})`);
+        .setAuthor(newMessage.author.tag, newMessage.author.displayAvatarURL())
+        .setDescription(`Channel: ${oldMessage.channel}\nJump To Message: [Click Here](${newMessage.url})\n\n\`\`\`md\nPrevious Message\n====\n\n< ${oldContent} >\n\nCurrent Message\n====\n\n< ${newContent} >\`\`\``)
+        .setFooter(`Message ID: ${oldMessage.id}`)
+        .setTimestamp();
       return logChannel.send(embed);
     } else {
       return;
