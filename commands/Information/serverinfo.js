@@ -13,7 +13,7 @@ module.exports = class extends Command {
 
     const embed = new MessageEmbed()
       .setColor('#7289DA')
-      .setTitle(`Serverinfo for "${message.guild.name}"`)
+      .setTitle(`Server Info for guild: ${message.guild.name}`)
       .setDescription('This server has ')
       .setURL('https://discord.gg/EH7jKFH')
       .addField('❯❯ General Information', `Servers - \`${this.client.guilds.size.toLocaleString()}\`\nUsers - \`${this.client.users.size.toLocaleString()}\`\n`, true)

@@ -11,9 +11,9 @@ module.exports = class extends BotEvent {
 
   async execute(message) {
     if (message.author.bot) return;
-    const fetched = await db.get(`log-channel_${message.guild.id}.channelid`);
-    const fetch = await db.get(`messageDelete_${message.guild.id}.value`);
-    const ignoreFetch = await db.get(`ignoreChannel_${message.guild.id}_${message.channel.id}.channelid`);
+    const fetched = await db.get(`guild_${message.guild.id}.logChannel.id`);
+    const fetch = await db.get(`guild_${message.guild.id}.events.channelDelete`);
+    const ignoreFetch = await db.get(`guild_${message.guild.id}.ignoreChannel.${message.channel.id}`);
     if (ignoreFetch) {
       if (message.channel.id === ignoreFetch) return;
     } else if (fetch === null) return;
@@ -24,7 +24,13 @@ module.exports = class extends BotEvent {
       let contentValue = message.content;
       if (contentValue.length > 500) contentValue = contentValue.substring(0, 499) + '...';
       const embed = new MessageEmbed()
-        .setColor('#D92C2C').setTitle('Message Deleted').setURL('https://discord.gg/EH7jKFH').setDescription(`${message.author.tag} (ID:${message.author.id}) has deleted their message sent in ${message.channel}.\n\n\`\`\`${contentValue}\`\`\``).setFooter(`ID: ${message.id}`).setTimestamp();
+        .setColor('#D92C2C')
+        .setAuthor(message.author.tag, message.author.displayAvatarURL())
+        .setTitle('Message Deleted')
+        .setURL('https://discord.gg/EH7jKFH')
+        .setDescription(`In channel: ${message.channel}\n\`\`\`md\nMessage Below\n====\n\n< ${contentValue} >\`\`\``)
+        .setFooter(`Author ID: ${message.author.id} • Message ID: ${message.id}`)
+        .setTimestamp();
       return logChannel.send(embed);
     } else {
       return;

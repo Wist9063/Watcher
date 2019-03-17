@@ -10,16 +10,47 @@ module.exports = class extends BotEvent {
   }
 
   async execute(channel) {
-    const fetched = await db.get(`log-channel_${channel.guild.id}.channelid`);
-    const fetch = await db.get(`channelDelete_${channel.guild.id}.value`);
+    const fetched = await db.get(`guild_${channel.guild.id}.logChannel.id`);
+    const fetch = await db.get(`guild_${channel.guild.id}.events.channelDelete`);
     if (fetch === null) return;
     if (fetch === true) {
       if (fetched === null) return;
       const logChannel = channel.guild.channels.get(fetched);
       if (!logChannel) return;
-      const embed = new MessageEmbed()
-        .setColor('#D92C2C').setTitle('Channel Deleted').setURL('https://discord.gg/EH7jKFH').setDescription(`**A channel has been deleted: #${channel.name}**.`).setFooter(`ID: ${channel.id}`).setTimestamp();
-      return logChannel.send(embed);
+
+      if (channel.type === 'text') {
+        const embed = new MessageEmbed()
+          .setColor('#7289DA').setTitle('Text Channel Deleted')
+          .setURL('https://discord.gg/EH7jKFH')
+          .setDescription(`**A text channel has been deleted: ${channel}**.`)
+          .setFooter(`ID: ${channel.id}`)
+          .setTimestamp();
+        return logChannel.send(embed);
+      } else if (channel.type === 'voice') {
+        const embed = new MessageEmbed()
+          .setColor('#7289DA').setTitle('Voice Channel Deleted')
+          .setURL('https://discord.gg/EH7jKFH')
+          .setDescription(`**A voice channel has been deleted: ${channel.name}**.`)
+          .setFooter(`ID: ${channel.id}`)
+          .setTimestamp();
+        return logChannel.send(embed);
+      } else if (channel.type === 'category') {
+        const embed = new MessageEmbed()
+          .setColor('#7289DA').setTitle('Category Deleted')
+          .setURL('https://discord.gg/EH7jKFH')
+          .setDescription(`**A Category has been deleted: ${channel.name}**.`)
+          .setFooter(`ID: ${channel.id}`)
+          .setTimestamp();
+        return logChannel.send(embed);
+      } else {
+        const embed = new MessageEmbed()
+          .setColor('#7289DA').setTitle('Unknown Channel Deleted')
+          .setURL('https://discord.gg/EH7jKFH')
+          .setDescription(`**An unknown channel type has been deleted: ${channel.name}**.`)
+          .setFooter(`ID: ${channel.id}`)
+          .setTimestamp();
+        return logChannel.send(embed);
+      }
     } else {
       return;
     }

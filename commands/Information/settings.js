@@ -17,25 +17,28 @@ module.exports = class extends Command {
     if (message.perm <= 0) return message.channel.send(`${message.author} | Insufficient permissions required to execute this command.`).then(msg => msg.delete({timeout:15000}));
         
     // LIST OF EVENTS
-    let logChannel = db.get(`log-channel_${message.guild.id}.channelid`);
-    let channelCreate = db.get(`channelCreate_${message.guild.id}.value`);
-    let channelDelete = db.get(`channelDelete_${message.guild.id}.value`);
-    let guildBanAdd = db.get(`guildBanAdd_${message.guild.id}.value`);
-    let guildBanRemove = db.get(`guildBanRemove_${message.guild.id}.value`);
-    let guildMemberAdd = db.get(`guildMemberAdd_${message.guild.id}.value`);
-    let guildMemberUpdate = db.get(`guildMemberUpdate_${message.guild.id}.value`);
-    let guildMemberRemove = db.get(`guildMemberRemove_${message.guild.id}.value`);
-    let messageDelete = db.get(`messageDelete_${message.guild.id}.value`);
-    let messageUpdate = db.get(`messageUpdate_${message.guild.id}.value`);
-    let voiceStateUpdate = db.get(`voiceStateUpdate_${message.guild.id}.value`);
-    let messageReactionAdd = db.get(`messageReactionAdd_${message.guild.id}.value`);
-    let messageReactionRemove = db.get(`messageReactionRemove_${message.guild.id}.value`);
+    let logChannel = db.get(`guild_${message.guild.id}.logChannel.id`);
+    //let textLog = db.get(`guild_${message.guild.id}.textLog`);
+    let channelCreate = db.get(`guild_${message.guild.id}.events.channelCreate`);
+    let channelDelete = db.get(`guild_${message.guild.id}.events.channelDelete`);
+    let guildBanAdd = db.get(`guild_${message.guild.id}.events.guildBanAdd`);
+    let guildBanRemove = db.get(`guild_${message.guild.id}.events.guildBanRemove`);
+    let guildMemberAdd = db.get(`guild_${message.guild.id}.events.guildMemberAdd`);
+    let guildMemberUpdate = db.get(`guild_${message.guild.id}.events.guildMemberUpdate`);
+    let guildMemberRemove = db.get(`guild_${message.guild.id}.events.guildMemberRemove`);
+    let messageDelete = db.get(`guild_${message.guild.id}.events.messageDelete`);
+    let messageUpdate = db.get(`guild_${message.guild.id}.events.messageUpdate`);
+    let voiceStateUpdate = db.get(`guild_${message.guild.id}.events.voiceStateUpdate`);
+    let messageReactionAdd = db.get(`guild_${message.guild.id}.events.messageReactionAdd`);
+    let messageReactionRemove = db.get(`guild_${message.guild.id}.events.messageReactionRemove`);
 
     // FETCH VALUES
     if (logChannel) logChannel = `<#${logChannel}>`;
     else logChannel = 'None set.';
     if (channelCreate) channelCreate = check;
     else channelCreate = tick;
+    //if (textLog) textLog = check;
+    //else textLog = tick;
     if (channelDelete) channelDelete = check;
     else channelDelete = tick;
     if (guildBanAdd) guildBanAdd = check;
@@ -63,7 +66,7 @@ module.exports = class extends Command {
       .addField('⚙ Channel Settings', `**Log Channel**: ${logChannel}\n**channelCreate**: ${channelCreate}\n**channelDelete**: ${channelDelete}`, true)
       .addField('💬 Message Settings', `**messageDelete**: ${messageDelete}\n**messageUpdate**: ${messageUpdate}\n**voiceStateUpdate**: ${voiceStateUpdate}\n**messageReactionAdd**: ${messageReactionAdd}\n**messageReactionAdd**: ${messageReactionRemove}`, true)
       .addField('🗒 Guild Settings', `**guildBanAdd**: ${guildBanAdd}\n**guidBanRemove**: ${guildBanRemove}\n**guildMemberAdd**: ${guildMemberAdd}\n**guildMemberUpdate**: ${guildMemberUpdate}\n**guildMemberRemove**: ${guildMemberRemove}`, true)
-      .setFooter('w!<setting> <value> - Edit a setting, or run w!enable-all to turn all settings on, and w!disable-all to turn all settings off.');
+      .setFooter('w!<setting> <value> - Edit a setting, or run w!enable-all to turn all settings on, and w!disable-all to turn all settings off. To enable text instead of embed logging, run w!enable-text.');
 
     return message.channel.send(`${check} **Displaying module information for \`${message.guild.name}\`**.`, embed).then(msg => msg.delete({timeout:30000}));
   }

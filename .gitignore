@@ -5,6 +5,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# databases
+*.sqlite
+
 # Runtime data
 pids
 *.pid
@@ -60,3 +63,4 @@ typings/
 # Node.js
 config.json*
 config.js*
+package-lock.json

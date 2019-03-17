@@ -12,9 +12,9 @@ module.exports = class extends BotEvent {
   async execute(oldMessage, newMessage) {
     if (newMessage.author.bot) return;
     if (oldMessage.content === newMessage.content) return;
-    const fetched = await db.get(`log-channel_${newMessage.guild.id}.channelid`);
-    const fetch = await db.get(`messageUpdate_${newMessage.guild.id}.value`);
-    const ignoreFetch = await db.get(`ignoreChannel_${newMessage.guild.id}_${newMessage.channel.id}.channelid`);
+    const fetched = await db.get(`guild_${newMessage.guild.id}.logChannel.id`);
+    const fetch = await db.get(`guild_${newMessage.guild.id}.events.messageUpdate`);
+    const ignoreFetch = await db.get(`guild_${newMessage.guild.id}.ignoreChannel.${newMessage.channel.id}`);
     if (ignoreFetch === newMessage.channel.id) return;
     if (fetch === null) return;
     if (fetch === true) {
@@ -26,8 +26,17 @@ module.exports = class extends BotEvent {
       let newContent = newMessage.content;
       if (oldContent.length > 200) newContent = newContent.substring(0, 199) + '...';
       if (oldContent.length > 1000 || newContent.length > 1000) return;
+
+
+      
       const embed = new MessageEmbed()
-        .setColor('#7289DA').setTitle('Message Updated').setURL('https://discord.gg/EH7jKFH').setDescription(`${newMessage.author.tag} (ID:${newMessage.author.id}) edited their message in ${oldMessage.channel}.`).setFooter(`ID: ${oldMessage.id}`).setTimestamp().addField('Previous Message', oldContent).addField('Current Message', newContent);
+        .setColor('#7289DA')
+        .setTitle('Message Edited/Updated')
+        .setURL('https://discord.gg/EH7jKFH')
+        .setAuthor(newMessage.author.tag, newMessage.author.displayAvatarURL())
+        .setDescription(`Channel: ${oldMessage.channel}\nJump To Message: [Click Here](${newMessage.url})\n\n\`\`\`md\nPrevious Message\n====\n\n< ${oldContent} >\n\nCurrent Message\n====\n\n< ${newContent} >\`\`\``)
+        .setFooter(`Message ID: ${oldMessage.id}`)
+        .setTimestamp();
       return logChannel.send(embed);
     } else {
       return;

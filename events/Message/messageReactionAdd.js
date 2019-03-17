@@ -11,9 +11,12 @@ module.exports = class extends BotEvent {
 
   async execute(messageReaction, user) {
     const message = messageReaction.message;
-    const fetched = await db.get(`log-channel_${message.guild.id}.channelid`);
-    const fetch = await db.get(`messageReactionAdd_${message.guild.id}.value`);
-    if (fetch === null) return;
+    const fetched = await db.get(`guild_${message.guild.id}.logChannel.id`);
+    const fetch = await db.get(`guild_${message.guild.id}.events.messageReactionAdd`);
+    const ignoreFetch = await db.get(`guild_${message.guild.id}.ignoreChannel.${message.channel.id}`);
+    if (ignoreFetch) {
+      if (message.channel.id === ignoreFetch) return;
+    } else if (fetch === null) return;
     if (fetch === true) {
       if (fetched === null) return;
       const logChannel = message.guild.channels.get(fetched);
@@ -21,9 +24,10 @@ module.exports = class extends BotEvent {
       const embed = new MessageEmbed()
         .setColor('#7289DA')
         .setTitle('Reaction Added')
+        .setAuthor(message.author.tag, message.author.displayAvatarURL())
         .setURL('https://discord.gg/EH7jKFH')
-        .setDescription(`**${user.tag} added reaction to a message.**\n*User ID: ${user.id}*\n\`\`\`autohotkey\nEmoji Name: ${messageReaction.emoji.name}\n(ID: ${messageReaction.emoji.id})\nEmoji Animated? ${messageReaction.emoji.animated ? 'Yes' : 'No'}\n---\nCategory Name: ${message.channel.parent ? message.channel.parent.name : 'None'}\nChannel: #${message.channel.name}\n(ID: ${message.channel.id})\n\`\`\``)
-        .setFooter(`Message ID: ${message.id}`)
+        .setDescription(`Jump To Message: [Click Here](${messageReaction.message.url})\n\`\`\`autohotkey\nEmoji Name: ${messageReaction.emoji.name}\n(ID: ${messageReaction.emoji.id})\nEmoji Animated? ${messageReaction.emoji.animated ? 'Yes' : 'No'}\n---\nCategory Name:\n${message.channel.parent ? message.channel.parent.name : 'None'}\nChannel: #${message.channel.name}\n(ID: ${message.channel.id})\n\`\`\``)
+        .setFooter(`Message ID: ${message.id} • Author ID: ${user.id}`)
         .setTimestamp();
       return logChannel.send(embed);
     } else {

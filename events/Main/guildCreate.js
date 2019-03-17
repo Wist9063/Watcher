@@ -1,6 +1,7 @@
 const BotEvent = require('../../handlers/event.js');
-const { MessageEmbed } = require('discord.js');
+const { WebhookClient, MessageEmbed } = require('discord.js');
 const moment = require('moment');
+const db = require('quick.db');
 
 module.exports = class extends BotEvent {
   constructor(client, filePath) {
@@ -10,16 +11,26 @@ module.exports = class extends BotEvent {
     //this.updateSites();
   }
   async execute(guild) {
-    const logChannel = this.channels.get('506299766955835392');
-    if (!logChannel) return;
-    const embed = new MessageEmbed()
-      .setColor('#7289DA').setTitle('Guild Create').setURL('https://discord.gg/EH7jKFH').setDescription(`Invited to ${guild.name} (ID:${guild.id}), which is owned by ${guild.owner.user.tag} (ID:${guild.owner.user.id}), has ${guild.memberCount} members, and ${guild.members.filter(mem => mem.user.bot).size} bots.\n\n\`\`\`autohotkey\n${moment(guild.createdAt).format('MMMM Do, YYYY, h:mm:ss A')}\`\`\``).setFooter(`ID: ${guild.id}`).setTimestamp();
-    logChannel.send(embed);
+
+    // dont remove v lol
     const systemChannel = guild.channels.get(guild.systemChannelID);
     if (!systemChannel) return;
     if (!systemChannel.permissionsFor(guild.me.id).has('SEND_MESSAGES')) return;
-    systemChannel.send('Hello there, I was invited by a guild admin! 👀 To start using Watcher, run the command `w!setup` & `w!help` to get started! If you are facing any issues setting up the bot, please join our support server: **https://discord.gg/EH7jKFH**.').catch(() => { return; });
-    return;
+    if (systemChannel) return systemChannel.send('Hello there, I was invited by a guild admin! 👀 To start using Watcher, run the command `w!setup` & `w!help` to get started! If you are facing any issues setting up the bot, please join our support server: **https://discord.gg/EH7jKFH**.').catch(() => { return; });
+    await db.set(`guild_${guild.id}.enabled`, false);
+    await db.set(`guild_${guild.id}.guildID`, { id: guild.id });
+        
+
+    const hook = new WebhookClient('549476222686461972', this.config.wenhookToken);
+    const embed = new MessageEmbed()
+      .setColor('#7289DA')
+      .setTitle('Guild Create')
+      .setURL('https://discord.gg/EH7jKFH')
+      .setDescription(`Watcher now at ***${this.client.guilds.size.toLocaleString()}*** guilds. Invited to ${guild.name} (ID:${guild.id}), which is owned by ${guild.owner.user.tag} (ID:${guild.owner.user.id}), has ${guild.memberCount} members, and ${guild.members.filter(mem => mem.user.bot).size} bots.\n\n\`\`\`autohotkey\n${moment(guild.createdAt).format('MMMM Do, YYYY, h:mm:ss A')}\`\`\``).
+      setFooter(`ID: ${guild.id}`)
+      .setTimestamp();
+    return hook.send(embed);
+
   }
   /*
   async updateSites() {

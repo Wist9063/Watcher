@@ -10,8 +10,8 @@ module.exports = class extends BotEvent {
   }
 
   async execute(guild, user) {
-    const fetched = await db.get(`log-channel_${guild.id}.channelid`);
-    const fetch = await db.get(`guildBanAdd_${guild.id}.value`);
+    const fetched = await db.get(`guild_${guild.id}.logChannel.id`);
+    const fetch = await db.get(`guild_${guild.id}.events.guildBanAdd`);
     if (fetch === null) return;
     if (fetch === true) {
       if (fetched === null) return;

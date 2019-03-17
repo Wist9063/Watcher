@@ -13,7 +13,7 @@ module.exports = class extends Command {
   execute(message) {
 
     const match = /(?:perm)\s{0,}(?:(?:(?:<@!?)?(\d{17,20})>?))?/i.exec(message.content);
-    if (!match) return message.channel.send('Invalid Usage: `!perm [mention]`');
+    if (!match) return message.channel.send('Invalid Usage: `w!perm [mention]`');
 
     let array, level, def;
 
@@ -26,7 +26,7 @@ module.exports = class extends Command {
 
     const embed = new MessageEmbed()
       .setTitle(`Permission Level for ${match[1] ? message.guild.members.get(match[1]).user.username : message.author.username}`)
-      .setDescription(`Level ${level} | ${def}`)
+      .setDescription(`${def}\n**Permission Level:** **${level}**`)
       .setFooter(`Requested by ${message.author.tag}`)
       .setColor(0xcc8822);
     message.channel.send(embed);
