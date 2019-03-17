@@ -26,7 +26,7 @@ module.exports = class extends BotEvent {
       .setColor('#7289DA')
       .setTitle('Guild Create')
       .setURL('https://discord.gg/EH7jKFH')
-      .setDescription(`Watcher now at ***${this.client.guilds.size.toLocaleString()}*** guilds. Invited to ${guild.name} (ID:${guild.id}), which is owned by ${guild.owner.user.tag} (ID:${guild.owner.user.id}), has ${guild.memberCount} members, and ${guild.members.filter(mem => mem.user.bot).size} bots.\n\n\`\`\`autohotkey\n${moment(guild.createdAt).format('MMMM Do, YYYY, h:mm:ss A')}\`\`\``).
+      .setDescription(`Watcher now at ***${this.guilds.size}*** guilds. Invited to ${guild.name} (ID:${guild.id}), which is owned by ${guild.owner.user.tag} (ID:${guild.owner.user.id}), has ${guild.memberCount} members, and ${guild.members.filter(mem => mem.user.bot).size} bots.\n\n\`\`\`autohotkey\n${moment(guild.createdAt).format('MMMM Do, YYYY, h:mm:ss A')}\`\`\``).
       setFooter(`ID: ${guild.id}`)
       .setTimestamp();
     return hook.send(embed);

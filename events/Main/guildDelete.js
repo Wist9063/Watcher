@@ -12,7 +12,7 @@ module.exports = class extends BotEvent {
 
   async execute(guild) {
 
-    const hook = new WebhookClient('549476222686461972', this.config.wenhookToken);
+    const hook = new WebhookClient('549476222686461972', this.config.webhookToken);
 
     await db.delete(`guild_${guild.id}`);
 
@@ -20,7 +20,7 @@ module.exports = class extends BotEvent {
       .setColor('#D92C2C')
       .setTitle('Guild Delete')
       .setURL('https://discord.gg/EH7jKFH')
-      .setDescription(`Watcher now at ***${this.client.guilds.size.toLocaleString()}*** guilds. Removed from ${guild.name} (ID:${guild.id}), which is owned by ${guild.owner.user.tag} (ID:${guild.owner.user.id}), has ${guild.memberCount} members, and ${guild.members.filter(mem => mem.user.bot).size} bots.\n\n\`\`\`autohotkey\n${moment(guild.createdAt).format('MMMM Do, YYYY, h:mm:ss A')}\`\`\``)
+      .setDescription(`Watcher now at ***${this.guilds.size}*** guilds. Removed from ${guild.name} (ID:${guild.id}), which is owned by ${guild.owner.user.tag} (ID:${guild.owner.user.id}), has ${guild.memberCount} members, and ${guild.members.filter(mem => mem.user.bot).size} bots.\n\n\`\`\`autohotkey\n${moment(guild.createdAt).format('MMMM Do, YYYY, h:mm:ss A')}\`\`\``)
       .setFooter(`ID: ${guild.id}`);
     return hook.send(embed);
   }
