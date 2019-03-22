@@ -1,3 +1,9 @@
+/* Copyright (C) HexaplexSoftware 2017-2018 - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential.
+ * Written by wist9063 <wist9063@gmail.com> & jason.
+ */
+
 const path = require('path');
 const log = require('umi-log');
 const klaw = require('klaw');
@@ -8,7 +14,9 @@ const eventsPath = path.join(__dirname, 'events');
 
 new class extends Client {
   constructor() {
-    super();
+    super({
+      disableEveryone: true
+    });
 
     this.config = require('./config.js');
     this.discord = discord;
