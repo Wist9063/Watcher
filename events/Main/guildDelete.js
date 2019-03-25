@@ -19,7 +19,7 @@ module.exports = class extends BotEvent {
     const embed = new MessageEmbed()
       .setColor('#D92C2C')
       .setTitle('Guild Delete')
-      .setURL('https://discord.gg/EH7jKFH')
+      .setURL('https://discord.gg/83SAWkh')
       .setDescription(`Watcher now at **${this.guilds.size}** guilds. Removed from ${guild.name} (ID:${guild.id}), which is owned by ${guild.owner.user.tag} (ID:${guild.owner.user.id}), has ${guild.memberCount} members, and ${guild.members.filter(mem => mem.user.bot).size} bots.\n\n\`\`\`autohotkey\n${moment(guild.createdAt).format('MMMM Do, YYYY, h:mm:ss A')}\`\`\``)
       .setFooter(`ID: ${guild.id}`);
     return hook.send(embed);

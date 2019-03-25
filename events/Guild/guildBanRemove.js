@@ -18,7 +18,7 @@ module.exports = class extends BotEvent {
       const logChannel = guild.channels.get(fetched);
       if (!logChannel) return;
       const embed = new MessageEmbed()
-        .setColor('#D92C2C').setTitle('Member Unbanned').setURL('https://discord.gg/EH7jKFH').setDescription(`${user.tag} (ID:${user.id}) was unbanned.`).setFooter(`ID: ${user.id}`).setTimestamp();
+        .setColor('#D92C2C').setTitle('Member Unbanned').setURL('https://discord.gg/83SAWkh').setDescription(`${user.tag} (ID:${user.id}) was unbanned.`).setFooter(`ID: ${user.id}`).setTimestamp();
       return logChannel.send(embed);
     } else {
       return;

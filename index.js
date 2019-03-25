@@ -31,9 +31,9 @@ new class extends Client {
     log.info('[Discord] Connecting to Discord..');
   }
 
-  reloadCommands() {
+  async reloadCommands() {
     console.log('Command reload triggered.');
-    klaw(commandsPath).on('data', item => {
+    await klaw(commandsPath).on('data', item => {
       const file = path.parse(item.path);
       if (!file.ext || file.ext != '.js') return;
       const fileName = `${file.dir}/${file.base}`;
@@ -41,6 +41,20 @@ new class extends Client {
       const command = new (require(fileName))(this);
       this.commands.set(command.name, command);
     });
+    return 'Command Reloading Finished.';
+  }
+
+  async reloadEvents() {
+    console.log('Events reload triggered.');
+    await klaw(eventsPath).on('data', item => {
+      const file = path.parse(item.path);
+      if (!file.ext || file.ext != '.js') return;
+      const fileName = `${file.dir}/${file.base}`;
+      delete require.cache[require.resolve(fileName)];
+      const event = new (require(fileName))(this);
+      this.on(event.name, event.execute);
+    });
+    return 'Event Reloading Finished.';
   }
 
   fetchCommand(text) {

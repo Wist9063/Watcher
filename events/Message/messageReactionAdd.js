@@ -25,7 +25,7 @@ module.exports = class extends BotEvent {
         .setColor('#7289DA')
         .setTitle('Reaction Added')
         .setAuthor(message.author.tag, message.author.displayAvatarURL())
-        .setURL('https://discord.gg/EH7jKFH')
+        .setURL('https://discord.gg/83SAWkh')
         .setDescription(`Jump To Message: [Click Here](${messageReaction.message.url})\n\`\`\`autohotkey\nEmoji Name: ${messageReaction.emoji.name}\n(ID: ${messageReaction.emoji.id})\nEmoji Animated? ${messageReaction.emoji.animated ? 'Yes' : 'No'}\n---\nCategory Name:\n${message.channel.parent ? message.channel.parent.name : 'None'}\nChannel: #${message.channel.name}\n(ID: ${message.channel.id})\n\`\`\``)
         .setFooter(`Message ID: ${message.id} • Author ID: ${user.id}`)
         .setTimestamp();

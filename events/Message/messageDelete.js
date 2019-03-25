@@ -27,7 +27,7 @@ module.exports = class extends BotEvent {
         .setColor('#D92C2C')
         .setAuthor(message.author.tag, message.author.displayAvatarURL())
         .setTitle('Message Deleted')
-        .setURL('https://discord.gg/EH7jKFH')
+        .setURL('https://discord.gg/83SAWkh')
         .setDescription(`In channel: ${message.channel}\n\`\`\`md\nMessage Below\n====\n\n< ${contentValue} >\`\`\``)
         .setFooter(`Author ID: ${message.author.id} • Message ID: ${message.id}`)
         .setTimestamp();

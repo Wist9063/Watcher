@@ -8,7 +8,7 @@ class PermissionLevel {
     if (config.helpers.includes(message.author.id)) return [9, '<:VerifiedBotTechnician:503405757719511063> **Development Team** - **Verified Bot Technician**'];
     if (config.admins.includes(message.author.id)) return [8, '<:VerifiedBotTechnician:503405757719511063> **Global Admin** - **Verified Bot Admin**'];
     if (config.mods.includes(message.author.id)) return [7, '<:VerifiedBotTechnician:503405757719511063> **Global Mod** - **Verified Bot Moderator**'];
-    if (message.author.id === message.guild.owner.id) return [4, 'Guild Owner'];
+    if (message.author.id === message.guild.ownerID) return [4, 'Guild Owner'];
     if (message.member.hasPermission('ADMINISTRATOR')) return [3, 'Guild Admin'];
     if (message.member.hasPermission('MANAGE_GUILD')) return [2, 'Guild Mod'];
     return [0 , 'Guild Member'];

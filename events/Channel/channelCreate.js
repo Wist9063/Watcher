@@ -23,7 +23,7 @@ module.exports = class extends BotEvent {
       if (channel.type === 'text') {
         const embed = new MessageEmbed()
           .setColor('#7289DA').setTitle('Text Channel Created')
-          .setURL('https://discord.gg/EH7jKFH')
+          .setURL('https://discord.gg/83SAWkh')
           .setDescription(`**A text channel has been created: ${channel}**.`)
           .setFooter(`ID: ${channel.id}`)
           .setTimestamp();
@@ -31,7 +31,7 @@ module.exports = class extends BotEvent {
       } else if (channel.type === 'voice') {
         const embed = new MessageEmbed()
           .setColor('#7289DA').setTitle('Voice Channel Created')
-          .setURL('https://discord.gg/EH7jKFH')
+          .setURL('https://discord.gg/83SAWkh')
           .setDescription(`**A voice channel has been created: ${channel.name}**.`)
           .setFooter(`ID: ${channel.id}`)
           .setTimestamp();
@@ -39,7 +39,7 @@ module.exports = class extends BotEvent {
       } else if (channel.type === 'category') {
         const embed = new MessageEmbed()
           .setColor('#7289DA').setTitle('Category Created')
-          .setURL('https://discord.gg/EH7jKFH')
+          .setURL('https://discord.gg/83SAWkh')
           .setDescription(`**A Category has been created: ${channel.name}**.`)
           .setFooter(`ID: ${channel.id}`)
           .setTimestamp();
@@ -47,7 +47,7 @@ module.exports = class extends BotEvent {
       } else {
         const embed = new MessageEmbed()
           .setColor('#7289DA').setTitle('Unknown Channel Created')
-          .setURL('https://discord.gg/EH7jKFH')
+          .setURL('https://discord.gg/83SAWkh')
           .setDescription(`**An unknown channel type has been created: ${channel.name}**.`)
           .setFooter(`ID: ${channel.id}`)
           .setTimestamp();
