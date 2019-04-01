@@ -9,15 +9,29 @@ module.exports = class extends Command {
   }
 
   async execute(message) {
+    const a = message.content.slice(message.content.search(' ') + 1);
     if (message.perm < 9) return;
-    await this.client.reloadCommands();
-    return message.channel.send(`${this.client.emojis.get('503081230309392384')}**Reloading...**`)
-      .then(msg => { 
-
-        setTimeout(() => { 
-          msg.edit(`${this.client.emojis.get('506673019838660608')}**Command module successfully reloaded.**`); 
-        } ,1500);
-      }
-      );
+    if (!a) {
+      return message.channel.send('You must provide a module to reload!');
+    }
+    if (a === 'cmds' || a === 'commands') {
+      await this.client.reloadCommands();
+      return message.channel.send(`${this.client.emojis.get('503081230309392384')}**Reloading...**`)
+        .then(msg => { 
+          setTimeout(() => { 
+            msg.edit(`${this.client.emojis.get('506673019838660608')}**Command modules successfully reloaded.**`); 
+          } ,1500);
+        });
+    } else if (a === 'events' || a === 'e') {
+      await this.client.reloadEvents();
+      return message.channel.send(`${this.client.emojis.get('503081230309392384')}**Reloading...**`)
+        .then(msg => { 
+          setTimeout(() => { 
+            msg.edit(`${this.client.emojis.get('506673019838660608')}**Event modules successfully reloaded.**`); 
+          } ,1500);
+        });
+    } else {
+      return message.channel.send('Undef reload trigger.');
+    }
   }
 };
