@@ -19,7 +19,7 @@ module.exports = class extends Command {
       .setThumbnail(this.client.user.displayAvatarURL())
       .addField('Information [4]', '`settings`, `help`, `setup`, `invite`')
       .addField('Utility [3]', '`perm`, `ping`, `purge`')
-      .addField('Settings [14]', '`channelcreate`, `channeldelete`, `all-off`, `all-on`, `guildbanadd`, `guildbanremove`, `guildmemberadd`, `guildmemberremove`, `guildmemberupdate`, `log-channel`, `messagedelete`, `messagebulkdelete`, `messageupdate`, `voicestateupdate`, `messageReactionAdd`, `messageReactionRemove`')
+      .addField('Settings [16]', '`channelcreate`, `channeldelete`, `all-off`, `all-on`, `guildbanadd`, `guildbanremove`, `guildmemberadd`, `guildmemberremove`, `guildmemberupdate`, `log-channel`, `messagedelete`, `messagebulkdelete`, `messageupdate`, `roleCreate`, `voicestateupdate`, `messageReactionAdd`, `messageReactionRemove`')
       .addField('Support Server', '[https://discord.gg/83SAWkh](https://discord.gg/83SAWkh)')
       .addField('Donate', '[https://www.patreon.com/watcherbot](https://www.patreon.com/watcherbot)')
       .addField('Setup Guide', 'Run the command `w!setup`.')
