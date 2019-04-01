@@ -17,10 +17,10 @@ module.exports = class extends Command {
     } else {
       await db.set(`guild_${message.guild.id}.events.channelCreate`, false);
       await db.set(`guild_${message.guild.id}.events.channelDelete`, false);
-      await db.set(`guild_${message.guild.id}.events.GuildBanAdd`, false);
-      await db.set(`guild_${message.guild.id}.events.GuildBanRemove`, false);
-      await db.set(`guild_${message.guild.id}.events.GuildMemberAdd`, false);
-      await db.set(`guild_${message.guild.id}.events.GuildMemberRemove`, false);
+      await db.set(`guild_${message.guild.id}.events.guildBanAdd`, false);
+      await db.set(`guild_${message.guild.id}.events.guildBanRemove`, false);
+      await db.set(`guild_${message.guild.id}.events.guildMemberAdd`, false);
+      await db.set(`guild_${message.guild.id}.events.guildMemberRemove`, false);
       await db.set(`guild_${message.guild.id}.events.guildMemberUpdate`, false);
       await db.set(`guild_${message.guild.id}.events.messageDelete`, false);
       await db.set(`guild_${message.guild.id}.events.messageDeleteBulk`, false);
