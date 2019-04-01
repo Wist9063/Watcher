@@ -31,7 +31,7 @@ module.exports = class extends Command {
     let voiceStateUpdate = db.get(`guild_${message.guild.id}.events.voiceStateUpdate`);
     let messageReactionAdd = db.get(`guild_${message.guild.id}.events.messageReactionAdd`);
     let messageReactionRemove = db.get(`guild_${message.guild.id}.events.messageReactionRemove`);
-    let roleCreate = db.set(`guild_${message.guild.id}.events.roleCreate`);
+    let roleCreate = db.get(`guild_${message.guild.id}.events.roleCreate`);
 
     // FETCH VALUES
     if (logChannel) logChannel = `<#${logChannel}>`;
