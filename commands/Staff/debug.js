@@ -1,5 +1,5 @@
 const Command = require('../../handlers/command.js');
-const discord = require('discord.js');
+const db = require('quick.db');
 
 module.exports = class extends Command {
   constructor(client, filePath) {
@@ -11,15 +11,6 @@ module.exports = class extends Command {
 
   execute(message) {
     if (message.perm < 9) return;
-    const embed = new discord.MessageEmbed()
-      .setAuthor(this.client.user.tag)
-      .setThumbnail(this.client.user.displayAvatarURL())
-      .setDescription( 
-        `**Discord.js**: ${discord.version}\n`
-                + `**Node**: ${process.version}\n\n`
-                + `**Guilds**: ${this.client.guilds.size}\n`
-                + `**Channels**: ${this.client.channels.size}\n`
-                + `**Users**: ${this.client.users.size}\n`);
-    message.channel.send(embed);
+   message.channel.send(`\`\`\`js\n${db.get(`guild_${message.guild.id}`)}\n\`\`\``)
   }
 };
