@@ -20,7 +20,14 @@ module.exports = class extends BotEvent {
       if (!logChannel) return;
       if (oldMember.nickname != newMember.nickname) {
         const embed = new MessageEmbed()
-          .setColor('#7289DA').setTitle('Member Updated | Nickname').setURL('https://discord.gg/83SAWkh').setDescription(`${newMember.user.tag} (ID:${newMember.user.id}) edited their nickname.`).setFooter(`ID: ${newMember.user.id}`).setTimestamp().addField('Previous Nickname', oldMember.nickname, true).addField('Current Nickname', newMember.nickname, true);
+          .setColor('#7289DA')
+          .setTitle('Member Updated | Nickname')
+          .setURL('https://discord.gg/83SAWkh')
+          .setDescription(`${newMember.user.tag} (ID:${newMember.user.id}) edited their nickname.`)
+          .setFooter(`ID: ${newMember.user.id}`)
+          .setTimestamp()
+          .addField('Previous Nickname', oldMember.nickname, true)
+          .addField('Current Nickname', newMember.nickname, true);
         return logChannel.send(embed);
       } else if (oldMember.roles.size != newMember.roles.size) {
         const oldRoles = oldMember.roles.map(r => r).join(' ').replace('@everyone', ' ');
