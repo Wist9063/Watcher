@@ -11,6 +11,6 @@ module.exports = class extends Command {
 
   execute(message) {
     if (message.perm < 9) return;
-    message.channel.send(`\`\`\`js\n${JSON.stringify(JSON.parse(db.get(`guild_${message.guild.id}`)))}\n\`\`\``);
+    message.channel.send(`\`\`\`js\n${JSON.parse(db.get(`guild_${message.guild.id}`))}\n\`\`\``);
   }
 };
