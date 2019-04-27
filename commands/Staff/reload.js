@@ -14,7 +14,7 @@ module.exports = class extends Command {
     if (!a) {
       return message.channel.send('You must provide a module to reload!');
     }
-    if (a === 'cmds' || a === 'commands') {
+    if (a === 'cmds' || a === 'c') {
       await this.client.reloadCommands();
       return message.channel.send(`${this.client.emojis.get('503081230309392384')}**Reloading...**`)
         .then(msg => { 
