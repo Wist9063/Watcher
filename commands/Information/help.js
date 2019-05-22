@@ -23,7 +23,7 @@ module.exports = class extends Command {
       .addField('Support Server', '[https://discord.gg/83SAWkh](https://discord.gg/83SAWkh)')
       .addField('Donate', '[https://www.patreon.com/watcherbot](https://www.patreon.com/watcherbot)')
       .addField('Setup Guide', 'Run the command `w!setup`.')
-      .setFooter('Originally maintained by jason.#0001, now maintained by Wistful__#9063. Made with the Discord.js library. On Runtime Node.js');
+      .setFooter('Originally maintained by jason.#0001, now maintained by Wistful__#9063. Made with the Discord.js library. On Runtime Node.js. Special thanks to Nettle#2222 for keeping the project alive!');
     return message.channel.send(embed);
   }
 };
