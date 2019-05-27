@@ -27,7 +27,7 @@ module.exports = class extends Command {
       const embed = new MessageEmbed()
         .setColor('#7289DA')
         .setTitle(`Server Info: ${message.guild.name}`)
-        .setDescription(`This server has ${message.guild.memberCount} members.\nServer Created By: ${message.guild.owner.user.tag}`)
+        .setDescription(`This server has ${message.guild.memberCount} members.\nServer Owned By: ${message.guild.owner.user.tag}`)
         .setURL('https://discord.gg/83SAWkh')
         .setFooter(`ID: ${message.guild.id}`)
         .addField('❯❯ Verification Level', verfi, true)
@@ -38,7 +38,7 @@ module.exports = class extends Command {
 
       message.channel.send(embed);
     } else {
-      message.channel.send('Could not fetch guild metadata. Discord may be experiencing an outage or API would not respond.');
+      message.channel.send('__Could not fetch guild metadata.__ Discord may be experiencing an outage or API would not respond. Try again later.');
     }
   }
 };
