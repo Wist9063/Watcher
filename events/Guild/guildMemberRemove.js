@@ -23,7 +23,7 @@ module.exports = class extends BotEvent {
         .setColor('#D92C2C')
         .setTitle('Member Left')
         .setURL('https://discord.gg/83SAWkh')
-        .setDescription(`${member.user.tag} (ID:${member.user.id}) has left. **${guild.name}** now has ${guild.memberCount} members.\n\n**Registered:**\n\`\`\`autohotkey\n${moment(member.user.createdAt).format('MMMM Do, YYYY, h:mm:ss A')}\`\`\``)
+        .setDescription(`${member.user.tag} (ID:${member.user.id}) has left. **${guild.name}** now has ${guild.memberCount} members.\n\n**User registered at:**\n\`\`\`autohotkey\n${moment(member.user.createdAt).format('MMMM Do, YYYY, h:mm:ss A')}\`\`\``)
         .setFooter(`ID: ${member.user.id}`)
         .setTimestamp();
       return logChannel.send(embed).catch(e => console.error(e));
