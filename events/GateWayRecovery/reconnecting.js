@@ -1,5 +1,5 @@
 const BotEvent = require('../../handlers/event.js');
-const log = require('umi-log');
+const logger = require('../../handlers/logger');
 
 module.exports = class extends BotEvent {
   constructor(client, filePath) {
@@ -9,7 +9,7 @@ module.exports = class extends BotEvent {
   }
 
   execute() {
-    console.log(log.info('[Discord] Gateway connection lost, restarting bot.'));
+    logger.info('[Discord] Gateway connection lost, restarting bot.');
     process.exit(1);
   }
 };

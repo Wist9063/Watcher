@@ -18,23 +18,20 @@
   "homepage": "https://github.com/Wist9063/Watcher#readme",
   "dependencies": {
     "@discordjs/uws": "^10.149.0",
-    "better-sqlite3": "^5.4.0",
-    "bufferutil": "^4.0.1",
+    "better-sqlite3": "^5.4.1",
     "bytes": "^3.1.0",
     "discord.js": "github:hydrabolt/discord.js#master",
-    "erlpack": "github:discordapp/erlpack",
     "klaw": "^3.0.0",
-    "libsodium-wrappers": "^0.7.4",
+    "libsodium-wrappers": "^0.7.5",
     "moment": "^2.24.0",
-    "moment-duration-format": "^2.2.2",
-    "moment-timezone": "^0.5.23",
+    "moment-duration-format": "^2.3.2",
+    "moment-timezone": "^0.5.26",
     "node-gyp": "^3.8.0",
     "node-superfetch": "^0.1.9",
-    "quick-db": "^1.0.5",
-    "quick.db": "^7.0.0-b21",
+    "quick.db": "^7.0.0-b22",
     "snekfetch": "^4.0.4",
     "string-similarity": "^3.0.0",
-    "umi-log": "^3.0.4",
-    "zlib-sync": "^0.1.4"
+    "winston": "^3.2.1",
+    "zucc": "^0.1.2"
   }
 }

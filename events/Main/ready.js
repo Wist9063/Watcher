@@ -1,5 +1,5 @@
 const BotEvent = require('../../handlers/event.js');
-const log = require('umi-log');
+const logger = require('../../handlers/logger');
 
 module.exports = class extends BotEvent {
   constructor(client, filePath) {
@@ -8,7 +8,7 @@ module.exports = class extends BotEvent {
     });
   }
   execute() {
-    console.log(log.info(`[Discord] Client Info: \nUser: ${this.user.tag}\nGuilds: ${this.guilds.size}\nChannels: ${this.channels.size}\nUsers: ${this.users.size}`));
+    logger.log('info', `Client Info: User: ${this.user.tag} Guilds: ${this.guilds.size} Channels: ${this.channels.size} Users: ${this.users.size}`);
     this.user.setActivity('servers! | w!help', {type:'WATCHING'});
   }
 };
