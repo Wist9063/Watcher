@@ -13,14 +13,9 @@ module.exports = createLogger({
     })
   ),
   transports: [
-    new transports.Console(),
-    new transports.File({ filename: 'error.log', level: 'error' }),
-    new transports.File({ filename: 'warn.log', level: 'warn' }),
-    new transports.File({ filename: 'general.log', level: 'info' }),
-    new transports.File({ filename: 'combined.log' })
+    new transports.Console()
   ],
   exceptionHandlers: [
-    new transports.Console(),
-    new transports.File({ filename: 'exceptions.log' })
+    new transports.Console()
   ],
 });
