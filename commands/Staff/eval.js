@@ -1,6 +1,8 @@
 const Command = require('../../handlers/command.js');
 const MessageEmbed = require('discord.js').MessageEmbed;
 const config = require('../../config.js');
+// const logger = require('../../handlers/logger.js');
+
 module.exports = class extends Command {
   constructor(client, filePath) {
     super(client, filePath, {
@@ -23,6 +25,9 @@ module.exports = class extends Command {
       let res = eval(a);
       res = await res;
       if (typeof res !== 'string') res = require('util').inspect(res);
+
+      // logger.log('warn', `Eval Args: ${a}`);
+      console.log(`Eval Args: ${a}`)
             
   
       await message.channel.send('```js\n' + '> ' + clean(res) + '\n```');

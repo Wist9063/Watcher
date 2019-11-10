@@ -25,7 +25,7 @@ module.exports = class extends BotEvent {
           .setColor('#7289DA')
           .setTitle('Member Joined')
           .setURL('https://discord.gg/83SAWkh')
-          .setDescription(`${member.user.tag} (ID:${member.user.id}) has joined. **${guild.name}** now has ${guild.memberCount} members.\n\n**Registered:**\n\`\`\`autohotkey\n${moment(member.user.createdAt).format('MMMM Do, YYYY, h:mm:ss A')}\`\`\``)
+          .setDescription(`${member.user.tag} (ID:${member.user.id}) has joined. **${guild.name}** now has ${guild.memberCount} members.\n\n**Registered:**\n\`\n${moment(member.user.createdAt).format('MMMM Do, YYYY, h:mm:ss A')}\``)
           .setFooter(`ID: ${member.user.id}`)
           .setTimestamp();
         return logChannel.send(embed);

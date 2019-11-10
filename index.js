@@ -10,7 +10,7 @@ const { Client, Collection, discord } = require('discord.js');
 
 const commandsPath = path.join(__dirname, 'commands');
 const eventsPath = path.join(__dirname, 'events');
-const logger = require('./handlers/logger');
+// const logger = require('./handlers/logger');
 
 new class extends Client {
   constructor() {
@@ -28,7 +28,8 @@ new class extends Client {
   }
 
   connect() {
-    logger.log('info', 'Initializing connection to discord.');
+    // logger.log('info', 'Initializing connection to discord.');
+    console.log('Initializing connection to discord.')
   }
 
   async reloadCommands() {
@@ -87,5 +88,5 @@ new class extends Client {
 
 };
 
-process.on('uncaughtException', err => logger.error(err.stack, true));
-process.on('unhandledRejection', err => logger.error(err.stack, true));
+process.on('uncaughtException', err => console.error(err.stack, true));
+process.on('unhandledRejection', err => console.error(err.stack, true));
