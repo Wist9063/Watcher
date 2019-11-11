@@ -10,7 +10,6 @@ const { Client, Collection, discord } = require('discord.js');
 
 const commandsPath = path.join(__dirname, 'commands');
 const eventsPath = path.join(__dirname, 'events');
-// const logger = require('./handlers/logger');
 
 new class extends Client {
   constructor() {
@@ -24,12 +23,13 @@ new class extends Client {
     this.commands = new Collection();
     this.init();
     this.initEvents();
-    this.login(this.config.token);
   }
 
   connect() {
-    // logger.log('info', 'Initializing connection to discord.');
-    console.log('Initializing connection to discord.')
+    console.log('<---------------->');
+    console.log('Initializing connection to discord.');
+    this.login(this.config.token);
+    console.log('Token successful, connecting.');
   }
 
   async reloadCommands() {
