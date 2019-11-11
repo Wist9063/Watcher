@@ -28,7 +28,7 @@ module.exports = class extends Command {
       const embed = new MessageEmbed()
         .setColor('#7289DA')
         .setTitle(`Server information for __${message.guild.name}__`)
-        .setDescription(`This server has **${message.guild.memberCount}** members.\nServer Owned By: **${message.guild.owner.user.tag}** (ID: ${message.guild.owner.user.id})\n*Watcher Enabled?* ${db.get(`guild_${message.guild.id}.enabled`) ? 'True' : 'False'}`)
+        .setDescription(`This server has **${message.guild.memberCount}** members.\nServer Owned By: **${message.guild.owner.user.tag}** (ID: ${message.guild.owner.user.id})\nWatcher Enabled? ${db.get(`guild_${message.guild.id}.enabled`) ? 'True' : 'False'}`)
         .setURL('https://discord.gg/83SAWkh')
         .setFooter(`Guild ID: ${message.guild.id}`)
         .addField('❯❯ Verification Level', verfi, true)
