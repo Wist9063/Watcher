@@ -19,10 +19,10 @@ new class extends Client {
 
     this.config = require('./config.js');
     this.discord = discord;
-    this.connect();
     this.commands = new Collection();
     this.init();
     this.initEvents();
+    this.connect();
   }
 
   connect() {

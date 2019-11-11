@@ -32,7 +32,6 @@
     "quick.db": "^7.0.0-b22",
     "snekfetch": "^4.0.4",
     "string-similarity": "^3.0.0",
-    "winston": "^3.2.1",
     "zucc": "^0.1.2"
   }
 }
