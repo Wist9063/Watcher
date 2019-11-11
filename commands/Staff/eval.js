@@ -1,7 +1,7 @@
 const Command = require('../../handlers/command.js');
 const MessageEmbed = require('discord.js').MessageEmbed;
 const config = require('../../config.js');
-// const logger = require('../../handlers/logger.js');
+// const  = require('../../handlers/.js');
 
 module.exports = class extends Command {
   constructor(client, filePath) {
@@ -26,7 +26,7 @@ module.exports = class extends Command {
       res = await res;
       if (typeof res !== 'string') res = require('util').inspect(res);
 
-      // logger.log('warn', `Eval Args: ${a}`);
+      // .log('warn', `Eval Args: ${a}`);
       console.log(`Eval Args: ${a}`)
             
   
