@@ -27,7 +27,7 @@
     "moment-duration-format": "^2.3.2",
     "moment-timezone": "^0.5.27",
     "nano": "^8.1.0",
-    "node-gyp": "^3.8.0",
+    "node-gyp": "^6.0.1",
     "node-superfetch": "^0.1.9",
     "quick.db": "^7.0.0-b22",
     "snekfetch": "^4.0.4",
