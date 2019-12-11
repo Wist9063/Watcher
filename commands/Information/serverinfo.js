@@ -34,8 +34,11 @@ module.exports = class extends Command {
         .addField('❯❯ Verification Level', verfi, true)
         .addField('❯❯ Explicit Content Fliter', ex, true)
         .addField('❯❯ Region', message.guild.region, true)
-        .setThumbnail(message.guild.iconURL({'format': 'png', 'size': 2048}) ? message.guild.iconURL({'format': 'png', 'size': 2048}) : 'https://discordapp.com/assets/2c21aeda16de354ba5334551a883b481.png')
-        .addField('❯❯ Guild Created At', `\`${moment(message.guild.createdAt).format('MMMM Do YYYY, h:mm:ss A')}\``, true);
+        .addField('❯❯ Guild Created At', `\`${moment(message.guild.createdAt).format('MMMM Do YYYY, h:mm:ss A')}\``, false)
+        .addField('❯❯ Text Channels', message.guild.channels.filter(channel => channel.type === 'text').size, true)
+        .addField('❯❯ Voice Channels', message.guild.channels.filter(channel => channel.type === 'voice').size, true)
+        .addField('❯❯ Role Size', message.guild.roles.size - 1, true)
+        .setThumbnail(message.guild.iconURL({'format': 'png', 'size': 2048}) ? message.guild.iconURL({'format': 'png', 'size': 2048}) : 'https://discordapp.com/assets/2c21aeda16de354ba5334551a883b481.png');
 
       message.channel.send(embed);
     } else {

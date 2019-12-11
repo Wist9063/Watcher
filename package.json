@@ -1,7 +1,7 @@
 {
   "name": "watcher",
   "version": "1.0.0",
-  "description": "",
+  "description": "a logger bot, made with love.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/Wist9063/Watcher.git"
   },
-  "author": "",
+  "author": "wist9063",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Wist9063/Watcher/issues"

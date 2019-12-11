@@ -90,3 +90,5 @@ new class extends Client {
 
 process.on('uncaughtException', err => console.error(err.stack, true));
 process.on('unhandledRejection', err => console.error(err.stack, true));
+
+// end of file, made by jason, now maintained by wist9063. *made with love and keystrokes*
