@@ -26,7 +26,7 @@ module.exports = class extends BotEvent {
           .setColor('#7289DA')
           .setTitle('Voice State Update')
           .setURL('https://discord.gg/83SAWkh')
-          .setDescription(`${newState.member.user.tag} (ID:${newState.member.user.id}) joined voice channel **${newState.member.voice.channel.name}**.`)
+          .setDescription(`${newState.member.user.tag} (ID:${newState.member.user.id}) joined voice channel **${newState.member.channel.name}**.`)
           .setTimestamp();
         return logChannel.send(embed);
       } else if (voice2 == 'Left') {
