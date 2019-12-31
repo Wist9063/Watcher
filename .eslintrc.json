@@ -24,6 +24,7 @@
         "warn",
         "always"
       ],
+      "require-atomic-updates": "off",
       "keyword-spacing": [
         "error", {
           "before": true,
