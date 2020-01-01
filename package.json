@@ -1,7 +1,7 @@
 {
   "name": "watcher",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.3.4-prod",
+  "description": "a logger bot, made with love.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,29 +10,29 @@
     "type": "git",
     "url": "git+https://github.com/Wist9063/Watcher.git"
   },
-  "author": "",
+  "author": "wist9063",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Wist9063/Watcher/issues"
   },
   "homepage": "https://github.com/Wist9063/Watcher#readme",
   "dependencies": {
-    "@discordjs/uws": "^10.149.0",
-    "better-sqlite3": "^5.4.1",
+    "@sentry/node": "^5.10.2",
+    "better-sqlite3": "^5.4.3",
+    "bufferutil": "^4.0.1",
     "bytes": "^3.1.0",
     "discord.js": "github:hydrabolt/discord.js#master",
+    "figlet": "^1.2.4",
     "klaw": "^3.0.0",
-    "libsodium-wrappers": "^0.7.5",
     "moment": "^2.24.0",
     "moment-duration-format": "^2.3.2",
-    "moment-timezone": "^0.5.26",
-    "node-gyp": "^3.8.0",
+    "moment-timezone": "^0.5.27",
+    "nano": "^8.1.0",
     "node-superfetch": "^0.1.9",
     "quick.db": "^7.0.0-b22",
     "snekfetch": "^4.0.4",
     "string-similarity": "^3.0.0",
-    "winston": "^3.2.1",
-    "zlib-sync": "^0.1.5",
-    "zucc": "^0.1.2"
+    "utf-8-validate": "^5.0.2",
+    "zlib-sync": "^0.1.6"
   }
 }

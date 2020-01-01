@@ -1,5 +1,4 @@
 const BotEvent = require('../../handlers/event.js');
-const logger = require('../../handlers/logger');
 
 module.exports = class extends BotEvent {
   constructor(client, filePath) {
@@ -9,7 +8,7 @@ module.exports = class extends BotEvent {
   }
 
   execute() {
-    logger.info('[Discord] Gateway connection lost, restarting bot.');
+    console.log('[Discord] Gateway connection lost, restarting bot.');
     process.exit(1);
   }
 };
