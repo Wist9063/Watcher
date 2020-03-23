@@ -26,6 +26,7 @@
     "klaw": "^3.0.0",
     "moment": "^2.24.0",
     "moment-duration-format": "^2.3.2",
+    "moment-shortformat": "^2.1.0",
     "moment-timezone": "^0.5.27",
     "nano": "^8.1.0",
     "node-superfetch": "^0.1.9",
