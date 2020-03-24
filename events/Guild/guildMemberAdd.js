@@ -23,10 +23,10 @@ module.exports = class extends BotEvent {
       if (!textOn) {
         const embed = new MessageEmbed()
           .setColor('#7289DA')
-          .setTitle('Member Joined')
+          .setAuthor(`${member.user.tag} has joined the server.`, member.user.displayAvatarURL(), 'https://discord.gg/83SAWkh')
           .setURL('https://discord.gg/83SAWkh')
-          .setDescription(`${member.user.tag} (ID:${member.user.id}) has joined. **${guild.name}** now has ${guild.memberCount} members.\n\n**Registered:**\n__${moment(member.user.createdAt).format('MMMM Do, YYYY, h:mm:ss A')}__`)
-          .setFooter(`ID: ${member.user.id}`)
+          .setDescription(` **${guild.name}** now has __${guild.memberCount}__ members.\nThis user joined discord on \`${moment(member.joinedAt).format('MMMM Do, YYYY, h:mm:ss A')} (Universal Coordinated Time)\``)
+          .setFooter(`${member.user.tag}'s ID is ${member.user.id}.`)
           .setTimestamp();
         return logChannel.send(embed);
       } else if (textOn) {
