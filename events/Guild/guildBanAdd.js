@@ -18,11 +18,10 @@ module.exports = class extends BotEvent {
       if (fetched === null) return;
       const logChannel = guild.channels.cache.get(fetched);
       if (!logChannel) return;
-      const member = guild.member(user);
       const embed = new MessageEmbed()
         .setColor('#D92C2C')
         .setAuthor(`${user.tag} has been banned.`, user.displayAvatarURL(), 'https://discord.gg/83SAWkh')
-        .setDescription(`**${user.tag}** has been banned in this server. This member joined the server at\n\`${moment.utc(member.joinedTimestamp).format('MMMM Do YYYY, h:mm:ss A')} (Universal Coordinated Time)\` and was banned at \`${moment.utc(new Date).format('MMMM Do YYYY, h:mm:ss A')} (Universal Coordinated Time)\``)
+        .setDescription(`**${user.tag}** has been banned in this server. This member was banned at \`${moment.utc(new Date).format('MMMM Do YYYY, h:mm:ss A')} (Universal Coordinated Time)\``)
         .setFooter(`${user.tag}'s ID is ${user.id}.`)
         .setTimestamp();
       return logChannel.send(embed);
