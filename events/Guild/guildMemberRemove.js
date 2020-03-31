@@ -17,7 +17,7 @@ module.exports = class extends BotEvent {
     if (fetch === null) return;
     if (fetch === true) {
       if (fetched === null) return;
-      const logChannel = guild.channels.get(fetched);
+      const logChannel = guild.channels.cache.get(fetched);
       if (!logChannel) return;
       const embed = new MessageEmbed()
         .setColor('#D92C2C')

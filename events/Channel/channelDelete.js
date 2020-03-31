@@ -15,14 +15,14 @@ module.exports = class extends BotEvent {
     if (fetch === null) return;
     if (fetch === true) {
       if (fetched === null) return;
-      const logChannel = channel.guild.channels.get(fetched);
+      const logChannel = channel.guild.channels.cache.get(fetched);
       if (!logChannel) return;
 
       if (channel.type === 'text') {
         const embed = new MessageEmbed()
           .setColor('#7289DA').setTitle('Text Channel Deleted')
           .setURL('https://discord.gg/83SAWkh')
-          .setDescription(`**A text channel has been deleted: ${channel}**.`)
+          .setDescription(`A text channel has been deleted: **${channel.name}** in ${channel.parent ? 'the catagory' : '**default catagory.**'} ${channel.parent ? '**' + channel.parent.name + '**.' : ''}`)
           .setFooter(`ID: ${channel.id}`)
           .setTimestamp();
         return logChannel.send(embed);
@@ -30,7 +30,7 @@ module.exports = class extends BotEvent {
         const embed = new MessageEmbed()
           .setColor('#7289DA').setTitle('Voice Channel Deleted')
           .setURL('https://discord.gg/83SAWkh')
-          .setDescription(`**A voice channel has been deleted: ${channel.name}**.`)
+          .setDescription(`A voice channel has been deleted: **${channel.name}** in ${channel.parent ? 'the catagory' : '**default catagory.**'} ${channel.parent ? '**' + channel.parent.name + '**.' : ''}`)
           .setFooter(`ID: ${channel.id}`)
           .setTimestamp();
         return logChannel.send(embed);
@@ -38,7 +38,7 @@ module.exports = class extends BotEvent {
         const embed = new MessageEmbed()
           .setColor('#7289DA').setTitle('Category Deleted')
           .setURL('https://discord.gg/83SAWkh')
-          .setDescription(`**A Category has been deleted: ${channel.name}**.`)
+          .setDescription(`A Category has been deleted: **${channel.name}** in ${channel.parent ? 'the catagory' : '**default catagory.**'} ${channel.parent ? '**' + channel.parent.name + '**.' : ''}`)
           .setFooter(`ID: ${channel.id}`)
           .setTimestamp();
         return logChannel.send(embed);
@@ -46,7 +46,7 @@ module.exports = class extends BotEvent {
         const embed = new MessageEmbed()
           .setColor('#7289DA').setTitle('Unknown Channel Deleted')
           .setURL('https://discord.gg/83SAWkh')
-          .setDescription(`**An unknown channel type has been deleted: ${channel.name}**.`)
+          .setDescription(`An unknown channel type has been deleted: **${channel.name}**.`)
           .setFooter(`ID: ${channel.id}`)
           .setTimestamp();
         return logChannel.send(embed);
