@@ -19,7 +19,7 @@ module.exports = class extends BotEvent {
     } else if (fetch === null) return;
     if (fetch === true) {
       if (fetched === null) return;
-      const logChannel = message.guild.channels.get(fetched);
+      const logChannel = message.guild.channels.cache.get(fetched);
       if (!logChannel) return;
       let contentValue = message.content;
       if (contentValue.length > 500) contentValue = contentValue.substring(0, 499) + '...';

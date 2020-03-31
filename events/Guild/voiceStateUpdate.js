@@ -15,7 +15,7 @@ module.exports = class extends BotEvent {
     if (fetch === null) return;
     if (fetch === true) {
       if (fetched === null) return;
-      const logChannel = oldState.guild.channels.get(fetched);
+      const logChannel = oldState.guild.channels.cache.get(fetched);
       if (!logChannel) return;
 
       const voice1 = (oldState.channel ? oldState.channel.name : 'None');
@@ -43,7 +43,7 @@ module.exports = class extends BotEvent {
         const embed = new MessageEmbed()
           .setColor('#006400')
           .setDescription(`${oldState.member.user.tag} has moved from **${voice1}** in the category **${oldState.channel.parent.name}** to **${newState.channel.name}** in the ${newPar}.`)
-          .setAuthor(`**${newState.member.user.tag}** has moved to another voice channel.`, newState.member.user.displayAvatarURL(), 'https://discord.gg/83SAWkh')
+          .setAuthor(`${newState.member.user.tag} has moved to another voice channel.`, newState.member.user.displayAvatarURL(), 'https://discord.gg/83SAWkh')
           .setFooter(`${newState.member.user.tag}'s ID is ${newState.member.user.id} • This event is from a Voice State Update.`)
           .setTimestamp();
         return logChannel.send(embed);

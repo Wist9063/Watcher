@@ -14,7 +14,7 @@ module.exports = class extends Command {
     if (!message.channel.permissionsFor(this.client.user.id).has('SEND_MESSAGES')) return message.author.send(`Please ensure that I have permissions to speak in ${message.channel}.`);
     const channel = message.mentions.channels.first();
     if (!channel) return message.reply('you did not specify a channel, please try again.').then(msg => msg.delete({timeout:10000}));
-    const setChannel = message.guild.channels.get(channel.id);
+    const setChannel = message.guild.channels.cache.get(channel.id);
     if (!setChannel) return message.reply('I couldn\'t locate that channel, please try again.').then(msg => msg.delete({timeout:10000}));
     db.set(`guild_${message.guild.id}.logChannel`, { id: channel.id });
     if (!db.get(`guild_${message.guild.id}.enabled`)) { db.set(`guild_${message.guild.id}.enabled`, true); }

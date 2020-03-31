@@ -16,7 +16,7 @@ module.exports = class extends BotEvent {
     if (fetch === null) return;
     if (fetch === true) {
       if (fetched === null) return;
-      const logChannel = newMember.guild.channels.get(fetched);
+      const logChannel = newMember.guild.channels.cache.get(fetched);
       if (!logChannel) return;
       if (oldMember.nickname != newMember.nickname) {
         const embed = new MessageEmbed()

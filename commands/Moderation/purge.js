@@ -33,7 +33,7 @@ module.exports = class extends Command {
           .setDescription(`**${args[1]}** messages has been deleted.\nIn channel: ${message.channel}`)
           .setFooter(`Author ID: ${message.author.id}`)
           .setTimestamp();
-        const logChannel = message.guild.channels.get(fetched);
+        const logChannel = message.guild.channels.cache.get(fetched);
         return logChannel.send(embed);
       });
     }

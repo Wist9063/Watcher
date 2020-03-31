@@ -27,7 +27,7 @@ module.exports = class extends Command {
       if (typeof res !== 'string') res = require('util').inspect(res);
 
       // .log('warn', `Eval Args: ${a}`);
-      console.log(`Eval Args: ${a}`);
+      console.log(`[Eval] Args: ${a}`);
             
   
       await message.channel.send('```js\n' + '> ' + clean(res) + '\n```');
