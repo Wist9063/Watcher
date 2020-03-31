@@ -31,8 +31,6 @@ module.exports = class extends BotEvent {
         'events n stuff. | w!help'
       ];
       a.user.setActivity(gameStatus[Math.floor(Math.random()*gameStatus.length)], {'url': 'https://www.twitch.tv/monstercat', 'type': 'WATCHING' });
-      console.log('[Status] Game status changed.');
-
       setTimeout(() => {
         gameCycle(a);
       }, 300000);
