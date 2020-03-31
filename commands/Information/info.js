@@ -18,7 +18,7 @@ module.exports = class extends Command {
     const embed = new Discord.MessageEmbed()
       .setColor('#7289DA')
       .setTitle(`${this.client.user.tag} | General Statistics`)
-      .setDescription(`Quick overview, ${this.client.user.username} is in ${this.client.guilds.size} servers, has ${this.client.users.size} users globally, and obtains an uptime of ${duration}.`)
+      .setDescription(`Quick overview, ${this.client.user.cache.username} is in ${this.client.guilds.cache.size} servers, has ${this.client.users.cache.size} users globally, and obtains an uptime of ${duration}.`)
       .setURL('https://discord.gg/83SAWkh')
       .addField('❯❯ General Information', `Servers - \`${this.client.guilds.cache.size}\`\nUsers - \`${this.client.users.cache.size}\`\nUptime - \`${duration}\`\nDatabase Entries - \`${db.all().length}\``, true)
       .addField('❯❯ Module Information', `Discord.js - \`${Discord.version}\`\nNode.js - \`${process.version}\`\nDatabase Version - \`${db.version}\`\nWatcher Version - \`${pkg.version}\``, true)
