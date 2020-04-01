@@ -4,8 +4,8 @@ const Command = require('../../handlers/command.js');
 module.exports = class extends Command {
   constructor(client, filePath) {
     super(client, filePath, {
-      name: 'msgreactionadd',
-      aliases: ['messagereactionadd', 'mreactionadd']
+      name: 'msgreactionremover',
+      aliases: ['messagereactionremove', 'mreactionremove']
     });
   }
 
