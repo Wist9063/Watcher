@@ -1,6 +1,6 @@
 # Watcher
 
-Copyright (C) Cloud Development 2017-2020 - All Rights Reserved
+Copyright (C) Cloud Development 2017-2020 - All Rights Reserved<br>
 Unauthorized copying of any file in this repository, via any medium is strictly prohibited.
 Proprietary and confidential.
 
