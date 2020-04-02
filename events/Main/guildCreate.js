@@ -15,7 +15,7 @@ module.exports = class extends BotEvent {
     
 
     // dont remove v lol
-    const systemChannel = guild.channels.get(guild.systemChannelID);
+    const systemChannel = guild.channels.cache.get(guild.systemChannelID);
     if (!systemChannel);
     if (systemChannel && guild.me.permissionsIn(systemChannel).has('SEND_MESSAGES')) {
       systemChannel.send('Hello there, I was invited by a guild admin! 👀 To start using Watcher, run the command `w!setup` & `w!help` to get started! If you are facing any issues setting up the bot, please join our support server: **https://discord.gg/83SAWkh**.').catch(() => { return; });
