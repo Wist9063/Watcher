@@ -27,7 +27,7 @@ module.exports = class extends Command {
     } else { return message.channel.send(`${message.author} | An error has occured while fetching the permissions. Please try again later.`); }
 
     const embed = new MessageEmbed()
-      .setTitle(`Permission Level for ${message.mentions.users ? message.mentions.users.first().username : message.author.username}`)
+      .setTitle(`Permission Level for ${match.username}`)
       .setDescription(`**${def}**\nPermission Level: __${level}__`)
       .setFooter(`Requested by ${message.author.tag}`)
       .setColor(0xcc8822);
