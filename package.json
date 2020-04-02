@@ -1,6 +1,6 @@
 {
   "name": "watcher",
-  "version": "1.5.2-prod",
+  "version": "1.5.3-prod",
   "description": "a logger bot, made with love.",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/Wist9063/Watcher#readme",
   "dependencies": {
-    "@sentry/node": "^5.10.2",
+    "@sentry/node": "^5.15.4",
     "better-sqlite3": "^6.0.1",
     "bufferutil": "^4.0.1",
     "bytes": "^3.1.0",
