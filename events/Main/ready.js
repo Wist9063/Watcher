@@ -24,13 +24,14 @@ module.exports = class extends BotEvent {
 
     const gameCycle = function(a) {
       const gameStatus = [
-        'actions! | w!help',
-        `${a.guilds.cache.size} guilds! | w!help`,
-        'guilds. | w!help',
-        'your chat. | w!help',
-        'events n stuff. | w!help'
+        ['PLAYING', 'the waiting game. | w!help'],
+        ['LISTENING', `${a.guilds.cache.size} guilds! | w!help`],
+        ['WATCHING', `${a.users.cache.size} users! | w!help`],
+        ['WATCHING', 'your chat. | w!help'],
+        ['LISTENING', 'events n stuff. | w!help']
       ];
-      a.user.setActivity(gameStatus[Math.floor(Math.random()*gameStatus.length)], {'url': 'https://www.twitch.tv/monstercat', 'type': 'WATCHING' });
+      const game = gameStatus[Math.floor(Math.random()*gameStatus.length)];
+      a.user.setActivity(game[1], {'url': 'https://www.twitch.tv/monstercat', 'type': game[0] });
       setTimeout(() => {
         gameCycle(a);
       }, 300000);
