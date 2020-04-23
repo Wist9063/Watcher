@@ -1,6 +1,6 @@
 {
   "name": "watcher",
-  "version": "1.5.4-prod",
+  "version": "1.6.1-beta",
   "description": "a logger bot, made with love.",
   "main": "index.js",
   "scripts": {
@@ -28,6 +28,7 @@
     "moment-duration-format": "^2.3.2",
     "moment-shortformat": "^2.1.0",
     "moment-timezone": "^0.5.27",
+    "mongodb": "^3.5.5",
     "nano": "^8.1.0",
     "node-superfetch": "^0.1.9",
     "quick.db": "^7.0.0-b22",
