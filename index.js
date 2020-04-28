@@ -19,6 +19,7 @@ const path = require('path');
 const sentry = require('@sentry/node');
 const klaw = require('klaw');
 const { Client, Collection, discord } = require('discord.js');
+const MongoClient = require('mongodb').MongoClient;
 
 const commandsPath = path.join(__dirname, 'commands');
 const eventsPath = path.join(__dirname, 'events');
@@ -33,6 +34,7 @@ new class extends Client {
     sentry.init({ dsn: `https://${this.config.sentryDSN}@sentry.io/${this.config.sentryID}`, environment: this.config.sentryLevel });
     this.discord = discord;
     this.commands = new Collection();
+    this.mongod = new MongoClient(`mongodb+srv://${this.config.mongoUSR}:${this.config.mongoPW}@watcherdev-too26.azure.mongodb.net/test?retryWrites=true&w=majority`, { useUnifiedTopology: true, useNewUrlParser: true, });
     this.init();
     this.initEvents();
     this.connect();
@@ -43,7 +45,14 @@ new class extends Client {
     console.log('Initializing connection to discord.');
     this.login(this.config.token);
 
-    console.log('Token successful, connecting.');
+    try {
+      this.mongod.connect().then(() => console.log('MongoDB atlas connection successful.'));
+      this.login(this.config.token).then(() => console.log('Token successful, connecting.'));
+    } catch (e) {
+      sentry.captureException(e); 
+      console.error('An error has occurred during the connecting phase, please check sentry!');
+    } 
+
     sentry.addBreadcrumb({
       category: 'botLogin',
       message: 'Connected to discord API.',
