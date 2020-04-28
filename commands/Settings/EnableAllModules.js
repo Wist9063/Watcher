@@ -19,7 +19,7 @@ module.exports = class extends Command {
 
       await this.client.mongod.db('watcher').collection('events').insertMany([{ 
         guildID: message.guild.id, 
-        events: [{
+        events: {
           channelCreate: true,
           channelDelete: true,
           guildBanAdd: true,
@@ -34,7 +34,7 @@ module.exports = class extends Command {
           messageReactionAdd: true,
           messageReactionRemove: true,
           roleCreate: true
-        }] 
+        }
       }]);
 
       /*

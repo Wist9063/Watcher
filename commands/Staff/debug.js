@@ -12,9 +12,9 @@ module.exports = class extends Command {
 
   async execute(message) {
     if (message.perm < 9) return;
-    await db.get('502895390807293963', this.client.mongod).then((b) => {
+    await db.get('502895390807293963', this.client.mongod, 'guildSettings').then((b) => {
 
-      console.log(b.guildID); message.channel.send(b.guildID); 
+      console.log(b.logid);
     });
     
 

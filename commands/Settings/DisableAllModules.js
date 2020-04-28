@@ -15,6 +15,24 @@ module.exports = class extends Command {
     if (!db.has(`guild_${message.guild.id}.logChannel`)) {
       message.channel.send(`${message.author} | You didn't setup a log channel yet! Run w!setup to setup one.`);
     } else {
+
+      await this.client.mongod.db('watcher').collection('events').updateOne({guildID: message.guild.id}, {$set: {events: {
+        channelCreate: false,
+        channelDelete: false,
+        guildBanAdd: false,
+        guildBanRemove: false,
+        guildMemberAdd: false,
+        guildMemberRemove: false,
+        guildMemberUpdate: false,
+        messageDelete: false,
+        messageDeleteBulk: false,
+        messageUpdate: false,
+        voiceStateUpdate: false,
+        messageReactionAdd: false,
+        messageReactionRemove: false,
+        roleCreate: false
+      }}});
+      /*
       await db.set(`guild_${message.guild.id}.events.channelCreate`, false);
       await db.set(`guild_${message.guild.id}.events.channelDelete`, false);
       await db.set(`guild_${message.guild.id}.events.guildBanAdd`, false);
@@ -29,6 +47,7 @@ module.exports = class extends Command {
       await db.set(`guild_${message.guild.id}.events.messageReactionAdd`, false);
       await db.set(`guild_${message.guild.id}.events.messageReactionRemove`, false);
       await db.set(`guild_${message.guild.id}.events.roleCreate`, false);
+      */
 
       return message.channel.send(`${message.author} | Disabled **all** log events, database updated.`);
     }
