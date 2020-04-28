@@ -16,28 +16,6 @@ module.exports = class extends Command {
 
       if (message.perm < 2) return message.channel.send(`${message.author} | Insufficient permissions required to execute this command.`);
       if (!message.channel.permissionsFor(this.client.user.id).has('SEND_MESSAGES')) return message.author.send(`Please ensure that I have permissions to speak in ${message.channel}.`);
-
-      await this.client.mongod.db('watcher').collection('events').insertMany([{ 
-        guildID: message.guild.id, 
-        events: [{
-          channelCreate: true,
-          channelDelete: true,
-          guildBanAdd: true,
-          guildBanRemove: true,
-          guildMemberAdd: true,
-          guildMemberRemove: true,
-          guildMemberUpdate: true,
-          messageDelete: true,
-          messageDeleteBulk: true,
-          messageUpdate: true,
-          voiceStateUpdate: true,
-          messageReactionAdd: true,
-          messageReactionRemove: true,
-          roleCreate: true
-        }] 
-      }]);
-
-      /*
       await db.set(`guild_${message.guild.id}.events.channelCreate`, true);
       await db.set(`guild_${message.guild.id}.events.channelDelete`, true);
       await db.set(`guild_${message.guild.id}.events.guildBanAdd`, true);
@@ -52,7 +30,6 @@ module.exports = class extends Command {
       await db.set(`guild_${message.guild.id}.events.messageReactionAdd`, true);
       await db.set(`guild_${message.guild.id}.events.messageReactionRemove`, true);
       await db.set(`guild_${message.guild.id}.events.roleCreate`, true);
-      */
       return message.channel.send(`${message.author} | Enabled **all** log events, database updated.`);
     }
   }

@@ -16,18 +16,18 @@ module.exports = class extends Command {
     }
     if (a === 'cmds' || a === 'c') {
       await this.client.reloadCommands();
-      return message.channel.send(`${this.client.emojis.cache.get('503081230309392384')}**Reloading...**`)
+      return message.channel.send(`${this.client.emojis.get('503081230309392384')}**Reloading...**`)
         .then(msg => { 
           setTimeout(() => { 
-            msg.edit(`${this.client.emojis.cache.get('506673019838660608')}**Command modules successfully reloaded.**`); 
+            msg.edit(`${this.client.emojis.get('506673019838660608')}**Command modules successfully reloaded.**`); 
           } ,1500);
         });
     } else if (a === 'events' || a === 'e') {
       await this.client.reloadEvents();
-      return message.channel.send(`${this.client.emojis.cache.get('503081230309392384')}**Reloading...**`)
+      return message.channel.send(`${this.client.emojis.get('503081230309392384')}**Reloading...**`)
         .then(msg => { 
           setTimeout(() => { 
-            msg.edit(`${this.client.emojis.cache.get('506673019838660608')}**Event modules successfully reloaded.**`); 
+            msg.edit(`${this.client.emojis.get('506673019838660608')}**Event modules successfully reloaded.**`); 
           } ,1500);
         });
     } else {
