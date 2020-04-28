@@ -1,7 +1,6 @@
 const BotEvent = require('../../handlers/event.js');
 const { WebhookClient, MessageEmbed } = require('discord.js');
 const moment = require('moment');
-const db = require('quick.db');
 const momenttime = require('moment-timezone');
 
 module.exports = class extends BotEvent {
@@ -20,9 +19,28 @@ module.exports = class extends BotEvent {
     if (systemChannel && guild.me.permissionsIn(systemChannel).has('SEND_MESSAGES')) {
       systemChannel.send('Hello there, I was invited by a guild admin! 👀 To start using Watcher, run the command `w!setup` & `w!help` to get started! If you are facing any issues setting up the bot, please join our support server: **https://discord.gg/83SAWkh**.').catch(() => { return; });
     }
-    
-    await db.set(`guild_${guild.id}.enabled`, false);
-    await db.set(`guild_${guild.id}.guildID`, { id: guild.id });
+
+    await this.client.mongod.db('watcher').collection('events').insertMany([{ 
+      guildID: guild.id, 
+      events: {
+        channelCreate: false,
+        channelDelete: false,
+        guildBanAdd: false,
+        guildBanRemove: false,
+        guildMemberAdd: false,
+        guildMemberRemove: false,
+        guildMemberUpdate: false,
+        messageDelete: false,
+        messageDeleteBulk: false,
+        messageUpdate: false,
+        voiceStateUpdate: false,
+        messageReactionAdd: false,
+        messageReactionRemove: false,
+        roleCreate: false
+      }
+    }]);
+
+    await this.client.mongod.db('watcher').collection('guildSettings').insertMany([{guildID: guild.id, enabled: false, logid: null, ignoreChannel: []}]);
 
     const hook = new WebhookClient('549476222686461972', this.config.webhookToken);
 

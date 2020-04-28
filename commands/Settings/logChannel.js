@@ -10,10 +10,10 @@ module.exports = class extends Command {
   }
 
   async execute(message) {
-    if (message.perm < 2) return message.channel.send(`${message.author} | Insufficient permissions required to execute this command.`)
+    if (message.perm < 2) return message.channel.send(`${message.author} | Insufficient permissions required to execute this command.`);
     if (!message.channel.permissionsFor(this.client.user.id).has('SEND_MESSAGES')) return message.author.send(`Please ensure that I have permissions to speak in ${message.channel}.`);
     const channel = message.mentions.channels.first();
-    if (!channel) return message.reply('you did not specify a channel, please try again.')
+    if (!channel) return message.reply('you did not specify a channel, please try again.');
     const setChannel = message.guild.channels.cache.get(channel.id);
     if (!setChannel) return message.reply('I couldn\'t locate that channel, please try again.');
     await this.client.mongod.db('watcher').collection('guildSettings').insertMany([{guildID: message.guild.id, enabled: true, logid: channel.id}]);
