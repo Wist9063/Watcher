@@ -2,7 +2,7 @@ class database {
 
   get(id, db, collection) {
     return new Promise(function(resolve, reject) {
-      db.db('watcher').collection(collection).find({guildID: id}).toArray( function(err, docs) {
+      db.db('watcher').collection(collection).find({gID: id}).toArray(function(err, docs) {
         if (err) {
           // Reject the Promise with an error
           return reject(err);
