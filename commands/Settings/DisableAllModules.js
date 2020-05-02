@@ -16,7 +16,7 @@ module.exports = class extends Command {
       message.channel.send(`${message.author} | You didn't setup a log channel yet! Run w!setup to setup one.`);
     } else {
 
-      await this.client.mongod.db('watcher').collection('events').updateOne({guildID: message.guild.id}, {$set: {events: {
+      await this.client.mongod.db('watcher').collection('events').updateOne({_id: message.guild.id}, {$set: {events: {
         channelCreate: false,
         channelDelete: false,
         guildBanAdd: false,
@@ -31,7 +31,8 @@ module.exports = class extends Command {
         messageReactionAdd: false,
         messageReactionRemove: false,
         roleCreate: false
-      }}});
+      }}
+      });
       /*
       await db.set(`guild_${message.guild.id}.events.channelCreate`, false);
       await db.set(`guild_${message.guild.id}.events.channelDelete`, false);

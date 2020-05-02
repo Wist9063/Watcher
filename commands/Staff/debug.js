@@ -14,7 +14,7 @@ module.exports = class extends Command {
     if (message.perm < 9) return;
     await db.get('502895390807293963', this.client.mongod, 'guildSettings').then((b) => {
 
-      console.log(b.logid);
+      console.log(b);
     });
     
 
