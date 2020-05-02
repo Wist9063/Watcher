@@ -17,7 +17,7 @@ module.exports = class extends Command {
       if (message.perm < 2) return message.channel.send(`${message.author} | Insufficient permissions required to execute this command.`);
       if (!message.channel.permissionsFor(this.client.user.id).has('SEND_MESSAGES')) return message.author.send(`Please ensure that I have permissions to speak in ${message.channel}.`);
 
-      await this.client.mongod.db('watcher').collection('events').updateOne({_id: message.guild.id}, {$set: {events: {
+      await this.client.mongod.db('watcher').collection('events').updateOne({gID: message.guild.id}, {$set: {events: {
         channelCreate: true,
         channelDelete: true,
         guildBanAdd: true,
