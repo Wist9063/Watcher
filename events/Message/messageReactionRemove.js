@@ -20,7 +20,7 @@ module.exports = class extends BotEvent {
           if (b.wb.wbID === null || b.wb.wbKey === null) return;
           const logChannel = new WebhookClient(b.wb.wbID, b.wb.wbKey);
           if (!logChannel) return;
-          
+
           const embed = new MessageEmbed()
             .setColor('#D92C2C')
             .setTitle('Reaction Removed')
@@ -29,7 +29,6 @@ module.exports = class extends BotEvent {
             .setDescription(`Jump To Message: [Click Here](${messageReaction.message.url})\n\`\`\`autohotkey\nEmoji Name: ${messageReaction.emoji.name}\n(ID: ${messageReaction.emoji.id})\nEmoji Animated? ${messageReaction.emoji.animated ? 'Yes' : 'No'}\n---\nCategory Name:\n${message.channel.parent ? message.channel.parent.name : 'None'}\nChannel: #${message.channel.name}\n(ID: ${message.channel.id})\n\`\`\``)
             .setFooter(`Message ID: ${message.id} • Author ID: ${user.id}`)
             .setTimestamp();
-          console.log('sending message');
           return logChannel.send(embed);
         } else {
           return;
