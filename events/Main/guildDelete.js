@@ -12,7 +12,6 @@ module.exports = class extends BotEvent {
 
   async execute(guild) {
 
-
     await this.mongod.db('watcher').collection('guildSettings').deleteOne({gID: guild.id});
     await this.mongod.db('watcher').collection('events').deleteOne({gID: guild.id});
 

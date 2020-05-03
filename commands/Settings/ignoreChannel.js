@@ -17,6 +17,7 @@ module.exports = class extends Command {
         const array = b.ignoreChannel;
         const channel_value = message.mentions.channels.first();
         if (!channel_value) return message.channel.send(`**Command Usage**: \`w!ignore <channel-mention>\`\n(e.g. \`w!ignore #${message.channel.name}\`)`).then(msg => msg.delete({timeout:15000}));
+        console.log(array);
         array.push(channel_value.id);
 
         this.client.mongod.db('watcher').collection('guildSettings').updateOne({gID: message.guild.id}, {$set: {ignoreChannel: array}});
