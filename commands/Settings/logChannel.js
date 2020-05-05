@@ -29,7 +29,8 @@ module.exports = class extends Command {
 
           this.client.mongod.db('watcher').collection('guildSettings').updateOne({gID: message.guild.id}, {$set: {wb: {
             wbID: wb.id,
-            wbKey: wb.token
+            wbKey: wb.token,
+            channelID: setChannel.id
           }}
           });
 
@@ -68,7 +69,8 @@ module.exports = class extends Command {
 
           this.client.mongod.db('watcher').collection('guildSettings').updateOne({gID: message.guild.id}, {$set: {wb: {
             wbID: wb.id,
-            wbKey: wb.token
+            wbKey: wb.token,
+            channelID: setChannel.id
           }}
           });
 
