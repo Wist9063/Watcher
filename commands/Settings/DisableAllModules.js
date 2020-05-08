@@ -1,4 +1,4 @@
-const db = require('quick.db');
+const db = new (require('../../handlers/database.js'))();
 const Command = require('../../handlers/command.js');
 
 module.exports = class extends Command {
@@ -11,46 +11,31 @@ module.exports = class extends Command {
 
   async execute(message) {
     if (message.perm < 2) return message.channel.send(`${message.author} | Insufficient permissions required to execute this command.`);
+    await db.get(message.guild.id, this.client.mongod, 'guildSettings').then((b) => {
+      if (b.wb.wbID === null || b.wb.wbKey === null) {
+        message.channel.send(`${message.author} | You didn't setup a log channel yet! Run w!setup to setup one.`);
+      } else {
 
-    if (!db.has(`guild_${message.guild.id}.logChannel`)) {
-      message.channel.send(`${message.author} | You didn't setup a log channel yet! Run w!setup to setup one.`);
-    } else {
+        this.client.mongod.db('watcher').collection('events').updateOne({gID: message.guild.id}, {$set: {events: {
+          channelCreate: false,
+          channelDelete: false,
+          guildBanAdd: false,
+          guildBanRemove: false,
+          guildMemberAdd: false,
+          guildMemberRemove: false,
+          guildMemberUpdate: false,
+          messageDelete: false,
+          messageDeleteBulk: false,
+          messageUpdate: false,
+          voiceStateUpdate: false,
+          messageReactionAdd: false,
+          messageReactionRemove: false,
+          roleCreate: false
+        }}
+        });
 
-      await this.client.mongod.db('watcher').collection('events').updateOne({gID: message.guild.id}, {$set: {events: {
-        channelCreate: false,
-        channelDelete: false,
-        guildBanAdd: false,
-        guildBanRemove: false,
-        guildMemberAdd: false,
-        guildMemberRemove: false,
-        guildMemberUpdate: false,
-        messageDelete: false,
-        messageDeleteBulk: false,
-        messageUpdate: false,
-        voiceStateUpdate: false,
-        messageReactionAdd: false,
-        messageReactionRemove: false,
-        roleCreate: false
-      }}
-      });
-      /*
-      await db.set(`guild_${message.guild.id}.events.channelCreate`, false);
-      await db.set(`guild_${message.guild.id}.events.channelDelete`, false);
-      await db.set(`guild_${message.guild.id}.events.guildBanAdd`, false);
-      await db.set(`guild_${message.guild.id}.events.guildBanRemove`, false);
-      await db.set(`guild_${message.guild.id}.events.guildMemberAdd`, false);
-      await db.set(`guild_${message.guild.id}.events.guildMemberRemove`, false);
-      await db.set(`guild_${message.guild.id}.events.guildMemberUpdate`, false);
-      await db.set(`guild_${message.guild.id}.events.messageDelete`, false);
-      await db.set(`guild_${message.guild.id}.events.messageDeleteBulk`, false);
-      await db.set(`guild_${message.guild.id}.events.messageUpdate`, false);       
-      await db.set(`guild_${message.guild.id}.events.voiceStateUpdate`, false);
-      await db.set(`guild_${message.guild.id}.events.messageReactionAdd`, false);
-      await db.set(`guild_${message.guild.id}.events.messageReactionRemove`, false);
-      await db.set(`guild_${message.guild.id}.events.roleCreate`, false);
-      */
-
-      return message.channel.send(`${message.author} | Disabled **all** log events, database updated.`);
-    }
+        return message.channel.send(`${message.author} | Disabled **all** log events, database updated.`);
+      }
+    });
   }
 };
