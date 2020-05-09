@@ -11,7 +11,8 @@ module.exports = class extends BotEvent {
     //this.updateSites();
   }
   async execute(guild) {
-    
+
+    // TODO: add custom cmd prefixes
 
     // dont remove v lol
     const systemChannel = guild.channels.cache.get(guild.systemChannelID);

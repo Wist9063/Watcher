@@ -3,7 +3,6 @@ const Discord = require('discord.js');
 const bytes = require('bytes');
 const moment = require('moment');
 require('moment-duration-format');
-const db = require('quick.db');
 const pkg = require('../../package.json');
 
 module.exports = class extends Command {
@@ -20,8 +19,8 @@ module.exports = class extends Command {
       .setTitle(`${this.client.user.tag} | General Statistics`)
       .setDescription(`Quick overview, ${this.client.user.username} is in ${this.client.guilds.cache.size} servers, has ${this.client.users.cache.size} users globally, and obtains an uptime of ${duration}.`)
       .setURL('https://discord.gg/83SAWkh')
-      .addField('❯❯ General Information', `Servers - \`${this.client.guilds.cache.size}\`\nUsers - \`${this.client.users.cache.size}\`\nUptime - \`${duration}\`\nDatabase Entries - \`${db.all().length}\``, true)
-      .addField('❯❯ Module Information', `Discord.js - \`${Discord.version}\`\nNode.js - \`${process.version}\`\nDatabase Version - \`${db.version}\`\nWatcher Version - \`${pkg.version}\``, true)
+      .addField('❯❯ General Information', `Servers - \`${this.client.guilds.cache.size}\`\nUsers - \`${this.client.users.cache.size}\`\nUptime - \`${duration}\``, true)
+      .addField('❯❯ Module Information', `Discord.js - \`${Discord.version}\`\nNode.js - \`${process.version}\`\nWatcher Version - \`${pkg.version}\``, true)
       .addField('❯❯ Additional Information', `\nMemory Usage - \`${(process.memoryUsage().rss / 1024 / 1024).toFixed(2)}\`MB\nHeap Usage - \`${bytes(process.memoryUsage().heapUsed)}\``);
     return message.channel.send(embed).catch(e => message.channel.send(`\`\`\`${e}\`\`\``));
   }

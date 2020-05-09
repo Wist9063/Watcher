@@ -19,7 +19,7 @@ module.exports = class extends Command {
         if (!message.channel.permissionsFor(this.client.user.id).has('SEND_MESSAGES')) return message.author.send(`Please ensure that I have permissions to speak in ${message.channel}.`);
 
         const value = message.content.split(' ')[1];
-        if (!value) return message.reply('you did not specify a value, please include on or off.').then(msg => msg.delete({timeout:10000}));
+        if (!value) return message.reply('you did not specify a value, please include on or off.');
         if (value.toUpperCase() === 'ON' || value.toUpperCase() === 'enable') return this.client.mongod.db('watcher').collection('events').findOneAndUpdate({gID: message.guild.id}, {$set: {'events.channelCreate': true}}) && message.channel.send(`${message.author} | Logs will __now__ include \`channelCreate\`, database updated.`);
         if (value.toUpperCase() === 'OFF' || value.toUpperCase() === 'disable') return this.client.mongod.db('watcher').collection('events').findOneAndUpdate({gID: message.guild.id}, {$set: {'events.channelCreate': false}}) && message.channel.send(`${message.author} | Logs will __not__ include \`channelCreate\`, database updated.`);
         else return message.channel.send(`${message.author} | That is not a valid value, please try again.`);

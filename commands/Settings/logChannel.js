@@ -24,7 +24,7 @@ module.exports = class extends Command {
 
         message.channel.send(`${message.author} | Logs will now be sent to ${channel}, testing my permissions.`).catch(error => {return message.channel.send(`There was an error executing this action:\n\`\`\`${error}\`\`\``);});
         setChannel.createWebhook('Watcher', {
-          avatar: 'https://raw.githubusercontent.com/Wist9063/Watcher/master/icon.png?token=AFIQ4NMQ4HO3JBT5BRXOQHK6WH7D6', 
+          avatar: 'https://i.imgur.com/kGgTC0b.png', 
           reason: `This is used to send watcher logs, do not delete or your logs will not send! Requested by ${message.author.tag}.`}).then(wb => {
 
           this.client.mongod.db('watcher').collection('guildSettings').updateOne({gID: message.guild.id}, {$set: {wb: {
@@ -64,7 +64,7 @@ module.exports = class extends Command {
         message.channel.send(`${message.author} | Logs will now be sent to ${channel}, testing my permissions.`).catch(error => {return message.channel.send(`There was an error executing this action:\n\`\`\`${error}\`\`\``);});
 
         setChannel.createWebhook('Watcher', {
-          avatar: 'https://raw.githubusercontent.com/Wist9063/Watcher/master/icon.png?token=AFIQ4NMQ4HO3JBT5BRXOQHK6WH7D6', 
+          avatar: 'https://i.imgur.com/kGgTC0b.png', 
           reason: `This is used to send watcher logs, do not delete or your logs will not send! Requested by ${message.author.tag}.`}).then(wb => {
 
           this.client.mongod.db('watcher').collection('guildSettings').updateOne({gID: message.guild.id}, {$set: {wb: {

@@ -43,7 +43,6 @@ new class extends Client {
   connect() {
     console.log('<---------------->');
     console.log('Initializing connection to discord.');
-    this.login(this.config.token);
 
     try {
       this.mongod.connect().then(() => console.log('MongoDB atlas connection successful.'));
