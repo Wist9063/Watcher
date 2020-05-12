@@ -41,7 +41,7 @@ module.exports = class extends BotEvent {
       }
     }]);
 
-    await this.mongod.db('watcher').collection('guildSettings').insertMany([{gID: guild.id, enabled: false, wb: { wbID: null, wbKey: null }, ignoreChannel: []}]);
+    await this.mongod.db('watcher').collection('guildSettings').insertMany([{gID: guild.id, wb: { wbID: null, wbKey: null }, ignoreChannel: []}]);
 
     const hook = new WebhookClient('549476222686461972', this.config.webhookToken);
 
