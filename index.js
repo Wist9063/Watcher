@@ -35,14 +35,15 @@ new class extends Client {
     this.discord = discord;
     this.commands = new Collection();
     this.mongod = new MongoClient(`mongodb+srv://${this.config.mongoUSR}:${this.config.mongoPW}@watcherdev-too26.azure.mongodb.net/test?retryWrites=true&w=majority`, { useUnifiedTopology: true, useNewUrlParser: true, });
-    this.init();
-    this.initEvents();
-    this.connect();
+    this.init(this.config.maintenance);
+    this.initEvents(this.config.maintenance);
+    this.connect(this.config.maintenance);
   }
 
-  connect() {
+  connect(maintenance) {
     console.log('<---------------->');
     console.log('Initializing connection to discord.');
+
 
     try {
       this.mongod.connect().then(() => console.log('MongoDB atlas connection successful.'));
@@ -51,6 +52,9 @@ new class extends Client {
       sentry.captureException(e); 
       console.error('An error has occurred during the connecting phase, please check sentry!');
     } 
+    if (maintenance) {
+      console.log('watcher is in maintenance mode.')
+    }
 
     sentry.addBreadcrumb({
       category: 'botLogin',
@@ -93,7 +97,8 @@ new class extends Client {
     });
   }
 
-  init() {
+  init(maintenance) {
+    if (!maintenance) {
     klaw(commandsPath).on('data', item => {
       const file = path.parse(item.path);
       if (!file.ext || file.ext !== '.js') return;
@@ -106,9 +111,13 @@ new class extends Client {
         level: sentry.Severity.Info
       });
     });
+  } else {
+    return;
+  }
   }
 
-  initEvents() {
+  initEvents(maintenance) {
+    if (!maintenance) {
     klaw(eventsPath).on('data', item => {
       const file = path.parse(item.path);
       if (!file.ext || file.ext !== '.js') return;
@@ -121,6 +130,9 @@ new class extends Client {
         level: sentry.Severity.Info
       });
     });
+  } else {
+    return;
+  }
   }
 
 };
