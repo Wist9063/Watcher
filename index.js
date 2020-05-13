@@ -36,7 +36,7 @@ new class extends Client {
     this.commands = new Collection();
     this.mongod = new MongoClient(`mongodb+srv://${this.config.mongoUSR}:${this.config.mongoPW}@watcherdev-too26.azure.mongodb.net/test?retryWrites=true&w=majority`, { useUnifiedTopology: true, useNewUrlParser: true, });
     this.init();
-    this.initEvents(this.config.maintenance);
+    this.initEvents();
     this.connect();
   }
 
@@ -109,7 +109,7 @@ new class extends Client {
     });
   }
 
-  initEvents(maintenance) {
+  initEvents() {
     klaw(eventsPath).on('data', item => {
       const file = path.parse(item.path);
       if (!file.ext || file.ext !== '.js') return;
