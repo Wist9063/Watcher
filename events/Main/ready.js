@@ -1,6 +1,5 @@
 /* eslint-disable no-useless-escape */
 const BotEvent = require('../../handlers/event.js');
-const db = require('quick.db');
 const figlet = require('figlet');
 
 module.exports = class extends BotEvent {
@@ -11,10 +10,9 @@ module.exports = class extends BotEvent {
   }
   
   
-  execute() {
+  async execute() {
     console.log('<---------------->');
     console.log('Connection to discord initialized.');
-    // console.log(`Client Info: User: ${this.user.tag} Guilds: ${this.guilds.size} Channels: ${this.channels.size} Users: ${this.users.size}`);
     console.log('<---------------->');
     console.log(figlet.textSync('Watcher', {
       font: 'Slant Relief',
@@ -39,8 +37,14 @@ module.exports = class extends BotEvent {
 
     console.log('\nWelcome to Watcher. Info will be printed below. *made with love and keystrokes*');
     console.log('<---------------->');
-    console.log(`Guild Size: ${this.guilds.cache.size}\nUser Size: ${this.users.cache.size}\nChannels: ${this.channels.cache.size}\nDatabase Entries: ${db.all().length}\nLogged on as ${this.user.tag}`);
-    console.log('<---------------->');
+    if (this.config.maintenance) {
+      console.log('[WARNING!] Watcher has launched in maintenance mode. Use --force to run any commands in maintenance mode!');
+    }
+    console.log(`Guild Size: ${this.guilds.cache.size}\nUser Size: ${this.users.cache.size}\nChannels: ${this.channels.cache.size}\nLogged on as ${this.user.tag}`);
+    await this.mongod.db('watcher').collection('guildSettings').countDocuments({}, function(error, numOfDocs1) {
+      console.log(`Document Entries for Watcher DB: ${numOfDocs1}`);
+      console.log('<---------------->');
+    });
     
     gameCycle(this);
   }

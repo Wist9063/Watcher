@@ -1,5 +1,5 @@
 const Command = require('../../handlers/command.js');
-const db = require('quick.db');
+const db = new (require('../../handlers/database.js'))();
 
 module.exports = class extends Command {
   constructor(client, filePath) {
@@ -8,21 +8,26 @@ module.exports = class extends Command {
       aliases: ['ignoredel', 'ignoredelete', 'igdel']
     });
   }
-  execute(message) {
-    if (!db.has(`guild_${message.guild.id}.logChannel`)) {
-      message.channel.send(`${message.author} | You didn't setup a log channel yet! Run w!setup to setup one.`);
-    } else {
-
-      if (message.perm < 2) return message.channel.send(`${message.author} | Insufficient permissions required to execute this command.`).then(msg => msg.delete({timeout:15000}));
-      const channel_value = message.mentions.channels.first();
-      if (!channel_value) return message.channel.send(`**Command Usage**: \`w!ignore-delete <channel-mention>\`\n(e.g. \`w!ignore-delete #${message.channel.name}\`)`).then(msg => msg.delete({timeout:15000}));
-      const fetched = db.get(`guild_${message.guild.id}.ignoreChannel.${channel_value.id}`);
-      if (fetched) {
-        db.delete(`guild_${message.guild.id}.ignoreChannel.${channel_value.id}`);
-        return message.channel.send(`Removed ${channel_value} from the ignore list.`).then(msg => msg.delete({timeout:15000}));
+  async execute(message) {
+    if (message.perm < 2) return message.channel.send(`${message.author} | Insufficient permissions required to execute this command.`);
+    await db.get(message.guild.id, this.client.mongod, 'guildSettings').then((b) => {
+      if (!b.wb.wbID) {
+        message.channel.send(`${message.author} | You didn't setup a log channel yet! Run w!setup to setup one.`);
       } else {
-        return message.channel.send(`The channel ${channel_value} was never added to the ignore list.`).then(msg => msg.delete({timeout:15000}));
+        const array = b.ignoreChannel;
+        const channel_value = message.mentions.channels.first();
+        if (!channel_value) return message.channel.send(`**Command Usage**: \`w!ignore-delete <channel-mention>\`\n(e.g. \`w!ignore-delete #${message.channel.name}\`)`);
+        if (array.includes(channel_value.id)) {
+          const index = array.indexOf(channel_value.id);
+          if (index > -1) {
+            array.splice(index, 1);
+          }
+          this.client.mongod.db('watcher').collection('guildSettings').updateOne({gID: message.guild.id}, {$set: {ignoreChannel: array}});
+          return message.channel.send(`${channel_value} has been **removed** from the __ignore list__.`);
+        } else {
+          return message.channel.send(`The channel ${channel_value} was never added to the ignore list.`);
+        }
       }
-    }
+    });
   }
 };

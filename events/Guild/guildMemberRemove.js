@@ -1,6 +1,6 @@
 const BotEvent = require('../../handlers/event.js');
-const db = require('quick.db');
-const { MessageEmbed } = require('discord.js');
+const db = new (require('../../handlers/database.js'))();
+const { MessageEmbed, WebhookClient } = require('discord.js');
 const moment = require('moment');
 
 module.exports = class extends BotEvent {
@@ -12,23 +12,26 @@ module.exports = class extends BotEvent {
 
   async execute(member) {
     const guild = member.guild;
-    const fetched = await db.get(`guild_${guild.id}.logChannel.id`);
-    const fetch = await db.get(`guild_${guild.id}.events.guildMemberRemove`);
-    if (fetch === null) return;
-    if (fetch === true) {
-      if (fetched === null) return;
-      const logChannel = guild.channels.cache.get(fetched);
-      if (!logChannel) return;
-      const embed = new MessageEmbed()
-        .setColor('#D92C2C')
-        .setTitle('Member Left')
-        .setURL('https://discord.gg/83SAWkh')
-        .setDescription(`${member.user.tag} (ID:${member.user.id}) has left. **${guild.name}** now has ${guild.memberCount} members.\n\n**User registered at:**\n\`\n${moment(member.user.createdAt).format('MMMM Do, YYYY, h:mm:ss A')}\``)
-        .setFooter(`ID: ${member.user.id}`)
-        .setTimestamp();
-      return logChannel.send(embed).catch(e => console.error(e));
-    } else {
-      return;
-    }
+    await db.get(guild.id, this.mongod, 'events').then((a) => {
+      if (a.events.guildMemberRemove === null) return;
+      if (a.events.guildMemberRemove === true) {
+        db.get(guild.id, this.mongod, 'guildSettings').then((b) => {
+          if (b.wb.wbID === null || b.wb.wbKey === null) return;
+          const logChannel = new WebhookClient(b.wb.wbID, b.wb.wbKey);
+          if (!logChannel) return;
+
+          const embed = new MessageEmbed()
+            .setColor('#D92C2C')
+            .setAuthor(`${member.user.tag} has left the server.`, member.user.displayAvatarURL(), 'https://discord.gg/83SAWkh')
+            .setURL('https://discord.gg/83SAWkh')
+            .setDescription(` **${guild.name}** now has __${guild.memberCount}__ members.\nThis user joined discord on \`${moment(member.joinedAt).format('MMMM Do, YYYY, h:mm:ss A')} (Universal Coordinated Time)\``)
+            .setFooter(`ID: ${member.user.id}`)
+            .setTimestamp();
+          return logChannel.send(embed).catch(e => console.error(e));
+        });
+      } else {
+        return;
+      }
+    });
   }
 };

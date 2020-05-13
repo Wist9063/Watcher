@@ -1,6 +1,6 @@
 const BotEvent = require('../../handlers/event.js');
-const db = require('quick.db');
-const { MessageEmbed } = require('discord.js');
+const db = new (require('../../handlers/database.js'))();
+const { MessageEmbed, WebhookClient } = require('discord.js');
 const moment = require('moment');
 
 module.exports = class extends BotEvent {
@@ -11,22 +11,25 @@ module.exports = class extends BotEvent {
   }
 
   async execute(guild, user) {
-    const fetched = await db.get(`guild_${guild.id}.logChannel.id`);
-    const fetch = await db.get(`guild_${guild.id}.events.guildBanRemove`);
-    if (fetch === null) return;
-    if (fetch === true) {
-      if (fetched === null) return;
-      const logChannel = guild.channels.cache.get(fetched);
-      if (!logChannel) return;
-      const embed = new MessageEmbed()
-        .setColor('#008000')
-        .setAuthor(`${user.tag} has been unbanned.`, user.displayAvatarURL(), 'https://discord.gg/83SAWkh')
-        .setDescription(`**${user.tag}** has been unbanned in this server. This user was unbanned at \`${moment.utc(new Date).format('MMMM Do YYYY, h:mm:ss A')} (Universal Coordinated Time)\``)
-        .setFooter(`${user.tag}'s ID is ${user.id}.`)
-        .setTimestamp();
-      return logChannel.send(embed);
-    } else {
-      return;
-    }
+    await db.get(guild.id, this.mongod, 'events').then((a) => {
+      if (a.events.guildBanRemove === null) return;
+      if (a.events.guildBanRemove === true) {
+        db.get(guild.id, this.mongod, 'guildSettings').then((b) => {
+          if (b.wb.wbID === null || b.wb.wbKey === null) return;
+          const logChannel = new WebhookClient(b.wb.wbID, b.wb.wbKey);
+          if (!logChannel) return;
+
+          const embed = new MessageEmbed()
+            .setColor('#008000')
+            .setAuthor(`${user.tag} has been unbanned.`, user.displayAvatarURL(), 'https://discord.gg/83SAWkh')
+            .setDescription(`**${user.tag}** has been unbanned in this server. This user was unbanned at \`${moment.utc(new Date).format('MMMM Do YYYY, h:mm:ss A')} (Universal Coordinated Time)\``)
+            .setFooter(`${user.tag}'s ID is ${user.id}.`)
+            .setTimestamp();
+          return logChannel.send(embed);
+        });
+      } else {
+        return;
+      }
+    });
   }
 };
