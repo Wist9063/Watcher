@@ -36,7 +36,7 @@ new class extends Client {
     this.commands = new Collection();
     this.mongod = new MongoClient(`mongodb+srv://${this.config.mongoUSR}:${this.config.mongoPW}@watcherdev-too26.azure.mongodb.net/test?retryWrites=true&w=majority`, { useUnifiedTopology: true, useNewUrlParser: true, });
     this.init();
-    this.initEvents();
+    this.initEvents(this.config.maintenance);
     this.connect();
   }
 
@@ -109,19 +109,23 @@ new class extends Client {
     });
   }
 
-  initEvents() {
-    klaw(eventsPath).on('data', item => {
-      const file = path.parse(item.path);
-      if (!file.ext || file.ext !== '.js') return;
+  initEvents(maintenance) {
+    if (!maintenance) {
+      klaw(eventsPath).on('data', item => {
+        const file = path.parse(item.path);
+        if (!file.ext || file.ext !== '.js') return;
 
-      const event = new (require(`${file.dir}/${file.base}`))(this);
-      this.on(event.name, event.execute);
-      sentry.addBreadcrumb({
-        category: 'initEvent',
-        message: 'initialized event.',
-        level: sentry.Severity.Info
+        const event = new (require(`${file.dir}/${file.base}`))(this);
+        this.on(event.name, event.execute);
+        sentry.addBreadcrumb({
+          category: 'initEvent',
+          message: 'initialized event.',
+          level: sentry.Severity.Info
+        });
       });
-    });
+    } else {
+      return;
+    }
   }
 
 };
