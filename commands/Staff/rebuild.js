@@ -10,6 +10,8 @@ module.exports = class extends Command {
 
   async execute(message) {
     if (message.perm < 9) return;
+    message.channel.send('rebuilding not avaiable,');
+    /*
     const g = this.client.guilds.cache.array();
     const f = this.client;
     const qdb = require('quick.db');
@@ -17,6 +19,6 @@ module.exports = class extends Command {
       if (qdb.has(`guild_${item.id}.events`)) {
         f.mongod.db('watcher').collection('events').updateOne({gID: item.id}, {$set: {events: qdb.get(`guild_${item.id}.events`)}});
       }
-    });
+    }); */
   }
 };
