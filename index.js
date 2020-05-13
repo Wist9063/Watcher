@@ -110,22 +110,18 @@ new class extends Client {
   }
 
   initEvents(maintenance) {
-    if (!maintenance) {
-      klaw(eventsPath).on('data', item => {
-        const file = path.parse(item.path);
-        if (!file.ext || file.ext !== '.js') return;
+    klaw(eventsPath).on('data', item => {
+      const file = path.parse(item.path);
+      if (!file.ext || file.ext !== '.js') return;
 
-        const event = new (require(`${file.dir}/${file.base}`))(this);
-        this.on(event.name, event.execute);
-        sentry.addBreadcrumb({
-          category: 'initEvent',
-          message: 'initialized event.',
-          level: sentry.Severity.Info
-        });
+      const event = new (require(`${file.dir}/${file.base}`))(this);
+      this.on(event.name, event.execute);
+      sentry.addBreadcrumb({
+        category: 'initEvent',
+        message: 'initialized event.',
+        level: sentry.Severity.Info
       });
-    } else {
-      return;
-    }
+    });
   }
 
 };
