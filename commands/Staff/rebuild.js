@@ -16,7 +16,7 @@ module.exports = class extends Command {
     g.forEach(function(item) {
       if (qdb.has(`guild_${item.id}.events`)) {
         const events = qdb.get(`guild_${item.id}.events`);
-        f.mongod.db('watcher').collection('events').updateOne({gID: item.id}, {$set: events});
+        f.mongod.db('watcher').collection('events').updateOne({gID: item.id}, {$set: {events: {events}}});
       }
     });
   }
