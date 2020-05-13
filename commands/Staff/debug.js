@@ -1,6 +1,5 @@
 const Command = require('../../handlers/command.js');
 const db = require('quick.db');
-const { MessageEmbed } = require('discord.js');
 
 module.exports = class extends Command {
   constructor(client, filePath) {
@@ -12,7 +11,7 @@ module.exports = class extends Command {
 
   execute(message) {
     if (message.perm < 9) return;
-    await db.get('502895390807293963', this.client.mongod, 'guildSettings').then((b) => {
+    db.get('502895390807293963', this.client.mongod, 'guildSettings').then((b) => {
 
       console.log(b);
     });
