@@ -11,9 +11,11 @@ module.exports = class extends Command {
   async execute(message) {
     if (message.perm < 9) return;
     const g = this.client.guilds.cache.array();
-    await g.forEach(function(item) {
-      if (qdb.has(`guild_${item.id}`)) {
-        this.mongod.db('watcher').collection('events').insertMany([{ 
+    const qdb = require('quick.db');
+    const f = this.client
+     g.forEach(function(item) {
+      if (qdb.get(`guild_${item.id}.enabled`)) {
+        f.mongod.db('watcher').collection('events').insertMany([{ 
           gID: item.id, 
           events: {
             channelCreate: false,
@@ -32,7 +34,7 @@ module.exports = class extends Command {
             roleCreate: false
           }
         }]);
-        this.mongod.db('watcher').collection('guildSettings').insertMany([{gID: item.id, wb: { wbID: null, wbKey: null }, ignoreChannel: []}]);
+        f.mongod.db('watcher').collection('guildSettings').insertMany([{gID: item.id, wb: { wbID: null, wbKey: null }, ignoreChannel: []}]);
       }
     });
   }

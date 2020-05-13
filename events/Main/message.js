@@ -48,12 +48,18 @@ module.exports = class extends BotEvent {
     console.log(`[${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
 
     try { 
-      //elapsed_time('start command');
-      //console.log(start);
       message.channel.startTyping();
-      command.execute(message);
+      if (this.config.maintenance) {
+        if (content.split(' ')[1] != '--force') {
+          await message.channel.send('Watcher is currently undergoing maintenance and will not be responding to any commands. Please check our hub for maintenance times. __**<https://discord.gg/83SAWkh>**__');
+        } else if (content.split(' ')[1] === '--force') {
+          message.channel.send('This command has been forced to run while Watcher is in maintenance mode.');
+          await command.execute(message);
+        }
+      } else if (!this.config.maintenance) {
+        await command.execute(message);
+      }
       message.channel.stopTyping();
-      //elapsed_time('end command');
     } catch (e) {
       message.channel.stopTyping();
       const IDstring = randomString(5);
@@ -73,7 +79,7 @@ module.exports = class extends BotEvent {
         .setTimestamp()
         .setColor('#FF0000');
       
-      return message.channel.send(embed);
+      return await message.channel.send(embed);
     } 
     // command.execute(message).catch((e) => console.log('the error has been catched' + e));
 

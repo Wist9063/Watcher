@@ -37,6 +37,9 @@ module.exports = class extends BotEvent {
 
     console.log('\nWelcome to Watcher. Info will be printed below. *made with love and keystrokes*');
     console.log('<---------------->');
+    if (this.config.maintenance) {
+      console.log('[WARNING!] Watcher has launched in maintenance mode. Use --force to run any commands in maintenance mode!');
+    }
     console.log(`Guild Size: ${this.guilds.cache.size}\nUser Size: ${this.users.cache.size}\nChannels: ${this.channels.cache.size}\nLogged on as ${this.user.tag}`);
     await this.mongod.db('watcher').collection('guildSettings').countDocuments({}, function(error, numOfDocs1) {
       console.log(`Document Entries for Watcher DB: ${numOfDocs1}`);
