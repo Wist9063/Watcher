@@ -30,7 +30,6 @@
     "mongodb": "^3.5.7",
     "nano": "^8.1.0",
     "node-superfetch": "^0.1.9",
-    "quick.db": "^7.0.0-b22",
     "snekfetch": "^4.0.4",
     "string-similarity": "^4.0.1",
     "utf-8-validate": "^5.0.2",
