@@ -12,8 +12,8 @@ module.exports = class extends Command {
     if (message.perm < 9) return;
     const g = this.client.guilds.cache.array();
     const qdb = require('quick.db');
-    const f = this.client
-     g.forEach(function(item) {
+    const f = this.client;
+    g.forEach(function(item) {
       if (qdb.get(`guild_${item.id}.enabled`)) {
         f.mongod.db('watcher').collection('events').insertMany([{ 
           gID: item.id, 
