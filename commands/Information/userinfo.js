@@ -15,7 +15,7 @@ module.exports = class extends Command {
     const members = [];
     const indexes = [];
 
-    message.guild.members.forEach(async member => {
+    message.guild.members.cache.forEach(async member => {
       members.push(member.user.username);
       indexes.push(member.id);
     });
@@ -23,7 +23,7 @@ module.exports = class extends Command {
     const match = sm.findBestMatch(args.join(' '), members);
     const username = match.bestMatch.target;
 
-    const member = message.guild.members.get(indexes[members.indexOf(username)]);
+    const member = message.guild.members.cache.get(indexes[members.indexOf(username)]);
     const user = message.mentions.users.first();
 
     if (user) {
