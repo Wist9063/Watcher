@@ -3,8 +3,8 @@ const Command = require('../../handlers/command.js');
 module.exports = class extends Command {
   constructor(client, filePath) {
     super(client, filePath, {
-      name: 'invite',
-      aliases: ['inv']
+      name: 'support',
+      aliases: []
     });
   }
   async execute(message) {
