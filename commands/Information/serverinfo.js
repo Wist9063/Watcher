@@ -18,7 +18,7 @@ module.exports = class extends Command {
       else if (message.guild.verificationLevel == 1) {verfi = 'Low';}
       else if (message.guild.verificationLevel == 2) {verfi = 'Medium';}
       else if (message.guild.verificationLevel == 3) {verfi = 'High (Table-Flip)';}
-      else if (message.guild.verificationLevel == 3) {verfi = 'Maximum (Double Table-Flip)';}
+      else if (message.guild.verificationLevel == 4) {verfi = 'Maximum (Double Table-Flip)';}
       let ex;
       if (message.guild.explicitContentFilter == 0) {ex = 'No Scan';}
       else if (message.guild.explicitContentFilter == 1) {ex = 'Scan Without Roles';}

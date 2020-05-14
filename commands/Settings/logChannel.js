@@ -61,7 +61,7 @@ module.exports = class extends Command {
         }}
         });
 
-        message.channel.send(`${message.author} | Logs will now be sent to ${channel}, testing my permissions.`).catch(error => {return message.channel.send(`There was an error executing this action:\n\`\`\`${error}\`\`\``);});
+        message.channel.send(`${message.author} | The set log channel has been replaced with ${channel}. I will now be sending there, testing my permissions.`).catch(error => {return message.channel.send(`There was an error executing this action:\n\`\`\`${error}\`\`\``);});
 
         setChannel.createWebhook('Watcher', {
           avatar: 'https://i.imgur.com/kGgTC0b.png', 
@@ -82,7 +82,7 @@ module.exports = class extends Command {
 
           wb.send(embed)
             .catch(error => {
-              return message.channel.send(`There was an error executing this action:\n\`\`\`${error}\`\`\``);
+              return error;
             });
 
         });

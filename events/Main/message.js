@@ -52,11 +52,13 @@ module.exports = class extends BotEvent {
       if (this.config.maintenance) {
         if (content.split(' ')[1] != '--force') {
           await message.channel.send('Watcher is currently undergoing maintenance and will not be responding to any commands. Please check our hub for maintenance times. __**<https://discord.gg/83SAWkh>**__');
-        } else if (content.split(' ')[1] === '--force') {
+        } else if (content.split(' ')[1] === '--force' && message.perm < 9) {
           message.channel.send('This command has been forced to run while Watcher is in maintenance mode.');
+          console.log(`[${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] [WARNING!] Executed using --force. - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
           await command.execute(message);
         }
       } else if (!this.config.maintenance) {
+        console.log(`[${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
         await command.execute(message);
       }
       message.channel.stopTyping();
@@ -75,7 +77,7 @@ module.exports = class extends BotEvent {
 
       const embed = new MessageEmbed()
         .setTitle('⚠️ Watcher has encountered an error with this command.')
-        .setDescription(`Please report this error to our support server and attatch this ID when reporting. ID: **${IDstring}**`)
+        .setDescription(`Watcher has encountered an error with this command! Please report this error with the following ID in our hub. ID: **${IDstring}**`)
         .setTimestamp()
         .setColor('#FF0000');
       
