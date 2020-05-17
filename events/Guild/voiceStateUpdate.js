@@ -32,9 +32,9 @@ module.exports = class extends BotEvent {
           } else if (voice2 == 'Left') {
             const embed = new MessageEmbed()
               .setColor('#D92C2C')
-              .setAuthor(`${newState.member.user.tag} has left a voice channel.`, newState.member.user.displayAvatarURL(), 'https://discord.gg/83SAWkh')
+              .setAuthor(`${oldState.member.user.tag} has left a voice channel.`, oldState.member.user.displayAvatarURL(), 'https://discord.gg/83SAWkh')
               .setDescription(`**${oldState.member.user.tag}** left voice channel **${voice1}** ${oldState.channel.parent ? 'in the category' : '.'} ${oldState.channel.parent ? '**' + oldState.channel.parent.name + '**.' : ''}`)
-              .setFooter(`${newState.member.user.tag}'s ID is ${newState.member.user.id} • Voice State Update event.`)
+              .setFooter(`${oldState.member.user.tag}'s ID is ${oldState.member.user.id} • Voice State Update event.`)
               .setTimestamp();
             return logChannel.send(embed);
           } else if (voice1 != newState.channel.name) {

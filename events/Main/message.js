@@ -21,13 +21,6 @@ module.exports = class extends BotEvent {
   
 
   async execute(message) {
-    /*var start = process.hrtime();
-    var elapsed_time = function(note) {
-      var precision = 3; // 3 decimal places
-      var elapsed = process.hrtime(start)[1] / 1000000; // divide by a million to get nano to milli
-      console.log(process.hrtime(start)[0] + ' s, ' + elapsed.toFixed(precision) + ' ms - ' + note); // print message + time
-      start = process.hrtime(); // reset the timer
-    }; */
 
     if (!message.guild || message.author.bot) return;
     const mentionRegex = new RegExp(`^<@!?${this.user.id}>`);
@@ -39,22 +32,22 @@ module.exports = class extends BotEvent {
     }
     message.mentions.users = message.mentions.users.filter(u => u.id != this.user.id);
     if (!message.content.startsWith(this.config.prefix)) return;
-    message.permArray = await new (require('../../handlers/permission.js'))().fetch(message.author, message);
-    message.perm = await message.permArray[0];
+    message.perm = await new (require('../../handlers/permission.js'))().fetch(message.author, message)[0];
     const content = message.content.slice(this.config.prefix.length);
     const command = await this.fetchCommand(content.split(' ')[0]);
     if (!command) return;
     if (!message.channel.permissionsFor(message.guild.me).has(this.config.requiredPermissions)) return message.channel.send(`INVALID PERMISSIONS: Watcher requires the following permissions: \n${this.config.requiredPermissions.map(p => p)}`);
-    console.log(`[${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
 
     try { 
       message.channel.startTyping();
       if (this.config.maintenance) {
         if (content.split(' ')[1] != '--force') {
           await message.channel.send('Watcher is currently undergoing maintenance and will not be responding to any commands. Please check our hub for maintenance times. __**<https://discord.gg/83SAWkh>**__');
-        } else if (content.split(' ')[1] === '--force' && message.perm < 9) {
+        } else if (content.split(' ')[1] === '--force' && message.perm > 9) {
+          message.content = message.content.replace('--force', '');
+          console.log(message.content);
           message.channel.send('This command has been forced to run while Watcher is in maintenance mode.');
-          console.log(`[${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] [WARNING!] Executed using --force. - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
+          console.log(`[WARNING!] [${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] Executed using --force. - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
           await command.execute(message);
         }
       } else if (!this.config.maintenance) {
@@ -71,7 +64,6 @@ module.exports = class extends BotEvent {
         scope.setUser({id: message.author.id, username: message.author.username});
         scope.setTag('errorID', IDstring);
         scope.setLevel('error');
-        // will be tagged with my-tag="my value"
         sentry.captureException(e); 
       });
 
@@ -83,7 +75,6 @@ module.exports = class extends BotEvent {
       
       return await message.channel.send(embed);
     } 
-    // command.execute(message).catch((e) => console.log('the error has been catched' + e));
 
   }
 };
