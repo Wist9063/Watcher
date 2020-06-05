@@ -1,6 +1,7 @@
 /* eslint-disable no-useless-escape */
 const BotEvent = require('../../handlers/event.js');
 const figlet = require('figlet');
+const moment = require('moment-timezone');
 
 module.exports = class extends BotEvent {
   constructor(client, filePath) {
@@ -12,7 +13,7 @@ module.exports = class extends BotEvent {
   
   async execute() {
     console.log('<---------------->');
-    console.log('Connection to discord initialized.');
+    console.log('Connection to discord initialized. Watcher is now initializing! Please wait..');
     console.log('<---------------->');
     console.log(figlet.textSync('Watcher', {
       font: 'Slant Relief',
@@ -26,6 +27,8 @@ module.exports = class extends BotEvent {
         ['LISTENING', `${a.guilds.cache.size} guilds! | w!help`],
         ['WATCHING', `${a.users.cache.size} users! | w!help`],
         ['WATCHING', 'your chat. | w!help'],
+        ['WATCHING', 'the SpaceX launch. | w!help'],
+        ['WATCHING', 'some netflix. | w!help'],
         ['LISTENING', 'events n stuff. | w!help']
       ];
       const game = gameStatus[Math.floor(Math.random()*gameStatus.length)];
@@ -40,11 +43,7 @@ module.exports = class extends BotEvent {
     if (this.config.maintenance) {
       console.log('[WARNING!] Watcher has launched in maintenance mode. Use --force to run any commands in maintenance mode!');
     }
-    console.log(`Guild Size: ${this.guilds.cache.size}\nUser Size: ${this.users.cache.size}\nChannels: ${this.channels.cache.size}\nLogged on as ${this.user.tag}`);
-    await this.mongod.db('watcher').collection('guildSettings').countDocuments({}, function(error, numOfDocs1) {
-      console.log(`Document Entries for Watcher DB: ${numOfDocs1}`);
-      console.log('<---------------->');
-    });
+    console.log(`Guild Size: ${this.guilds.cache.size}\nUser Size: ${this.users.cache.size}\nChannels: ${this.channels.cache.size}\nUsing account: ${this.user.tag}\nLaunched at ${moment(this.readyAt).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}`);
     
     gameCycle(this);
   }
