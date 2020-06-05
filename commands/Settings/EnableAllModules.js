@@ -32,7 +32,8 @@ module.exports = class extends Command {
           voiceStateUpdate: true,
           messageReactionAdd: true,
           messageReactionRemove: true,
-          roleCreate: true
+          roleCreate: true,
+          roleDelete: true
         }}
         });
 

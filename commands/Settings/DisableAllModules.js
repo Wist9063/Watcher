@@ -30,7 +30,8 @@ module.exports = class extends Command {
           voiceStateUpdate: false,
           messageReactionAdd: false,
           messageReactionRemove: false,
-          roleCreate: false
+          roleCreate: false,
+          roleDelete: false
         }}
         });
 
