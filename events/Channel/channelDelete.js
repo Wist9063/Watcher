@@ -21,31 +21,31 @@ module.exports = class extends BotEvent {
 
           if (channel.type === 'text') {
             const embed = new MessageEmbed()
-              .setColor('#7289DA').setTitle('Text Channel Deleted')
+              .setColor('#7289DA').setTitle(`Text Channel __**${channel.name}**__ has been deleted.`)
               .setURL('https://discord.gg/83SAWkh')
-              .setDescription(`A text channel has been deleted: **${channel.name}** in ${channel.parent ? 'the catagory' : '**default catagory.**'} ${channel.parent ? '**' + channel.parent.name + '**.' : ''}`)
-              .setFooter(`ID: ${channel.id}`)
+              .setDescription(`**${channel.name}** in ${channel.parent ? 'the catagory' : '**default catagory.**'} ${channel.parent ? '**' + channel.parent.name + '**.' : ''} has been deleted.`)
+              .setFooter(`Watcher Event • Text Channel Delete | Channel ID: ${channel.id}`)
               .setTimestamp();
             return logChannel.send(embed);
           } else if (channel.type === 'voice') {
             const embed = new MessageEmbed()
-              .setColor('#7289DA').setTitle('Voice Channel Deleted')
+              .setColor('#7289DA').setTitle(`Voice Channel __**${channel.name}**__ has been deleted.`)
               .setURL('https://discord.gg/83SAWkh')
-              .setDescription(`A voice channel has been deleted: **${channel.name}** in ${channel.parent ? 'the catagory' : '**default catagory.**'} ${channel.parent ? '**' + channel.parent.name + '**.' : ''}`)
-              .setFooter(`ID: ${channel.id}`)
+              .setDescription(`Voice channel **${channel.name}** in ${channel.parent ? 'the catagory' : '**default catagory.**'} ${channel.parent ? '**' + channel.parent.name + '**.' : ''} has been deleted.`)
+              .setFooter(`Watcher Event • Voice Channel Delete | Channel ID: ${channel.id}`)
               .setTimestamp();
             return logChannel.send(embed);
           } else if (channel.type === 'category') {
             const embed = new MessageEmbed()
-              .setColor('#7289DA').setTitle('Category Deleted')
+              .setColor('#7289DA').setTitle(`Category __**${channel.name}**__ has been deleted.`)
               .setURL('https://discord.gg/83SAWkh')
-              .setDescription(`A Category has been deleted: **${channel.name}** in ${channel.parent ? 'the catagory' : '**default catagory.**'} ${channel.parent ? '**' + channel.parent.name + '**.' : ''}`)
-              .setFooter(`ID: ${channel.id}`)
+              .setDescription(`Cateogry **${channel.name}** has been deleted.`)
+              .setFooter(`Watcher Event • Category Channel Delete | Channel ID: ${channel.id}`)
               .setTimestamp();
             return logChannel.send(embed);
           } else {
             const embed = new MessageEmbed()
-              .setColor('#7289DA').setTitle('Unknown Channel Deleted')
+              .setColor('#7289DA').setTitle('Watcher Event - Unknown Channel Deleted')
               .setURL('https://discord.gg/83SAWkh')
               .setDescription(`An unknown channel type has been deleted: **${channel.name}**.`)
               .setFooter(`ID: ${channel.id}`)

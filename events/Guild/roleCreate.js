@@ -20,11 +20,11 @@ module.exports = class extends BotEvent {
           if (!logChannel) return;
 
           const embed = new MessageEmbed()
-            .setColor('#7289DA')
-            .setTitle('Role Created')
+            .setColor('#32CD32')
+            .setTitle(`The role "${role.name}" has been created.`)
             .setURL('https://discord.gg/83SAWkh')
-            .setDescription(`**Name:** \`${role.name}\`\n**Hex Color:** \`${role.hexColor}\`\n**Position:** \`${role.position}\`\n**Mentionable?** \`${role.mentionable ? 'True' : 'False'}\`\n\n**Created At:** \`\`\`autohotkey\n${moment(role.createdAt).format('MMMM Do YYYY, h:mm:ss A')} PST\`\`\``)
-            .setFooter(`Role ID: ${role.id}`)
+            .setDescription(`**Name:** \`${role.name}\`\n**Hex Color:** \`${role.hexColor}\`\n**Position:** \`${role.position}\`\n**Mentionable?** \`${role.mentionable ? 'True' : 'False'}\`\n**Created At:** ${moment(role.createdAt).format('MMMM Do YYYY, h:mm:ss A')} PST`)
+            .setFooter(`Watcher Event • Role Created | Role ID: ${role.id}`)
             .setTimestamp();
           return logChannel.send(embed);
         });

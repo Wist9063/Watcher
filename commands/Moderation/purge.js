@@ -23,12 +23,12 @@ module.exports = class extends Command {
         if (args[1] > 100) return message.channel.send(`${message.author} | The value you've provided exceeds Discord's bulk delete message limit (100), please try again.`).then(m => m.delete({timeout:10000}));
         message.delete();
         message.channel.bulkDelete(args[1]).then(() => { 
-          message.channel.send(`${message.author} | A total of ${args[1]} messages has been deleted.\n*This message will delete in 15 seconds.*`).then(msg => msg.delete({timeout:15000}));
+          message.channel.send(`${message.author} | A total of ${args[1]} messages has been deleted.\n*Note: I can only delete messages that are newer than 2 weeks old.*`);
           const logChannel = new WebhookClient(b.wb.wbID, b.wb.wbKey);
           const embed = new MessageEmbed()
             .setColor('#D92C2C')
             .setAuthor(`${message.author.tag} has bulk deleted messages.`, message.author.displayAvatarURL())
-            .setTitle('Bulk Delete')
+            .setTitle('Watcher Event - Bulk Delete')
             .setURL('https://discord.gg/83SAWkh')
             .setDescription(`**${args[1]}** messages has been deleted.\nIn channel: ${message.channel}`)
             .setFooter(`Author ID: ${message.author.id}`)

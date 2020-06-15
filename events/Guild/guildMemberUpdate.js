@@ -22,10 +22,9 @@ module.exports = class extends BotEvent {
           if (oldMember.nickname != newMember.nickname) {
             const embed = new MessageEmbed()
               .setColor('#7289DA')
-              .setTitle('Member Updated | Nickname')
-              .setURL('https://discord.gg/83SAWkh')
-              .setDescription(`${newMember.user.tag} (ID:${newMember.user.id}) edited their nickname.`)
-              .setFooter(`ID: ${newMember.user.id}`)
+              .setAuthor(`${newMember.user.tag} edited their nickname.`, newMember.user.displayAvatarURL(), 'https://discord.gg/83SAWkh')
+              .setDescription(`${newMember.user.tag} (ID:${newMember.user.id}) has edited their nickname.`)
+              .setFooter(`Watcher Event • Nickname Change | User ID: ${newMember.user.id}`)
               .setTimestamp()
               .addField('Previous Nickname', oldMember.nickname === null ? oldMember.user.tag : oldMember.nickname, true)
               .addField('Current Nickname', newMember.nickname === null ? newMember.user.tag : newMember.nickname, true);
@@ -37,12 +36,11 @@ module.exports = class extends BotEvent {
             if (newRoles.length > 99) newRoles.substring(0, 100) + ', and more.';
             const embed = new MessageEmbed()
               .setColor('#7289DA')
-              .setTitle('Member Updated | Roles')
-              .setURL('https://discord.gg/83SAWkh')
-              .setDescription(`${newMember.user.tag} (ID:${newMember.user.id}) edited their roles.`)
+              .setAuthor(`${newMember.user.tag} edited their roles.`, newMember.user.displayAvatarURL(), 'https://discord.gg/83SAWkh')
+              .setDescription(`${newMember.user.tag} (ID:${newMember.user.id}) has edited their roles.`)
               .addField('Previous Roles', `󠂪󠂪${oldRoles}`)
               .addField('Current Roles', `󠂪󠂪${newRoles}`)
-              .setFooter(`ID: ${newMember.user.id}`)
+              .setFooter(`Watcher Event • Roles Edited | User ID: ${newMember.user.id}`)
               .setTimestamp();
             return logChannel.send(embed);
           }

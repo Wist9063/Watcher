@@ -23,11 +23,9 @@ module.exports = class extends BotEvent {
 
           const embed = new MessageEmbed()
             .setColor('#D92C2C')
-            .setTitle('Reaction Removed')
-            .setURL('https://discord.gg/83SAWkh')
-            .setAuthor(user.tag, user.displayAvatarURL())
+            .setAuthor(`${user.tag} has removed a reaction to a message.`, user.displayAvatarURL())
             .setDescription(`Jump To Message: [Click Here](${messageReaction.message.url})\n\`\`\`autohotkey\nEmoji Name: ${messageReaction.emoji.name}\n(ID: ${messageReaction.emoji.id})\nEmoji Animated? ${messageReaction.emoji.animated ? 'Yes' : 'No'}\n---\nCategory Name:\n${message.channel.parent ? message.channel.parent.name : 'None'}\nChannel: #${message.channel.name}\n(ID: ${message.channel.id})\n\`\`\``)
-            .setFooter(`Message ID: ${message.id} • Author ID: ${user.id}`)
+            .setFooter(`Watcher Event • Reaction Removed | Message ID: ${message.id} • Author ID: ${user.id}`)
             .setTimestamp();
           return logChannel.send(embed);
         } else {

@@ -22,31 +22,35 @@ module.exports = class extends BotEvent {
      
           if (channel.type === 'text') {
             const embed = new MessageEmbed()
-              .setColor('#7289DA').setTitle('Text Channel Created')
+              .setColor('#7289DA')
+              .setTitle(`Text Channel __**${channel.name}**__ has been created.`)
               .setURL('https://discord.gg/83SAWkh')
-              .setDescription(`A text channel has been created: **${channel.name}** in ${channel.parent ? 'the catagory' : '**the default catagory.**'} ${channel.parent ? '**' + channel.parent.name + '**.' : ''}`)
-              .setFooter(`ID: ${channel.id}`)
+              .setDescription(`A new Text Channel has appeared. **${channel.name}** in ${channel.parent ? 'the catagory' : '**the default catagory.**'} ${channel.parent ? '**' + channel.parent.name + '**.' : ''}`)
+              .setFooter(`Watcher Event • Text Channel Create | Channel ID: ${channel.id}`)
               .setTimestamp();
             return logChannel.send(embed);
           } else if (channel.type === 'voice') {
             const embed = new MessageEmbed()
-              .setColor('#7289DA').setTitle('Voice Channel Created')
+              .setColor('#7289DA')
+              .setTitle(`Voice Channel __**${channel.name}**__ has been created.`)
               .setURL('https://discord.gg/83SAWkh')
-              .setDescription(`A voice channel has been created: **${channel.name}** in ${channel.parent ? 'the catagory' : '**the default catagory.**'} ${channel.parent ? '**' + channel.parent.name + '**.' : ''}`)
-              .setFooter(`ID: ${channel.id}`)
+              .setDescription(`A new Voice Channel has appeared. **${channel.name}** in ${channel.parent ? 'the catagory' : '**the default catagory.**'} ${channel.parent ? '**' + channel.parent.name + '**.' : ''}`)
+              .setFooter(`Watcher Event • Voice Channel Create | Channel ID: ${channel.id}`)
               .setTimestamp();
             return logChannel.send(embed);
           } else if (channel.type === 'category') {
             const embed = new MessageEmbed()
-              .setColor('#7289DA').setTitle('Category Created')
+              .setColor('#7289DA')
+              .setTitle('Category __**${channel.name}**__ has been created.')
               .setURL('https://discord.gg/83SAWkh')
-              .setDescription(`A Category has been created: **${channel.name}** in ${channel.parent ? 'the catagory' : '**the default catagory.**'} ${channel.parent ? '**' + channel.parent.name + '**.' : ''}`)
+              .setDescription(`**${channel.name}** has been created.`)
               .setFooter(`ID: ${channel.id}`)
               .setTimestamp();
             return logChannel.send(embed);
           } else {
             const embed = new MessageEmbed()
-              .setColor('#7289DA').setTitle('Unknown Channel Created')
+              .setColor('#7289DA')
+              .setTitle('Watcher Event - Unknown Channel Created')
               .setURL('https://discord.gg/83SAWkh')
               .setDescription(`An unknown channel type has been created: **${channel.name}**.`)
               .setFooter(`ID: ${channel.id}`)

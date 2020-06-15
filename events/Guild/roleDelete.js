@@ -24,7 +24,7 @@ module.exports = class extends BotEvent {
             .setTitle(`The role "${role.name}" has been deleted.`)
             .setURL('https://discord.gg/83SAWkh')
             .setDescription(`**Name:** \`${role.name}\`\n**Hex Color:** \`${role.hexColor}\`\n**Position Was?** \`${role.position}\`\n**Was Mentionable?** \`${role.mentionable ? 'True' : 'False'}\`\n**Deleted At:** \`${moment(new Date).format('MMMM Do YYYY, h:mm:ss A')} PST\``)
-            .setFooter(`Watcher Event • Role Deleted | RID: ${role.id}`)
+            .setFooter(`Watcher Event • Role Deleted | Role ID: ${role.id}`)
             .setTimestamp();
           return logChannel.send(embed);
         });

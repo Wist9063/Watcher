@@ -33,11 +33,9 @@ module.exports = class extends BotEvent {
       
           const embed = new MessageEmbed()
             .setColor('#7289DA')
-            .setTitle('Message Edited/Updated')
-            .setURL('https://discord.gg/83SAWkh')
-            .setAuthor(newMessage.author.tag, newMessage.author.displayAvatarURL())
+            .setAuthor(`${newMessage.author.tag} has edited a message.`, newMessage.author.displayAvatarURL())
             .setDescription(`Channel: ${oldMessage.channel}\nJump To Message: [Click Here](${newMessage.url})\n\n\`\`\`md\nPrevious Message\n====\n\n< ${oldContent} >\n\nCurrent Message\n====\n\n< ${newContent} >\`\`\``)
-            .setFooter(`Message ID: ${oldMessage.id}`)
+            .setFooter(`Watcher Event • Message Edited/Updated | Message ID: ${oldMessage.id}`)
             .setTimestamp();
           return logChannel.send(embed);
         } else {

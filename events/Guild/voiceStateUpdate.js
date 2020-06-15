@@ -20,21 +20,20 @@ module.exports = class extends BotEvent {
           const voice1 = (oldState.channel ? oldState.channel.name : 'None');
           const voice2 = (newState.channel ? newState.channel.name : 'Left');
 
-
           if (voice1 == 'None') {
             const embed = new MessageEmbed()
               .setColor('#32CD32')
               .setAuthor(`${newState.member.user.tag} has joined a voice channel.`, newState.member.user.displayAvatarURL(), 'https://discord.gg/83SAWkh')
-              .setDescription(`**${newState.member.user.tag}** joined voice channel **${voice2}** ${newState.channel.parent ? 'in the category' : '.'} ${newState.channel.parent ? '**' + newState.channel.parent.name + '**.' : ''}`)
-              .setFooter(`${newState.member.user.tag}'s ID is ${newState.member.user.id} • Voice State Update event.`)
+              .setDescription(`**${newState.member.user.tag}** joined the voice channel **${voice2}** ${newState.channel.parent ? 'in the category' : '.'} ${newState.channel.parent ? '**' + newState.channel.parent.name + '**.' : ''}`)
+              .setFooter(`Watcher Event • Voice State Update | User ID: ${newState.member.user.id}`)
               .setTimestamp();
             return logChannel.send(embed);
           } else if (voice2 == 'Left') {
             const embed = new MessageEmbed()
               .setColor('#D92C2C')
               .setAuthor(`${oldState.member.user.tag} has left a voice channel.`, oldState.member.user.displayAvatarURL(), 'https://discord.gg/83SAWkh')
-              .setDescription(`**${oldState.member.user.tag}** left voice channel **${voice1}** ${oldState.channel.parent ? 'in the category' : '.'} ${oldState.channel.parent ? '**' + oldState.channel.parent.name + '**.' : ''}`)
-              .setFooter(`${oldState.member.user.tag}'s ID is ${oldState.member.user.id} • Voice State Update event.`)
+              .setDescription(`**${oldState.member.user.tag}** left the voice channel **${voice1}** ${oldState.channel.parent ? 'in the category' : '.'} ${oldState.channel.parent ? '**' + oldState.channel.parent.name + '**.' : ''}`)
+              .setFooter(`Watcher Event • Voice State Update | User ID: ${oldState.member.user.id}`)
               .setTimestamp();
             return logChannel.send(embed);
           } else if (voice1 != newState.channel.name) {
@@ -45,7 +44,7 @@ module.exports = class extends BotEvent {
               .setColor('#006400')
               .setDescription(`${oldState.member.user.tag} has moved from **${voice1}** ${oldState.channel.parent ? 'in the category' : ''} ${oldState.channel.parent ? '**' + oldState.channel.parent.name + '**' : 'to'} ${oldState.channel.parent ? 'to' : ''} **${newState.channel.name}** ${newPar}`)
               .setAuthor(`${newState.member.user.tag} has moved to another voice channel.`, newState.member.user.displayAvatarURL(), 'https://discord.gg/83SAWkh')
-              .setFooter(`${newState.member.user.tag}'s ID is ${newState.member.user.id} • Voice State Update event.`)
+              .setFooter(`Watcher Event • Voice State Update | User ID: ${newState.member.user.id}`)
               .setTimestamp();
             return logChannel.send(embed);
           } 

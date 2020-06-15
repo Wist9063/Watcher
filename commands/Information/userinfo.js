@@ -28,7 +28,6 @@ module.exports = class extends Command {
 
     if (user) {
       const embed = new Discord.MessageEmbed()
-        .setColor(this.client.settings.colors.blank)
         .setAuthor(user.tag, user.avatarURL())
         .setImage(user.avatarURL({ 'size': 2048 }));
       return message.channel.send(embed);

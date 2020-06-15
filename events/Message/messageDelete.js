@@ -26,10 +26,8 @@ module.exports = class extends BotEvent {
           const embed = new MessageEmbed()
             .setColor('#D92C2C')
             .setAuthor(`${message.author.tag}'s message has been deleted.`, message.author.displayAvatarURL())
-            .setTitle('Message Deleted')
-            .setURL('https://discord.gg/83SAWkh')
             .setDescription(`In channel: ${message.channel}\n\`\`\`md\nMessage Below\n====\n\n< ${contentValue} >\`\`\``)
-            .setFooter(`Author ID: ${message.author.id} • Message ID: ${message.id}`)
+            .setFooter(`Watcher Event • Message Deleted | Author ID: ${message.author.id} • Message ID: ${message.id}`)
             .setTimestamp();
           return logChannel.send(embed);
         } else {
