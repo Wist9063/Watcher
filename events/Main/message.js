@@ -1,7 +1,8 @@
 const BotEvent = require('../../handlers/event.js');
 const moment = require('moment-timezone');
 const sentry = require('@sentry/node');
-const MessageEmbed = require('discord.js').MessageEmbed;
+const Discord = require('discord.js');
+const cooldowns = new Discord.Collection();
 
 function randomString(length) {
   const pos = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234567890.-?/';
@@ -22,21 +23,30 @@ module.exports = class extends BotEvent {
 
   async execute(message) {
     if (!message.guild || message.author.bot) return;
-    /*
-    const mentionRegex = new RegExp(`^<@!?${this.user.id}>`);
-    if (mentionRegex.test(message.content)) {
-      message.content = this.config.prefix + message.content.replace(mentionRegex, '');
-      if (message.content.toLowerCase().includes('what') && message.content.toLowerCase().includes('prefix')) {
-        message.content = this.config.prefix + 'prefix';
-      }
-    } */
     message.mentions.users = message.mentions.users.filter(u => u.id != this.user.id);
     if (!message.content.startsWith(this.config.prefix)) return;
     message.perm = await new (require('../../handlers/permission.js'))().fetch(message.author, message)[0];
     const content = message.content.slice(this.config.prefix.length);
     const command = await this.fetchCommand(content.split(' ')[0]);
     if (!command) return;
+    if (command.disabled == true) return;
     if (!message.channel.permissionsFor(message.guild.me).has(this.config.requiredPermissions)) return message.channel.send(`INVALID PERMISSIONS: Watcher requires the following permissions: \n${this.config.requiredPermissions.map(p => p)}`);
+    if (!cooldowns.has(command.name)) cooldowns.set(command.name, new Discord.Collection());
+    const now = Date.now();
+    const timestamps = cooldowns.get(command.name);
+    const cooldownAmount = (command.cooldown) * 1000;
+
+    if (timestamps.has(message.author.id)) {
+      const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+
+      if (now < expirationTime) {
+        const timeLeft = (expirationTime - now) / 1000;
+        return message.reply(`wait **${timeLeft.toFixed(1)}** second(s) before reusing the \`${command.name}\` command.`) && console.log(`[RATELIMITED!] [${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] Action has been ratelimited. - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
+      }
+    }
+
+    timestamps.set(message.author.id, now);
+    setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
     try { 
       if (this.config.maintenance) {
@@ -69,7 +79,7 @@ module.exports = class extends BotEvent {
         sentry.captureException(e); 
       });
 
-      const embed = new MessageEmbed()
+      const embed = new Discord.MessageEmbed()
         .setTitle('⚠️ Watcher has encountered an error with this command.')
         .setDescription(`Watcher has encountered an error with this command! Please report this error with the following ID in our hub. ID: **${IDstring}**`)
         .setTimestamp()

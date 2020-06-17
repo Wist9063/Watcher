@@ -9,6 +9,7 @@ module.exports = class extends Command {
   constructor(client, filePath) {
     super(client, filePath, {
       name: 'info',
+      cooldown: 6,
       aliases: ['stats', 'botinfo']
     });
   }

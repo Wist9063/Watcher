@@ -4,6 +4,7 @@ module.exports = class extends Command {
   constructor(client, filePath) {
     super(client, filePath, {
       name: 'ping',
+      cooldown: 5,
       aliases: []
     });
   }
