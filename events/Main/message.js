@@ -29,7 +29,7 @@ module.exports = class extends BotEvent {
     const content = message.content.slice(this.config.prefix.length);
     const command = await this.fetchCommand(content.split(' ')[0]);
     if (!command) return;
-    if (command.disabled == true) return;
+    if (command.disabled == true) return message.channel.send('This command is globally disabled. Please try this command again at a later time or date.');
     if (!message.channel.permissionsFor(message.guild.me).has(this.config.requiredPermissions)) return message.channel.send(`INVALID PERMISSIONS: Watcher requires the following permissions: \n${this.config.requiredPermissions.map(p => p)}`);
     if (!cooldowns.has(command.name)) cooldowns.set(command.name, new Discord.Collection());
     const now = Date.now();
@@ -41,7 +41,7 @@ module.exports = class extends BotEvent {
 
       if (now < expirationTime) {
         const timeLeft = (expirationTime - now) / 1000;
-        return message.reply(`wait **${timeLeft.toFixed(1)}** second(s) before reusing the \`${command.name}\` command.`) && console.log(`[RATELIMITED!] [${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] Action has been ratelimited. - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
+        return message.reply(`__you are on a **cooldown**.__\nWait **${timeLeft.toFixed(1)}** second(s) before reusing the \`${command.name}\` command.`) && console.log(`[RATELIMITED!] [${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] Action has been ratelimited. - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
       }
     }
 

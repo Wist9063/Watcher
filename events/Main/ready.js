@@ -27,9 +27,9 @@ module.exports = class extends BotEvent {
         ['LISTENING', `${a.guilds.cache.size} guilds! | w!help`],
         ['WATCHING', `${a.users.cache.size} users! | w!help`],
         ['WATCHING', 'your chat. | w!help'],
-        ['WATCHING', 'the SpaceX launch. | w!help'],
-        ['WATCHING', 'some netflix. | w!help'],
-        ['LISTENING', 'events n stuff. | w!help']
+        ['WATCHING', 'netflix. | w!help'],
+        ['LISTENING', 'events n stuff. | w!help'],
+        ['LISTENING', 'w!help']
       ];
       const game = gameStatus[Math.floor(Math.random()*gameStatus.length)];
       a.user.setActivity(game[1], {'url': 'https://www.twitch.tv/monstercat', 'type': game[0] });
