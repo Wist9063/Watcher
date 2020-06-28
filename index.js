@@ -1,5 +1,5 @@
 /* Copyright (C) Cloud Development 2017-2020 - All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Unauthorized copying of any file in this repo, via any medium is strictly prohibited.
  * Proprietary and confidential.
  * Written by wist9063 <wist9063@gmail.com> & jason.
  * 
@@ -27,7 +27,7 @@ const eventsPath = path.join(__dirname, 'events');
 new class extends Client {
   constructor() {
     super({
-      disableEveryone: true
+      disableMentions: 'everyone'
     });
 
     this.config = require('./config.js');

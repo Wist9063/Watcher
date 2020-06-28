@@ -10,6 +10,7 @@ module.exports = class extends Command {
 
   execute(message) {
     if (message.perm < 9) return;
+    message.channel.send('Debug not available on production.');
     /*
     db.get('502895390807293963', this.client.mongod, 'guildSettings').then((b) => {
 

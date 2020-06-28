@@ -4,13 +4,14 @@ module.exports = class extends Command {
   constructor(client, filePath) {
     super(client, filePath, {
       name: 'rebuild',
-      aliases: []
+      aliases: [],
+      disabled: true
     });
   }
 
   async execute(message) {
     if (message.perm < 9) return;
-    message.channel.send('rebuilding not avaiable,');
+    message.channel.send('MySQL & quick.db not detected.');
     /*
     const g = this.client.guilds.cache.array();
     const f = this.client;
