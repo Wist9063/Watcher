@@ -21,7 +21,7 @@ module.exports = class extends BotEvent {
 
           if (channel.type === 'text') {
             const embed = new MessageEmbed()
-              .setColor('#7289DA').setTitle(`Text Channel __**${channel.name}**__ has been deleted.`)
+              .setColor('#DD5449').setTitle(`Text Channel __**${channel.name}**__ has been deleted.`)
               .setURL('https://discord.gg/83SAWkh')
               .setDescription(`**${channel.name}** in ${channel.parent ? 'the catagory' : '**default catagory.**'} ${channel.parent ? '**' + channel.parent.name + '**.' : ''} has been deleted.`)
               .setFooter(`Watcher Event • Text Channel Delete | Channel ID: ${channel.id}`)
@@ -29,7 +29,7 @@ module.exports = class extends BotEvent {
             return logChannel.send(embed);
           } else if (channel.type === 'voice') {
             const embed = new MessageEmbed()
-              .setColor('#7289DA').setTitle(`Voice Channel __**${channel.name}**__ has been deleted.`)
+              .setColor('#DD5449').setTitle(`Voice Channel __**${channel.name}**__ has been deleted.`)
               .setURL('https://discord.gg/83SAWkh')
               .setDescription(`Voice channel **${channel.name}** in ${channel.parent ? 'the catagory' : '**default catagory.**'} ${channel.parent ? '**' + channel.parent.name + '**.' : ''} has been deleted.`)
               .setFooter(`Watcher Event • Voice Channel Delete | Channel ID: ${channel.id}`)
@@ -37,7 +37,7 @@ module.exports = class extends BotEvent {
             return logChannel.send(embed);
           } else if (channel.type === 'category') {
             const embed = new MessageEmbed()
-              .setColor('#7289DA').setTitle(`Category __**${channel.name}**__ has been deleted.`)
+              .setColor('#DD5449').setTitle(`Category __**${channel.name}**__ has been deleted.`)
               .setURL('https://discord.gg/83SAWkh')
               .setDescription(`Cateogry **${channel.name}** has been deleted.`)
               .setFooter(`Watcher Event • Category Channel Delete | Channel ID: ${channel.id}`)
@@ -45,7 +45,7 @@ module.exports = class extends BotEvent {
             return logChannel.send(embed);
           } else {
             const embed = new MessageEmbed()
-              .setColor('#7289DA').setTitle('Watcher Event - Unknown Channel Deleted')
+              .setColor('#DD5449').setTitle('Watcher Event - Unknown Channel Deleted')
               .setURL('https://discord.gg/83SAWkh')
               .setDescription(`An unknown channel type has been deleted: **${channel.name}**.`)
               .setFooter(`ID: ${channel.id}`)

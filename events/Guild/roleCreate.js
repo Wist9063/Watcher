@@ -20,7 +20,7 @@ module.exports = class extends BotEvent {
           if (!logChannel) return;
 
           const embed = new MessageEmbed()
-            .setColor('#32CD32')
+            .setColor('#5cb85c')
             .setTitle(`The role "${role.name}" has been created.`)
             .setURL('https://discord.gg/83SAWkh')
             .setDescription(`**Name:** \`${role.name}\`\n**Hex Color:** \`${role.hexColor}\`\n**Position:** \`${role.position}\`\n**Mentionable?** \`${role.mentionable ? 'True' : 'False'}\`\n**Created At:** ${moment(role.createdAt).format('MMMM Do YYYY, h:mm:ss A')} PST`)

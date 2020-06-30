@@ -24,7 +24,7 @@ module.exports = class extends BotEvent {
           let contentValue = message.content;
           if (contentValue.length > 500) contentValue = contentValue.substring(0, 499) + '...';
           const embed = new MessageEmbed()
-            .setColor('#D92C2C')
+            .setColor('#DD5449')
             .setAuthor(`${message.author.tag}'s message has been deleted.`, message.author.displayAvatarURL())
             .setDescription(`In channel: ${message.channel}\n\`\`\`md\nMessage Below\n====\n\n< ${contentValue} >\`\`\``)
             .setFooter(`Watcher Event • Message Deleted | Author ID: ${message.author.id} • Message ID: ${message.id}`)

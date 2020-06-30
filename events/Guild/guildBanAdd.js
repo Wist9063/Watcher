@@ -20,7 +20,7 @@ module.exports = class extends BotEvent {
           if (!logChannel) return;
 
           const embed = new MessageEmbed()
-            .setColor('#D92C2C')
+            .setColor('#5cb85c')
             .setAuthor(`${user.tag} has been banned.`, user.displayAvatarURL(), 'https://discord.gg/83SAWkh')
             .setDescription(`**${user.tag}** has been banned in this server. This member was banned at \`${moment.utc(new Date).format('MMMM Do YYYY, h:mm:ss A')} (Universal Coordinated Time)\``)
             .setFooter(`Watcher Event • Member Banned | User ID: ${user.id}.`)

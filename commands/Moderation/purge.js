@@ -26,12 +26,12 @@ module.exports = class extends Command {
           message.channel.send(`${message.author} | A total of ${args[1]} messages has been deleted.\n*Note: I can only delete messages that are newer than 2 weeks old.*`);
           const logChannel = new WebhookClient(b.wb.wbID, b.wb.wbKey);
           const embed = new MessageEmbed()
-            .setColor('#D92C2C')
+            .setColor('#FF8686')
             .setAuthor(`${message.author.tag} has bulk deleted messages.`, message.author.displayAvatarURL())
             .setTitle('Watcher Event - Bulk Delete')
             .setURL('https://discord.gg/83SAWkh')
             .setDescription(`**${args[1]}** messages has been deleted.\nIn channel: ${message.channel}`)
-            .setFooter(`Author ID: ${message.author.id}`)
+            .setFooter(`Watcher Event • Bulk Delete | User ID: ${message.author.id}`)
             .setTimestamp();
           return logChannel.send(embed);
         });

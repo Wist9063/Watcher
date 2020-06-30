@@ -48,7 +48,7 @@ module.exports = class extends BotEvent {
     console.log(`[${momenttime(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] | I've joined a guild. Added from ${guild.name} (ID:${guild.id}), which is owned by ${guild.owner.user.tag} (ID:${guild.owner.user.id}), has ${guild.memberCount} members.`);
 
     const embed = new MessageEmbed()
-      .setColor('#18f400')
+      .setColor('#5cb85c')
       .setTitle('Guild Create')
       .setURL('https://discord.gg/83SAWkh')
       .setDescription(`Watcher now at **${this.guilds.cache.size}** guilds. Added from ${guild.name} (ID:${guild.id}), which is owned by ${guild.owner.user.tag} (ID:${guild.owner.user.id}), has ${guild.memberCount} members, and ${guild.members.cache.filter(mem => mem.user.bot).size} bots.\n\n\`\`\`autohotkey\n${moment(guild.createdAt).format('MMMM Do, YYYY, h:mm:ss A')}\`\`\``)

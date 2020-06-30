@@ -16,7 +16,7 @@ module.exports = class extends Command {
   execute(message) {
     const duration = moment.duration(this.client.uptime).format(' D [days], H [hrs], m [mins], s [secs]');
     const embed = new Discord.MessageEmbed()
-      .setColor('#7289DA')
+      .setColor('#428bca')
       .setTitle(`${this.client.user.tag} | General Statistics`)
       .setDescription(`Quick overview, ${this.client.user.username} is in ${this.client.guilds.cache.size} servers, has ${this.client.users.cache.size} users globally, and obtains an uptime of ${duration}.`)
       .setURL('https://discord.gg/83SAWkh')

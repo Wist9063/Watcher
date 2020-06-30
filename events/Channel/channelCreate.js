@@ -22,7 +22,7 @@ module.exports = class extends BotEvent {
      
           if (channel.type === 'text') {
             const embed = new MessageEmbed()
-              .setColor('#7289DA')
+              .setColor('#5cb85c')
               .setTitle(`Text Channel __**${channel.name}**__ has been created.`)
               .setURL('https://discord.gg/83SAWkh')
               .setDescription(`A new Text Channel has appeared. **${channel.name}** in ${channel.parent ? 'the catagory' : '**the default catagory.**'} ${channel.parent ? '**' + channel.parent.name + '**.' : ''}`)
@@ -31,7 +31,7 @@ module.exports = class extends BotEvent {
             return logChannel.send(embed);
           } else if (channel.type === 'voice') {
             const embed = new MessageEmbed()
-              .setColor('#7289DA')
+              .setColor('#5cb85c')
               .setTitle(`Voice Channel __**${channel.name}**__ has been created.`)
               .setURL('https://discord.gg/83SAWkh')
               .setDescription(`A new Voice Channel has appeared. **${channel.name}** in ${channel.parent ? 'the catagory' : '**the default catagory.**'} ${channel.parent ? '**' + channel.parent.name + '**.' : ''}`)
@@ -40,7 +40,7 @@ module.exports = class extends BotEvent {
             return logChannel.send(embed);
           } else if (channel.type === 'category') {
             const embed = new MessageEmbed()
-              .setColor('#7289DA')
+              .setColor('#5cb85c')
               .setTitle('Category __**${channel.name}**__ has been created.')
               .setURL('https://discord.gg/83SAWkh')
               .setDescription(`**${channel.name}** has been created.`)
@@ -49,7 +49,7 @@ module.exports = class extends BotEvent {
             return logChannel.send(embed);
           } else {
             const embed = new MessageEmbed()
-              .setColor('#7289DA')
+              .setColor('#5cb85c')
               .setTitle('Watcher Event - Unknown Channel Created')
               .setURL('https://discord.gg/83SAWkh')
               .setDescription(`An unknown channel type has been created: **${channel.name}**.`)

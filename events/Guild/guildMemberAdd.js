@@ -23,7 +23,7 @@ module.exports = class extends BotEvent {
 
           //if (!textOn) {
           const embed = new MessageEmbed()
-            .setColor('#7289DA')
+            .setColor('#5cb85c')
             .setAuthor(`${member.user.tag} has joined the server.`, member.user.displayAvatarURL(), 'https://discord.gg/83SAWkh')
             .setDescription(` **${guild.name}** now has __${guild.memberCount}__ members.\nThis user joined discord on \`${moment(member.joinedAt).format('MMMM Do, YYYY, h:mm:ss A')} (Universal Coordinated Time)\``)
             .setFooter(`Watcher Event • User Joined | User ID: ${member.user.id}.`)

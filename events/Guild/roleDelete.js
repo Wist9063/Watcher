@@ -20,7 +20,7 @@ module.exports = class extends BotEvent {
           if (!logChannel) return;
 
           const embed = new MessageEmbed()
-            .setColor('#D92C2C')
+            .setColor('#DD5449')
             .setTitle(`The role "${role.name}" has been deleted.`)
             .setURL('https://discord.gg/83SAWkh')
             .setDescription(`**Name:** \`${role.name}\`\n**Hex Color:** \`${role.hexColor}\`\n**Position Was?** \`${role.position}\`\n**Was Mentionable?** \`${role.mentionable ? 'True' : 'False'}\`\n**Deleted At:** \`${moment(new Date).format('MMMM Do YYYY, h:mm:ss A')} PST\``)

@@ -21,7 +21,7 @@ module.exports = class extends BotEvent {
 
           if (oldMember.nickname != newMember.nickname) {
             const embed = new MessageEmbed()
-              .setColor('#7289DA')
+              .setColor('#5bc0de')
               .setAuthor(`${newMember.user.tag} edited their nickname.`, newMember.user.displayAvatarURL(), 'https://discord.gg/83SAWkh')
               .setDescription(`${newMember.user.tag} (ID:${newMember.user.id}) has edited their nickname.`)
               .setFooter(`Watcher Event • Nickname Change | User ID: ${newMember.user.id}`)
@@ -35,7 +35,7 @@ module.exports = class extends BotEvent {
             const newRoles = newMember.roles.cache.map(r => r).join(' ').replace('@everyone', ' ');
             if (newRoles.length > 99) newRoles.substring(0, 100) + ', and more.';
             const embed = new MessageEmbed()
-              .setColor('#7289DA')
+              .setColor('#5bc0de')
               .setAuthor(`${newMember.user.tag} edited their roles.`, newMember.user.displayAvatarURL(), 'https://discord.gg/83SAWkh')
               .setDescription(`${newMember.user.tag} (ID:${newMember.user.id}) has edited their roles.`)
               .addField('Previous Roles', `󠂪󠂪${oldRoles}`)

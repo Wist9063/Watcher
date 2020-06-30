@@ -28,11 +28,9 @@ module.exports = class extends BotEvent {
           let newContent = newMessage.content;
           if (oldContent.length > 200) newContent = newContent.substring(0, 199) + '...';
           if (oldContent.length > 1000 || newContent.length > 1000) return;
-
-
       
           const embed = new MessageEmbed()
-            .setColor('#7289DA')
+            .setColor('#5bc0de')
             .setAuthor(`${newMessage.author.tag} has edited a message.`, newMessage.author.displayAvatarURL())
             .setDescription(`Channel: ${oldMessage.channel}\nJump To Message: [Click Here](${newMessage.url})\n\n\`\`\`md\nPrevious Message\n====\n\n< ${oldContent} >\n\nCurrent Message\n====\n\n< ${newContent} >\`\`\``)
             .setFooter(`Watcher Event • Message Edited/Updated | Message ID: ${oldMessage.id}`)

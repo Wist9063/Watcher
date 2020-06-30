@@ -11,7 +11,7 @@ module.exports = class extends Command {
   }
   execute(message) {
     const embed = new MessageEmbed()
-      .setColor('#7289DA')
+      .setColor('#428bca')
       .setTitle('Watcher | The Advanced Logging Bot')
       .setDescription('**Prefix**: `w!`\n\nWatcher provides your server with feature-rich advanced customizable logging features, to enhance your user experience.\n\nEvents we currently support:\nchannelCreate, channelDelete, guildBanAdd, guildBanRemove, guildMemberAdd, guildMemberRemove, guildMemberUpdate, messageDelete, messageReactionAdd, messageReactionRemove, messageUpdate, voiceStateUpdate\n\n__*Special thanks to Nettle#2222 for keeping the project alive!*__')
       .setURL('https://discord.gg/83SAWkh')
