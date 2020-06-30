@@ -15,7 +15,7 @@ module.exports = class extends Command {
       if (b.wb.wbID === null || b.wb.wbKey === null) {
         message.channel.send(`${message.author} | You didn't setup a log channel yet! Run w!setup to setup one.`);
       } else {
-        if (message.perm < 2) return message.channel.send(`${message.author} | Insufficient permissions required to execute this command.`).then(msg => msg.delete({timeout:15000}));
+        if (message.perm < 2) return message.channel.send(`${message.author}, you have insufficient permissions required to execute this command.`).then(msg => msg.delete({timeout:15000}));
         if (!message.guild.me.hasPermission('MANAGE_MESSAGES')) return message.channel.send(`${message.author} | I'm not capable of deleting messages, please ensure that I have the proper permissions to do so.`).then(m => m.delete({timeout:15000}));
         const args = message.content.split(' ')[1];
         if (!args) return message.channel.send(`${message.author} | Please specify an amount of messages to purge.`).then(m => m.delete({timeout:5000}));
