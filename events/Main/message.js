@@ -55,7 +55,6 @@ module.exports = class extends BotEvent {
         } else if (content.split(' ')[1] === '--force' && message.perm > 9) {
           message.channel.startTyping();
           message.content = message.content.replace('--force', '');
-          console.log(message.content);
           message.channel.send('This command has been forced to run while Watcher is in maintenance mode.');
           console.log(`[WARNING!] [${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] Executed using --force. - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
           await command.execute(message); message.channel.stopTyping();
@@ -75,6 +74,7 @@ module.exports = class extends BotEvent {
       sentry.withScope(function(scope) {
         scope.setUser({id: message.author.id, username: message.author.username});
         scope.setTag('errorID', IDstring);
+        scope.setTag('cmd_Name', command.name);
         scope.setLevel('error');
         sentry.captureException(e); 
       });
