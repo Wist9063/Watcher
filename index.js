@@ -47,14 +47,12 @@ new class extends Client {
       // sentry.captureException(e); 
       console.error('An error has occurred during the connecting phase for the DiscordAPI connection, check sentry!');
       console.error(e);
-      return process.kill(process.pid);
     });
 
     this.mongod.connect().then(() => console.log('MongoDB Atlas connection successful.')).catch(e => {
       // sentry.captureException(e); 
       console.error('An error has occurred during the connecting phase for MongoDB Atlas connection, check sentry!');
       console.error(e);
-      return process.kill(process.pid);
     });
 
     /* sentry.addBreadcrumb({
