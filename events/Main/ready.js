@@ -11,7 +11,7 @@ module.exports = class extends BotEvent {
   }
   
   
-  async execute() {
+  execute() {
     console.log('<---------------->');
     console.log('Connection to discord initialized. Watcher is now initializing! Please wait..');
     console.log('<---------------->');
@@ -45,6 +45,6 @@ module.exports = class extends BotEvent {
     }
     console.log(`Guild Size: ${this.guilds.cache.size}\nUser Size: ${this.users.cache.size}\nChannels: ${this.channels.cache.size}\nUsing account: ${this.user.tag}\nLaunched at ${moment(this.readyAt).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}`);
     
-    await gameCycle(this);
+    gameCycle(this);
   }
 };
