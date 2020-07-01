@@ -26,11 +26,7 @@ const eventsPath = path.join(__dirname, 'events');
 
 new class extends Client {
   constructor() {
-    super({
-      disableMentions: 'everyone',
-      retryLimit: 2,
-      restTimeOffset : 1000
-    });
+    super({});
 
     this.config = require('./config.js');
     // sentry.init({ dsn: `https://${this.config.sentryDSN}@sentry.io/${this.config.sentryID}`, environment: this.config.sentryLevel });
