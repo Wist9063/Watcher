@@ -27,7 +27,9 @@ const eventsPath = path.join(__dirname, 'events');
 new class extends Client {
   constructor() {
     super({
-      disableMentions: 'everyone'
+      disableMentions: 'everyone',
+      retryLimit: '2',
+      restTimeOffset : '1000'
     });
 
     this.config = require('./config.js');
