@@ -42,17 +42,17 @@ new class extends Client {
     this.connect();
   }
 
-  connect() {
+  async connect() {
     console.log('<---------------->');
     console.log('Initializing connection to DiscordAPI & MongoDB Atlas Platform.');
 
-    this.login(this.config.token).then(() => console.log('DiscordAPI token valid, now connected!')).catch(e => {
+    await this.login(this.config.token).then(() => console.log('DiscordAPI token valid, now connected!')).catch(e => {
       // sentry.captureException(e); 
       console.error('An error has occurred during the connecting phase for the DiscordAPI connection, check sentry!');
       console.error(e);
     });
 
-    this.mongod.connect().then(() => console.log('MongoDB Atlas connection successful.')).catch(e => {
+    await this.mongod.connect().then(() => console.log('MongoDB Atlas connection successful.')).catch(e => {
       // sentry.captureException(e); 
       console.error('An error has occurred during the connecting phase for MongoDB Atlas connection, check sentry!');
       console.error(e);
