@@ -28,8 +28,8 @@ new class extends Client {
   constructor() {
     super({
       disableMentions: 'everyone',
-      retryLimit: '2',
-      restTimeOffset : '1000'
+      retryLimit: 2,
+      restTimeOffset : 1000
     });
 
     this.config = require('./config.js');
