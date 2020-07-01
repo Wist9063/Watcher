@@ -44,7 +44,7 @@ new class extends Client {
     console.log('<---------------->');
     console.log('Initializing connection to DiscordAPI & MongoDB Atlas Platform.');
 
-    Client.login(this.config.token).then(() => console.log('DiscordAPI token valid, now connected!')).catch(e => {
+    this.login(this.config.token).then(() => console.log('DiscordAPI token valid, now connected!')).catch(e => {
       // sentry.captureException(e); 
       console.error('An error has occurred during the connecting phase for the DiscordAPI connection, check sentry!');
       console.error(e);
