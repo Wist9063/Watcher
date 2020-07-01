@@ -1,6 +1,6 @@
 const BotEvent = require('../../handlers/event.js');
 const moment = require('moment-timezone');
-const sentry = require('@sentry/node');
+// const sentry = require('@sentry/node');
 const Discord = require('discord.js');
 const cooldowns = new Discord.Collection();
 
@@ -69,15 +69,16 @@ module.exports = class extends BotEvent {
     } catch (e) {
       message.channel.stopTyping();
       const IDstring = randomString(5);
-      console.log('[Error] An error has been detected in a command. Check sentry. ID: ' + IDstring);
+      console.log(e);
 
+      /*
       sentry.withScope(function(scope) {
         scope.setUser({id: message.author.id, username: message.author.username});
         scope.setTag('errorID', IDstring);
         scope.setTag('cmd_Name', command.name);
         scope.setLevel('error');
         sentry.captureException(e); 
-      });
+      }); */
 
       const embed = new Discord.MessageEmbed()
         .setTitle('⚠️ Watcher has encountered an error with this command.')
