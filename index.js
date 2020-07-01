@@ -37,9 +37,9 @@ new class extends Client {
     this.discord = discord;
     this.commands = new Collection();
     this.mongod = new MongoClient(`mongodb+srv://${this.config.mongoUSR}:${this.config.mongoPW}@watcherdev-too26.azure.mongodb.net/test?retryWrites=true&w=majority`, { useUnifiedTopology: true, useNewUrlParser: true, });
-    this.connect();
     this.init();
     this.initEvents();
+    this.connect();
   }
 
   connect() {
