@@ -18,7 +18,7 @@
 const path = require('path');
 //const sentry = require('@sentry/node');
 const klaw = require('klaw');
-const { Client, Collection, discord } = require('discord.js');
+const { Client, Collection } = require('discord.js');
 const MongoClient = require('mongodb').MongoClient;
 
 const commandsPath = path.join(__dirname, 'commands');
@@ -34,7 +34,6 @@ new class extends Client {
 
     this.config = require('./config.js');
     // sentry.init({ dsn: `https://${this.config.sentryDSN}@sentry.io/${this.config.sentryID}`, environment: this.config.sentryLevel });
-    this.discord = discord;
     this.commands = new Collection();
     this.mongod = new MongoClient(`mongodb+srv://${this.config.mongoUSR}:${this.config.mongoPW}@watcherdev-too26.azure.mongodb.net/test?retryWrites=true&w=majority`, { useUnifiedTopology: true, useNewUrlParser: true, });
     this.init();
