@@ -40,20 +40,19 @@ new class extends Client {
     this.connect();
   }
 
-  async connect() {
+  connect() {
     console.log('<---------------->');
     console.log('Initializing connection to DiscordAPI & MongoDB Atlas Platform.');
-
-    await this.mongod.connect().then(() => console.log('MongoDB Atlas connection successful.')).catch(e => {
+    this.login(this.config.token).then(() => console.log('DiscordAPI token valid, now connected!')).catch(e => {
       // sentry.captureException(e); 
-      console.error('An error has occurred during the connecting phase for MongoDB Atlas connection, check sentry!');
+      console.error('An error has occurred during the connecting phase for the DiscordAPI connection, check sentry!');
       console.error(e);
       return process.kill(process.pid);
     });
 
-    await this.login(this.config.token).then(() => console.log('DiscordAPI token valid, now connected!')).catch(e => {
+    this.mongod.connect().then(() => console.log('MongoDB Atlas connection successful.')).catch(e => {
       // sentry.captureException(e); 
-      console.error('An error has occurred during the connecting phase for the DiscordAPI connection, check sentry!');
+      console.error('An error has occurred during the connecting phase for MongoDB Atlas connection, check sentry!');
       console.error(e);
       return process.kill(process.pid);
     });
@@ -105,7 +104,6 @@ new class extends Client {
       if (!file.ext || file.ext !== '.js') return;
 
       const command = new (require(`${file.dir}/${file.base}`))(this);
-
       this.commands.set(command.name, command);
       /* sentry.addBreadcrumb({
         category: 'initEvent',
