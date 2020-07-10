@@ -12,37 +12,6 @@ module.exports = class extends BotEvent {
   }
   async execute(guild) {
 
-    // TODO: add custom cmd prefixes
-
-    // dont remove v lol
-    const systemChannel = guild.channels.cache.get(guild.systemChannelID);
-    if (!systemChannel);
-    if (systemChannel && guild.me.permissionsIn(systemChannel).has('SEND_MESSAGES')) {
-      systemChannel.send('Hello there, I was invited by a guild admin! 👀 To start using Watcher, run the command `w!setup` & `w!help` to get started! If you are facing any issues setting up the bot, please join our support server: **https://discord.gg/83SAWkh**.').catch(() => { return; });
-    }
-
-    await this.mongod.db('watcher').collection('events').insertMany([{ 
-      gID: guild.id, 
-      events: {
-        channelCreate: false,
-        channelDelete: false,
-        guildBanAdd: false,
-        guildBanRemove: false,
-        guildMemberAdd: false,
-        guildMemberRemove: false,
-        guildMemberUpdate: false,
-        messageDelete: false,
-        messageDeleteBulk: false,
-        messageUpdate: false,
-        voiceStateUpdate: false,
-        messageReactionAdd: false,
-        messageReactionRemove: false,
-        roleCreate: false
-      }
-    }]);
-
-    await this.mongod.db('watcher').collection('guildSettings').insertMany([{gID: guild.id, wb: { wbID: null, wbKey: null }, ignoreChannel: []}]);
-
     const hook = new WebhookClient('549476222686461972', this.config.webhookToken);
 
     console.log(`[${momenttime(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] | I've joined a guild. Added from ${guild.name} (ID:${guild.id}), which is owned by ${guild.owner.user.tag} (ID:${guild.owner.user.id}), has ${guild.memberCount} members.`);

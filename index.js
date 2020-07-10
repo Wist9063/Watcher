@@ -19,7 +19,6 @@ const path = require('path');
 //const sentry = require('@sentry/node');
 const klaw = require('klaw');
 const { Client, Collection } = require('discord.js');
-const MongoClient = require('mongodb').MongoClient;
 
 const commandsPath = path.join(__dirname, 'commands');
 const eventsPath = path.join(__dirname, 'events');
@@ -33,7 +32,6 @@ new class extends Client {
     this.config = require('./config.js');
     // sentry.init({ dsn: `https://${this.config.sentryDSN}@sentry.io/${this.config.sentryID}`, environment: this.config.sentryLevel });
     this.commands = new Collection();
-    this.mongod = new MongoClient(`mongodb+srv://${this.config.mongoUSR}:${this.config.mongoPW}@watcherdev-too26.azure.mongodb.net/test?retryWrites=true&w=majority`, { useUnifiedTopology: true, useNewUrlParser: true, });
     this.init();
     this.initEvents();
     this.connect();
@@ -41,15 +39,9 @@ new class extends Client {
 
   async connect() {
     console.log('<---------------->');
-    console.log('Initializing connection to DiscordAPI & MongoDB Atlas Platform.');
+    console.log('Initializing connection to DiscordAPI.');
 
-    await this.mongod.connect().then(() => console.log('MongoDB Atlas connection successful.')).catch(e => {
-      // sentry.captureException(e); 
-      console.error('An error has occurred during the connecting phase for MongoDB Atlas connection, check sentry!');
-      console.error(e);
-    });
-
-    await this.login(this.config.token).then(() => console.log('DiscordAPI connected')).catch(e => {
+    await this.login(this.config.token).then(() => console.log('DiscordAPI has now connected.')).catch(e => {
       // sentry.captureException(e); 
       console.error('An error has occurred during the connecting phase for the DiscordAPI connection, check sentry!');
       console.error(e);
