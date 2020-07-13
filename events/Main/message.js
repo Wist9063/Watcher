@@ -57,12 +57,12 @@ module.exports = class extends BotEvent {
           message.content = message.content.replace('--force', '');
           message.channel.send('This command has been forced to run while Watcher is in maintenance mode.');
           console.log(`[WARNING!] [${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] Executed using --force. - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
-          await command.execute(message); message.channel.stopTyping();
+          command.execute(message); message.channel.stopTyping();
         }
       } else if (!this.config.maintenance) {
         message.channel.startTyping();
         console.log(`[${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
-        await command.execute(message); message.channel.stopTyping();
+        command.execute(message); message.channel.stopTyping();
       } else {
         return message.channel.send('There has been an error in executing this command! Please the command later.'); 
       }
@@ -81,7 +81,7 @@ module.exports = class extends BotEvent {
 
       const embed = new Discord.MessageEmbed()
         .setTitle('⚠️ Watcher has encountered an error with this command.')
-        .setDescription(`Watcher has encountered an error with this command! Please report this error with the following ID in our hub. ID: **${IDstring}**\nError: $`)
+        .setDescription(`Watcher has encountered an error with this command! Please report this error with the following ID in our hub. ID: **${IDstring}**\nError: ${e}`)
         .setTimestamp()
         .setColor('#FF0000');
       
