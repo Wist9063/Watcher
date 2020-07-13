@@ -81,7 +81,7 @@ module.exports = class extends BotEvent {
 
       const embed = new Discord.MessageEmbed()
         .setTitle('⚠️ Watcher has encountered an error with this command.')
-        .setDescription(`Watcher has encountered an error with this command! Please report this error with the following ID in our hub. ID: **${IDstring}**`)
+        .setDescription(`Watcher has encountered an error with this command! Please report this error with the following ID in our hub. ID: **${IDstring}**\nError: $`)
         .setTimestamp()
         .setColor('#FF0000');
       
