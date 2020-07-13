@@ -16,7 +16,7 @@
  */
 
 const path = require('path');
-//const sentry = require('@sentry/node');
+const sentry = require('@sentry/node');
 const klaw = require('klaw');
 const { Client, Collection } = require('discord.js');
 const MongoClient = require('mongodb').MongoClient;
@@ -31,7 +31,7 @@ new class extends Client {
     });
 
     this.config = require('./config.js');
-    // sentry.init({ dsn: `https://${this.config.sentryDSN}@sentry.io/${this.config.sentryID}`, environment: this.config.sentryLevel });
+    sentry.init({ dsn: `https://${this.config.sentryDSN}@sentry.io/${this.config.sentryID}`, environment: this.config.sentryLevel });
     this.commands = new Collection();
     this.mongod = new MongoClient(`mongodb+srv://${this.config.mongoUSR}:${this.config.mongoPW}@watcherdev-too26.azure.mongodb.net/test?retryWrites=true&w=majority`, { useUnifiedTopology: true, useNewUrlParser: true, });
     this.init();
@@ -44,22 +44,22 @@ new class extends Client {
     console.log('Initializing connection to DiscordAPI & MongoDB Atlas Platform.');
 
     await this.mongod.connect().then(() => console.log('MongoDB Atlas connection successful.')).catch(e => {
-      // sentry.captureException(e); 
+      sentry.captureException(e); 
       console.error('An error has occurred during the connecting phase for MongoDB Atlas connection, check sentry!');
       console.error(e);
     });
 
     await this.login(this.config.token).then(() => console.log('DiscordAPI connected')).catch(e => {
-      // sentry.captureException(e); 
+      sentry.captureException(e); 
       console.error('An error has occurred during the connecting phase for the DiscordAPI connection, check sentry!');
       console.error(e);
     });
 
-    /* sentry.addBreadcrumb({
+    sentry.addBreadcrumb({
       category: 'botLogin',
       message: 'Connected to discord API.',
       level: sentry.Severity.Info
-    }); */
+    }); 
   }
 
   async reloadCommands() {
@@ -103,11 +103,11 @@ new class extends Client {
 
       const command = new (require(`${file.dir}/${file.base}`))(this);
       this.commands.set(command.name, command);
-      /* sentry.addBreadcrumb({
+      sentry.addBreadcrumb({
         category: 'initEvent',
         message: 'initialized commands.',
         level: sentry.Severity.Info
-      }); */
+      });
     });
   }
 
@@ -118,17 +118,17 @@ new class extends Client {
 
       const event = new (require(`${file.dir}/${file.base}`))(this);
       this.on(event.name, event.execute);
-      /*sentry.addBreadcrumb({
+      sentry.addBreadcrumb({
         category: 'initEvent',
         message: 'initialized events.',
         level: sentry.Severity.Info
-      });*/
+      });
     });
   }
 
 };
 
-process.on('uncaughtException', err => console.error(err.stack, true)); //&& sentry.captureException(err.stack));
-process.on('unhandledRejection', err => console.error(err.stack, true)); //&& sentry.captureException(err.stack));
+process.on('uncaughtException', err => console.error(err.stack, true) && sentry.captureException(err.stack));
+process.on('unhandledRejection', err => console.error(err.stack, true) && sentry.captureException(err.stack));
 
 // end of file, made by jason, now maintained by wist9063. *made with love and keystrokes*
