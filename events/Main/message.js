@@ -49,7 +49,14 @@ module.exports = class extends BotEvent {
     setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
     try { 
-      if (this.config.maintenance) {
+      if (!this.config.maintenance) {
+        message.channel.startTyping();
+        console.log(`[${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
+        command.execute(message); message.channel.stopTyping();
+      } else if (this.config.maintenance) {
+        message.channel.startTyping();
+        console.log(`[${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
+        command.execute(message); message.channel.stopTyping();
         if (content.split(' ')[1] != '--force') {
           await message.channel.send('Watcher is currently undergoing maintenance and will not be responding to any commands. Please check our hub for maintenance times. __**<https://discord.gg/83SAWkh>**__');
         } else if (content.split(' ')[1] === '--force' && message.perm > 9) {
@@ -59,10 +66,6 @@ module.exports = class extends BotEvent {
           console.log(`[WARNING!] [${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] Executed using --force. - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
           command.execute(message); message.channel.stopTyping();
         }
-      } else if (!this.config.maintenance) {
-        message.channel.startTyping();
-        console.log(`[${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
-        command.execute(message); message.channel.stopTyping();
       } else {
         return message.channel.send('There has been an error in executing this command! Please the command later.'); 
       }
