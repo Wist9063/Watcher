@@ -12,6 +12,7 @@ module.exports = class extends BotEvent {
   async execute(oldMember, newMember) {
     if (oldMember.user.bot) return;
     await db.get(newMember.guild.id, this.mongod, 'events').then((a) => {
+      if (a.events === null) return;
       if (a.events.guildMemberUpdate === null) return;
       if (a.events.guildMemberUpdate === true) {
         db.get(newMember.guild.id, this.mongod, 'guildSettings').then((b) => {

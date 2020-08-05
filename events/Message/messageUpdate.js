@@ -15,6 +15,7 @@ module.exports = class extends BotEvent {
 
     await db.get(newMessage.guild.id, this.mongod, 'events').then((a) => {
       db.get(newMessage.guild.id, this.mongod, 'guildSettings').then((b) => {
+        if (b.ignoreChannel === null) return;
         if (b.ignoreChannel.includes(newMessage.channel.id) === true) return;
 
         if (a.events.messageUpdate === false) return;
