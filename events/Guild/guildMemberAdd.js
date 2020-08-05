@@ -14,7 +14,7 @@ module.exports = class extends BotEvent {
     const guild = member.guild;
     await db.get(guild.id, this.mongod, 'events').then((a) => {
     // const textOn = await db.get(`guild_${guild.id}.textLog`);
-      if (a.events === undefined) return;
+      if (typeof a.events === undefined) return;
       if (a.events.guildMemberAdd === null) return;
       if (a.events.guildMemberAdd === true) {
         db.get(guild.id, this.mongod, 'guildSettings').then((b) => {

@@ -49,7 +49,7 @@ new class extends Client {
       console.error(e);
     });
 
-    await this.login(this.config.token).then(() => console.log('DiscordAPI connected')).catch(e => {
+    await this.login(this.config.token).then(() => console.log('DiscordAPI connection established.')).catch(e => {
       sentry.captureException(e); 
       console.error('An error has occurred during the connecting phase for the DiscordAPI connection, check sentry!');
       console.error(e);

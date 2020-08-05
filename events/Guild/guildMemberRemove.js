@@ -13,7 +13,7 @@ module.exports = class extends BotEvent {
   async execute(member) {
     const guild = member.guild;
     await db.get(guild.id, this.mongod, 'events').then((a) => {
-      if (a.events.guildMemberRemove === undefined) return;
+      if (typeof a.events.guildMemberRemove === undefined) return;
       if (a.events.guildMemberRemove === true) {
         db.get(guild.id, this.mongod, 'guildSettings').then((b) => {
           if (b.wb.wbID === null || b.wb.wbKey === null) return;
