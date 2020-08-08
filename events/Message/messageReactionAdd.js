@@ -1,6 +1,7 @@
 const BotEvent = require('../../handlers/event.js');
 const db = new (require('../../handlers/database.js'))();
 const { MessageEmbed, WebhookClient } = require('discord.js');
+const sentry = require('@sentry/node');
 
 module.exports = class extends BotEvent {
   constructor(client, filePath) {
@@ -32,7 +33,7 @@ module.exports = class extends BotEvent {
         } else {
           return;
         }
-      });
-    });
+      }).catch(e => {sentry.captureException(e);});
+    }).catch(e => {sentry.captureException(e);});
   }
 };

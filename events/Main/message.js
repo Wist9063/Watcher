@@ -40,8 +40,7 @@ module.exports = class extends BotEvent {
       const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
 
       if (now < expirationTime) {
-        const timeLeft = (expirationTime - now) / 1000;
-        return message.reply(`__you are on a **cooldown**.__\nWait **${timeLeft.toFixed(1)}** second(s) before reusing the \`${command.name}\` command.`) && console.log(`[RATELIMITED!] [${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] Action has been ratelimited. - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
+        return console.log(`[RATELIMITED!] [${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] Action has been ratelimited. - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
       }
     }
 
