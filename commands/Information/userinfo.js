@@ -2,6 +2,23 @@ const Command = require('../../handlers/command.js');
 const Discord = require('discord.js');
 const sm = require('string-similarity');
 
+function status(data, client) {
+  if (data === 'online') {return client.emojis.cache.get('742109432451825754');} 
+  else if (data === 'idle') {return client.emojis.cache.get('742109349060804719');} 
+  else if (data === 'dnd') {return client.emojis.cache.get('742109349056610354');} 
+  else if (data == 'STREAMING') {return client.emojis.cache.get('742109349077581824');} 
+  else {return client.emojis.cache.get('742109432355356726');}
+}
+
+function game(data) {
+  if (data === null) {return '';} 
+  else if (data.type == 'STREAMING') {return `**Streaming** [${data.name}](${data.url})`;} 
+  else if (data.type == 'LISTENING') {return `**Listening** to ${data.name} - **${data.details ? data.details+ ' by' : 'Listening data not available'}** ${data.state ? '__'+ data.state + '__' : ''}`;} 
+  else if (data.type == 'WATCHING') {return `**Watching** ${data.name}`;} 
+  else if (data.type == 'CUSTOM_STATUS') {return data.name;} 
+  else {return `**Playing** ${data.name}`;}
+}
+
 module.exports = class extends Command {
   constructor(client, filePath) {
     super(client, filePath, {
@@ -23,29 +40,53 @@ module.exports = class extends Command {
     const match = sm.findBestMatch(args.join(' '), members);
     const username = match.bestMatch.target;
 
-    const member = message.guild.members.cache.get(indexes[members.indexOf(username)]);
-    const user = message.mentions.users.first();
+    let member = message.guild.member(this.client.users.cache.get(indexes[members.indexOf(username)]));
+    let user = message.mentions.users.first();
 
     if (user) {
+      member = message.mentions.members.first();
       const embed = new Discord.MessageEmbed()
-        .setAuthor(user.tag, user.avatarURL())
-        .setImage(user.avatarURL({ 'size': 2048 }));
+        .setAuthor(`Info for ${user.tag}`, user.avatarURL({ 'size': 2048 }))
+        .setDescription(`${status(user.presence.status, this.client)} ${game(user.presence.activities[0] ? user.presence.activities[0] : null)}`)
+        .addField('❯❯ Nickname',  member.nickname ? member.nickname : 'None', true)
+        .addField('❯❯ Joined Server', member.joinedAt.toUTCString(), true)
+        .addField('❯❯ Joined Discord', user.createdAt.toUTCString(), false)
+        .addField(`❯❯ Roles (${member.roles.cache.size})`, member.roles.cache.map(role => role).join(' - '), false)
+        .setFooter(`User ID: ${user.id}`)
+        .setThumbnail(user.avatarURL({ 'size': 2048 }))
+        .setColor('#7289DA');
       return message.channel.send(embed);
     } else if (!user) {
       const search = member.user;
       const value = args[1];
       if (!value) {
+        member = message.guild.member(message.author);
+        user = message.author;
         const embed = new Discord.MessageEmbed()
-          .setAuthor(message.author.tag, message.author.avatarURL())
-          .setImage(message.author.avatarURL({ 'size': 2048 }));
+          .setAuthor(`Info for ${user.tag}`, user.avatarURL({ 'size': 2048 }))
+          .setDescription(`${status(user.presence.status, this.client)} ${game(user.presence.activities[0] ? user.presence.activities[0] : null)}`)
+          .addField('❯❯ Nickname',  member.nickname ? member.nickname : 'None', true)
+          .addField('❯❯ Joined Server', member.joinedAt.toUTCString(), true)
+          .addField('❯❯ Joined Discord', user.createdAt.toUTCString(), false)
+          .addField(`❯❯ Roles (${member.roles.cache.size})`, member.roles.cache.map(role => role).join(' - '), false)
+          .setThumbnail(user.avatarURL({ 'size': 2048 }))
+          .setFooter(`User ID: ${user.id}`)
+          .setColor('#7289DA');
         return message.channel.send(embed);
       } else if (search.username.toLowerCase().includes(value.toLowerCase())) {
         const embed = new Discord.MessageEmbed()
-          .setAuthor(search.tag, search.avatarURL())
-          .setImage(search.avatarURL({ 'size': 2048 }));
+          .setAuthor(`Info for ${search.tag}`, search.avatarURL({ 'size': 2048 }))
+          .setDescription(`${status(search.presence.status, this.client)} ${game(search.presence.activities[0] ? search.presence.activities[0] : null)}`)
+          .addField('❯❯ Nickname',  member.nickname ? member.nickname : 'None', true)
+          .addField('❯❯ Joined Server', member.joinedAt.toUTCString(), true)
+          .addField('❯❯ Joined Discord', search.createdAt.toUTCString(), false)
+          .addField(`❯❯ Roles (${member.roles.cache.size})`, member.roles.cache.map(role => role).join(' - '), false)
+          .setThumbnail(search.avatarURL({ 'size': 2048 }))
+          .setFooter(`User ID: ${search.id}`)
+          .setColor('#7289DA');
         return message.channel.send(embed);
       } else {
-        return message.channel.send('', { embed: { 'author': { 'name': message.author.tag, 'icon_url': message.author.avatarURL() }, 'description': `${this.client.emojis.get('506673020014952448')} **Too many users found, please try being more specific.**`, 'color': 0xFF0000 } });
+        return message.channel.send('', { embed: { 'author': { 'name': message.author.tag, 'icon_url': message.author.avatarURL() }, 'description': `${this.client.emojis.cache.get('506673020014952448')} **This user could not be found, please try being more specific.**`, 'color': 0xFF0000 } });
       }
     }
   }
