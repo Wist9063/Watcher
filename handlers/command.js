@@ -4,7 +4,7 @@ class Command {
     this.path = filePath;
     this.name = name || null;
     this.disabled = disabled || null;
-    this.cooldown = cooldown || 2;
+    this.cooldown = cooldown || 3;
     this.aliases = aliases || [];
   }
 }
