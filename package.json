@@ -1,6 +1,6 @@
 {
   "name": "watcher",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "a logger bot, made with love.",
   "main": "index.js",
   "scripts": {
@@ -17,22 +17,22 @@
   },
   "homepage": "https://github.com/Wist9063/Watcher#readme",
   "dependencies": {
-    "@sentry/node": "^5.15.4",
+    "@sentry/node": "^5.20.1",
     "bufferutil": "^4.0.1",
     "bytes": "^3.1.0",
     "discord.js": "github:hydrabolt/discord.js#master",
     "erlpack": "github:discordapp/erlpack",
-    "figlet": "^1.4.0",
+    "figlet": "^1.5.0",
     "klaw": "^3.0.0",
-    "moment": "^2.25.3",
+    "moment": "^2.27.0",
     "moment-duration-format": "^2.3.2",
     "moment-shortformat": "^2.1.0",
     "moment-timezone": "^0.5.27",
-    "mongodb": "^3.5.7",
+    "mongodb": "^3.6.0",
     "nano": "^8.1.0",
     "node-superfetch": "^0.1.9",
     "snekfetch": "^4.0.4",
-    "string-similarity": "^4.0.1",
+    "string-similarity": "^4.0.2",
     "utf-8-validate": "^5.0.2",
     "zlib-sync": "^0.1.6"
   }
