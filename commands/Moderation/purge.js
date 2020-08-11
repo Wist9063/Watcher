@@ -20,10 +20,10 @@ module.exports = class extends Command {
         const args = message.content.split(' ')[1];
         if (!args) return message.channel.send(`${message.author} | Please specify an amount of messages to purge.`).then(m => m.delete({timeout:5000}));
         if (isNaN(args[1])) return message.channel.send(`${message.author} | The value you've provided is not a valid number, please try again.`).then(m => m.delete({timeout:10000}));
+        if (args[1] < 1) return message.channel.send(`${message.author} | The value you've provided exceeds Discord's bulk delete message limit (100), please try again.`).then(m => m.delete({timeout:10000}));
         if (args[1] > 100) return message.channel.send(`${message.author} | The value you've provided exceeds Discord's bulk delete message limit (100), please try again.`).then(m => m.delete({timeout:10000}));
-        message.delete();
-        message.channel.bulkDelete(args[1]).then(() => { 
-          message.channel.send(`${message.author} | A total of ${args[1]} messages has been deleted.\n*Note: I can only delete messages that are newer than 2 weeks old.*`);
+        message.channel.bulkDelete(args[1], true).then(() => { 
+          message.channel.send(`${message.author} | A total of ${args[1]} messages has been deleted.`);
           const logChannel = new WebhookClient(b.wb.wbID, b.wb.wbKey);
           const embed = new MessageEmbed()
             .setColor('#FF8686')
