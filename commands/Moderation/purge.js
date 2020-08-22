@@ -22,7 +22,7 @@ module.exports = class extends Command {
         if (Number.isInteger(args[0])) return message.channel.send(`${message.author} | The value you've provided is not a valid number, please try again.`);
         if (args < 1) return message.channel.send(`${message.author} | The value you've provided exceeds Discord's bulk delete message limit (100), please try again.`);
         if (args > 100) return message.channel.send(`${message.author} | The value you've provided exceeds Discord's bulk delete message limit (100), please try again.`);
-        message.channel.bulkDelete(args);
+        message.channel.bulkDelete(args + 1);
         message.channel.send(`${message.author} | A total of **${args}** messages has been deleted.`);
         const logChannel = new WebhookClient(b.wb.wbID, b.wb.wbKey);
         const embed = new MessageEmbed()
