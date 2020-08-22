@@ -20,15 +20,15 @@ module.exports = class extends Command {
         const args = message.content.split(' ')[1];
         if (!args) return message.channel.send(`${message.author} | Please specify an amount of messages to purge.`);
         if (Number.isInteger(args[0])) return message.channel.send(`${message.author} | The value you've provided is not a valid number, please try again.`);
-        if (args[0] < 1) return message.channel.send(`${message.author} | The value you've provided exceeds Discord's bulk delete message limit (100), please try again.`);
-        if (args[0] > 100) return message.channel.send(`${message.author} | The value you've provided exceeds Discord's bulk delete message limit (100), please try again.`);
-        message.channel.bulkDelete(args[0]);
-        message.channel.send(`${message.author} | A total of ${args[0]} messages has been deleted.`);
+        if (args < 1) return message.channel.send(`${message.author} | The value you've provided exceeds Discord's bulk delete message limit (100), please try again.`);
+        if (args > 100) return message.channel.send(`${message.author} | The value you've provided exceeds Discord's bulk delete message limit (100), please try again.`);
+        message.channel.bulkDelete(args);
+        message.channel.send(`${message.author} | A total of **${args}** messages has been deleted.`);
         const logChannel = new WebhookClient(b.wb.wbID, b.wb.wbKey);
         const embed = new MessageEmbed()
           .setColor('#FF8686')
           .setAuthor(`${message.author.tag} has bulk deleted messages.`, message.author.displayAvatarURL())
-          .setDescription(`**${args[0]}** messages has been deleted.\nIn channel: ${message.channel}`)
+          .setDescription(`**${args}** messages has been deleted.\nIn channel: ${message.channel}`)
           .setFooter(`Watcher Event • Bulk Delete | User ID: ${message.author.id}`)
           .setTimestamp();
         return logChannel.send(embed);

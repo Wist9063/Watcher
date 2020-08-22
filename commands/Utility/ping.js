@@ -1,4 +1,5 @@
 const Command = require('../../handlers/command.js');
+const fetch = require('node-fetch');
 
 module.exports = class extends Command {
   constructor(client, filePath) {
@@ -9,13 +10,12 @@ module.exports = class extends Command {
     });
   }
 
-  execute(message) {
-    const startTime = Date.now();
-    message.channel.send('Pinging...').then(msg => {
-      const endTime = Date.now();
-      msg.edit(`Message: (${endTime - startTime}ms) | Heartbeat: (${Math.floor(this.client.ws.ping)}ms)`);
-    }).catch(error => {
-      return message.channel.send(`There was an error executing this action:\n\`\`\`js\n${error}\`\`\``);
-    });
+  async execute(message) {
+    const m = await message.channel.send('Testing ping...');
+    fetch('https://srhpyqt94yxb.statuspage.io/api/v2/status.json')
+      .then(res => res.json())
+      .then(json => {
+        m.edit(`:satellite_orbital: Heartbeat: **${Math.floor(this.client.ws.ping)}ms** - Message Took **${m.createdTimestamp - message.createdTimestamp}ms** to edit\n:satellite: Discord Status: __${json.status.description}__`);
+      });
   }
 };
