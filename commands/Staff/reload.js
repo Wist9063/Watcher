@@ -16,7 +16,7 @@ module.exports = class extends Command {
     }
     if (a === 'cmds' || a === 'c') {
       await this.client.reloadCommands();
-      return message.channel.send(`${this.client.emojis.cache.get('503081230309392384')}**Reloading...**`)
+      return message.channel.send(`${this.client.emojis.cache.get('503081230309392384')}**Reloading command modules...**`)
         .then(msg => { 
           setTimeout(() => { 
             msg.edit(`${this.client.emojis.cache.get('506673019838660608')}**Command modules successfully reloaded.**`); 

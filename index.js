@@ -27,7 +27,9 @@ const eventsPath = path.join(__dirname, 'events');
 new class extends Client {
   constructor() {
     super({      
-      disableMentions: 'everyone'
+      disableMentions: 'everyone',
+      messageCacheLifetime: 220,
+      messageSweepInterval: 300
     });
 
     this.config = require('./config.js');

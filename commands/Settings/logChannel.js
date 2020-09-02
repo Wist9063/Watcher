@@ -25,7 +25,7 @@ module.exports = class extends Command {
         message.channel.send(`${message.author} | Logs will now be sent to ${channel}, testing my permissions.`).catch(error => {return message.channel.send(`There was an error executing this action:\n\`\`\`${error}\`\`\``);});
         setChannel.createWebhook('Watcher', {
           avatar: 'https://i.imgur.com/kGgTC0b.png', 
-          reason: `This is used to send watcher logs, do not delete or your logs will not send! Requested by ${message.author.tag}.`}).then(wb => {
+          reason: `This is used to send watcher logs, do not delete or your logs will not send! Request made by ${message.author.tag}.`}).then(wb => {
 
           this.client.mongod.db('watcher').collection('guildSettings').updateOne({gID: message.guild.id}, {$set: {wb: {
             wbID: wb.id,
@@ -53,7 +53,7 @@ module.exports = class extends Command {
         if (!setChannel) return message.reply('I couldn\'t locate that channel, please try again.');
 
         const hook = new WebhookClient(b.wb.wbID, b.wb.wbKey);
-        hook.delete(`Replacing hook for other log channel. Requested by ${message.author.tag}`);
+        hook.delete(`Replacing hook for other log channel. Request made by ${message.author.tag}`);
 
         this.client.mongod.db('watcher').collection('guildSettings').updateOne({gID: message.guild.id}, {$set: {wb: {
           wbID: null,
@@ -65,7 +65,7 @@ module.exports = class extends Command {
 
         setChannel.createWebhook('Watcher', {
           avatar: 'https://i.imgur.com/kGgTC0b.png', 
-          reason: `This is used to send watcher logs, do not delete or your logs will not send! Requested by ${message.author.tag}.`}).then(wb => {
+          reason: `This is used to send watcher logs, do not delete or your logs will not send! Request made by ${message.author.tag}.`}).then(wb => {
 
           this.client.mongod.db('watcher').collection('guildSettings').updateOne({gID: message.guild.id}, {$set: {wb: {
             wbID: wb.id,
