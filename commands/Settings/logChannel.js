@@ -57,7 +57,8 @@ module.exports = class extends Command {
 
         this.client.mongod.db('watcher').collection('guildSettings').updateOne({gID: message.guild.id}, {$set: {wb: {
           wbID: null,
-          wbKey: null
+          wbKey: null,
+          channelID: null
         }}
         });
 

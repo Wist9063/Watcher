@@ -20,12 +20,9 @@ module.exports = class extends BotEvent {
     });
   }
   
-
   async execute(message) {
     if (!message.guild || message.author.bot) return;
-    message.mentions.users = message.mentions.users.filter(u => u.id != this.user.id);
     if (!message.content.startsWith(this.config.prefix)) return;
-    message.perm = await new (require('../../handlers/permission.js'))().fetch(message.author, message)[0];
     const content = message.content.slice(this.config.prefix.length);
     const command = await this.fetchCommand(content.split(' ')[0]);
     if (!command) return;
@@ -38,7 +35,6 @@ module.exports = class extends BotEvent {
 
     if (timestamps.has(message.author.id)) {
       const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
-
       if (now < expirationTime) {
         return console.log(`[RATELIMITED!] [${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] Action has been ratelimited. - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
       }
@@ -47,11 +43,15 @@ module.exports = class extends BotEvent {
     timestamps.set(message.author.id, now);
     setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
+    message.mentions.users = message.mentions.users.filter(u => u.id != this.user.id);
+    message.perm = await new (require('../../handlers/permission.js'))().fetch(message.author, message)[0];
+
     try { 
       if (!this.config.maintenance) {
         message.channel.startTyping();
         console.log(`[${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
-        return command.execute(message) & message.channel.stopTyping();
+        command.execute(message); 
+        message.channel.stopTyping();
       } else if (this.config.maintenance) {
         message.channel.startTyping();
         console.log(`[${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
@@ -86,7 +86,6 @@ module.exports = class extends BotEvent {
         .setDescription(`Watcher has encountered an error with this command & has logged this command. ID: **${IDstring}**\nError: \`${e}\``)
         .setTimestamp()
         .setColor('#FF0000');
-      
       return await message.channel.send(embed);
     } 
   }
