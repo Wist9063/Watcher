@@ -22,7 +22,9 @@ module.exports = class extends BotEvent {
   
   async execute(message) {
     if (!message.guild || message.author.bot) return;
+    message.mentions.users = message.mentions.users.filter(u => u.id != this.user.id);
     if (!message.content.startsWith(this.config.prefix)) return;
+    message.perm = await new (require('../../handlers/permission.js'))().fetch(message.author, message)[0];
     const content = message.content.slice(this.config.prefix.length);
     const command = await this.fetchCommand(content.split(' ')[0]);
     if (!command) return;
@@ -43,15 +45,11 @@ module.exports = class extends BotEvent {
     timestamps.set(message.author.id, now);
     setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
-    message.mentions.users = message.mentions.users.filter(u => u.id != this.user.id);
-    message.perm = await new (require('../../handlers/permission.js'))().fetch(message.author, message)[0];
-
     try { 
       if (!this.config.maintenance) {
         message.channel.startTyping();
         console.log(`[${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
-        command.execute(message); 
-        message.channel.stopTyping();
+        return command.execute(message) & message.channel.stopTyping();
       } else if (this.config.maintenance) {
         message.channel.startTyping();
         console.log(`[${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
