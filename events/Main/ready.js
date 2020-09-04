@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-escape */
 const BotEvent = require('../../handlers/event.js');
 const figlet = require('figlet');
 const moment = require('moment-timezone');
@@ -9,7 +8,7 @@ module.exports = class extends BotEvent {
       name: 'ready'
     });
   }
-  
+
   
   execute() {
     console.log('<---------------->');
@@ -38,6 +37,16 @@ module.exports = class extends BotEvent {
       }, 300000);
     };
 
+    const datadogsync = function(c) {
+      c.datadog.gauge('watcher_memory_usage', (process.memoryUsage().rss / 1024 / 1024).toFixed(2));
+      c.datadog.gauge('watcher_heap_usage', (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2));
+      c.datadog.gauge('watcher_heartbeat_ping', c.ws.ping);
+      c.datadog.gauge('watcher_guilds', c.guilds.cache.size);
+      setTimeout(() => {
+        datadogsync(c);
+      }, 1000);
+    };
+
     console.log('\nWelcome to Watcher. Info will be printed below. *made with love and keystrokes*');
     console.log('<---------------->');
     if (this.config.maintenance) {
@@ -45,6 +54,9 @@ module.exports = class extends BotEvent {
     }
     console.log(`Guild Size: ${this.guilds.cache.size}\nUser Size: ${this.users.cache.size}\nChannels: ${this.channels.cache.size}\nUsing account: ${this.user.tag}\nLaunched at ${moment(this.readyAt).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}`);
     
+    datadogsync(this);
+    console.log('Datadog is now syncing.');
     gameCycle(this);
+    console.log('<---------------->');
   }
 };
