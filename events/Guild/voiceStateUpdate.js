@@ -17,7 +17,7 @@ module.exports = class extends BotEvent {
           if (b.wb.wbID === null || b.wb.wbKey === null) return;
           const logChannel = new WebhookClient(b.wb.wbID, b.wb.wbKey);
           if (!logChannel) return;
-          this.datadog.increment('watcher_event_send');
+          this.eventsend++;
           const voice1 = (oldState.channel ? oldState.channel.name : 'None');
           const voice2 = (newState.channel ? newState.channel.name : 'Left');
 

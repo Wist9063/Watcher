@@ -19,7 +19,7 @@ module.exports = class extends BotEvent {
           if (b.wb.wbID === null || b.wb.wbKey === null) return;
           const logChannel = new WebhookClient(b.wb.wbID, b.wb.wbKey);
           if (!logChannel) return;
-          this.datadog.increment('watcher_event_send');
+          this.eventsend++;
 
           if (oldMember.nickname != newMember.nickname) {
             const embed = new MessageEmbed()

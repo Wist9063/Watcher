@@ -42,6 +42,7 @@ module.exports = class extends BotEvent {
       c.datadog.gauge('watcher_heap_usage', (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2));
       c.datadog.gauge('watcher_heartbeat_ping', c.ws.ping);
       c.datadog.gauge('watcher_guilds', c.guilds.cache.size);
+      c.datadog.gauge('watcher_event_sender', c.eventsend);
       setTimeout(() => {
         datadogsync(c);
       }, 1000);

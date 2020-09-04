@@ -36,6 +36,7 @@ new class extends Client {
     this.config = require('./config.js');
     sentry.init({ dsn: `https://${this.config.sentryDSN}@sentry.io/${this.config.sentryID}`, environment: this.config.sentryLevel });
     this.datadog = new statsd();
+    this.eventsend = 0;
     this.commands = new Collection();
     this.mongod = new MongoClient(`mongodb+srv://${this.config.mongoUSR}:${this.config.mongoPW}@watcherdev-too26.azure.mongodb.net/test?retryWrites=true&w=majority`, { useUnifiedTopology: true, useNewUrlParser: true, });
     this.init();
