@@ -45,7 +45,7 @@ module.exports = class extends BotEvent {
       c.datadog.gauge('watcher_event_sender', c.eventsend);
       setTimeout(() => {
         datadogsync(c);
-      }, 1000);
+      }, 10000);
     };
 
     console.log('\nWelcome to Watcher. Info will be printed below. *made with love and keystrokes*');
