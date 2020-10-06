@@ -11,12 +11,12 @@ module.exports = class extends Command {
 
   async execute(message) {
     if (message.perm < 2) return message.channel.send(`${message.author} | Insufficient permissions required to execute this command.`);
-    await db.get(message.guild.id, this.client.mongod, 'guildSettings').then((b) => {
-      if (b.wb.wbID === null || b.wb.wbKey === null) {
-        message.channel.send(`${message.author} | You didn't setup a log channel yet! Run w!setup to setup one.`);
-      } else {
-
-        this.client.mongod.db('watcher').collection('events').updateOne({gID: message.guild.id}, {$set: {events: {
+    const b = await db.get(message.guild.id, this.client.mongod, 'guildSettings');
+    if (b.wb.wbID === null || b.wb.wbKey === null) {
+      message.channel.send(`${message.author} | You didn't setup a log channel yet! Run w!setup to setup one.`);
+    } else {
+      await db.update(message.guild.id, this.client.mongod, 'events', {
+        events: {
           channelCreate: false,
           channelDelete: false,
           guildBanAdd: false,
@@ -31,12 +31,11 @@ module.exports = class extends Command {
           messageReactionAdd: false,
           messageReactionRemove: false,
           roleCreate: false,
-          roleDelete: false
-        }}
-        });
+          roleDelete: false 
+        }
+      });
 
-        return message.channel.send(`${message.author} | Disabled **all** log events, database updated.`);
-      }
-    });
+      return message.channel.send(`${message.author} | Disabled **all** log events, database updated.`);
+    }
   }
 };

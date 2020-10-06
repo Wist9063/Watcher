@@ -11,14 +11,12 @@ module.exports = class extends Command {
 
   async execute(message) {
     if (message.perm < 2) return message.channel.send(`${message.author} | Insufficient permissions required to execute this command.`);
-
-    await db.get(message.guild.id, this.client.mongod, 'guildSettings').then((b) => {
-      if (b.wb.wbID === null || b.wb.wbKey === null) {
-        message.channel.send(`${message.author} | You didn't setup a log channel yet! Run w!setup to setup one.`);
-      } else {
-        if (!message.channel.permissionsFor(this.client.user.id).has('SEND_MESSAGES')) return message.author.send(`Please ensure that I have permissions to speak in ${message.channel}.`);
-
-        this.client.mongod.db('watcher').collection('events').updateOne({gID: message.guild.id}, {$set: {events: {
+    const b = await db.get(message.guild.id, this.client.mongod, 'guildSettings');
+    if (b.wb.wbID === null || b.wb.wbKey === null) {
+      message.channel.send(`${message.author} | You didn't setup a log channel yet! Run w!setup to setup one.`);
+    } else {
+      await db.update(message.guild.id, this.client.mongod, 'events', {
+        events: {
           channelCreate: true,
           channelDelete: true,
           guildBanAdd: true,
@@ -34,11 +32,10 @@ module.exports = class extends Command {
           messageReactionRemove: true,
           roleCreate: true,
           roleDelete: true
-        }}
-        });
+        }
+      });
 
-        return message.channel.send(`${message.author} | Enabled **all** log events, database updated.`);
-      }
-    });
+      return message.channel.send(`${message.author} | Enabled **all** log events, database updated.`);
+    }
   }
 };

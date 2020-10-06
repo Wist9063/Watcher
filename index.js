@@ -29,16 +29,23 @@ new class extends Client {
   constructor() {
     super({      
       disableMentions: 'everyone',
-      messageCacheLifetime: 220,
-      messageSweepInterval: 300
+      messageCacheLifetime: 200,
+      messageSweepInterval: 300,
+      messageCacheMaxSize: 150,
+      presence: {
+        status: 'idle',
+        activity: {
+          name: 'launching Watcher...',
+        }
+      }
     });
 
     this.config = require('./config.js');
-    sentry.init({ dsn: `https://${this.config.sentryDSN}@sentry.io/${this.config.sentryID}`, environment: this.config.sentryLevel });
+    sentry.init({ dsn: `https://${process.env.sDSN}@sentry.io/${process.env.sID}`, environment: process.env.NODE_ENV });
     this.datadog = new statsd();
     this.eventsend = 0;
     this.commands = new Collection();
-    this.mongod = new MongoClient(`mongodb+srv://${this.config.mongoUSR}:${this.config.mongoPW}@watcherdev-too26.azure.mongodb.net/test?retryWrites=true&w=majority`, { useUnifiedTopology: true, useNewUrlParser: true, });
+    this.mongod = new MongoClient(`mongodb+srv://${process.env.mdbKEY}@watcherdev-too26.azure.mongodb.net/test?retryWrites=true&w=majority`, { useUnifiedTopology: true, useNewUrlParser: true, poolSize: 15, tls: true});
     this.init();
     this.initEvents();
     this.connect();
@@ -46,7 +53,7 @@ new class extends Client {
 
   async connect() {
     console.log('<---------------->');
-    console.log('Initializing connection to DiscordAPI & MongoDB Atlas Platform.');
+    console.log('Initializing connection to Discord & MongoDB Atlas Platform.');
 
     await this.mongod.connect().then(() => console.log('MongoDB Atlas connection successful.')).catch(e => {
       sentry.captureException(e); 
@@ -54,7 +61,7 @@ new class extends Client {
       console.error(e);
     });
 
-    await this.login(this.config.token).then(() => console.log('DiscordAPI connection established.')).catch(e => {
+    await this.login().then(() => console.log('Discord connection established.')).catch(e => {
       sentry.captureException(e); 
       console.error('An error has occurred during the connecting phase for the DiscordAPI connection, check sentry!');
       console.error(e);
@@ -136,4 +143,4 @@ new class extends Client {
 process.on('uncaughtException', err => console.error(err.stack, true) && sentry.captureException(err.stack));
 process.on('unhandledRejection', err => console.error(err.stack, true) && sentry.captureException(err.stack));
 
-// end of file, made by jason, now maintained by wist9063. *made with love and keystrokes*
+// end of file, move fast break things 

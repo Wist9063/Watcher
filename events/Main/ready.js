@@ -36,6 +36,7 @@ module.exports = class extends BotEvent {
         gameCycle(a);
       }, 300000);
     };
+    console.log('Set game status.');
 
     const datadogsync = function(c) {
       c.datadog.gauge('watcher_memory_usage', (process.memoryUsage().rss / 1024 / 1024).toFixed(2));

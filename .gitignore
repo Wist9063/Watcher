@@ -63,4 +63,5 @@ typings/
 # Node.js
 config.json*
 config.js*
+ecosystem.config.js*
 package-lock.json
