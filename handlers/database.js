@@ -28,6 +28,15 @@ class database {
     });
   }
 
+  delete(db, collection, data) {
+    return new Promise(function(resolve, reject) {
+      db.db(process.env.WATCHER_DB).collection(collection).deleteOne(data, function(err, r) {
+        if (err) return reject(err);
+        return resolve(r.modifiedCount); // returns modified count 
+      });
+    });
+  }
+
 }
 
 module.exports = database;

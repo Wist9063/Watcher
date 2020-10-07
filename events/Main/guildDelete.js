@@ -1,5 +1,6 @@
 const BotEvent = require('../../handlers/event.js');
 const { WebhookClient, MessageEmbed } = require('discord.js');
+const db = new (require('../../handlers/database.js'))();
 const moment = require('moment');
 const momenttime = require('moment-timezone');
 
@@ -12,8 +13,8 @@ module.exports = class extends BotEvent {
 
   async execute(guild) {
 
-    await this.mongod.db('watcher').collection('guildSettings').deleteOne({gID: guild.id});
-    await this.mongod.db('watcher').collection('events').deleteOne({gID: guild.id});
+    await db.delete(this.mongod, 'guildSettings', {gID: guild.id});
+    await db.delete(this.mongod, 'events', {gID: guild.id});
 
     const hook = new WebhookClient('549476222686461972', this.config.webhookToken);
 

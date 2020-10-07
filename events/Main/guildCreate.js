@@ -9,19 +9,14 @@ module.exports = class extends BotEvent {
     super(client, filePath, {
       name: 'guildCreate'
     });
-    //this.updateSites();
   }
   async execute(guild) {
-
-    // TODO: add custom cmd prefixes
-
-    // dont remove v lol
     const systemChannel = guild.channels.cache.get(guild.systemChannelID);
     if (systemChannel && guild.me.permissionsIn(systemChannel).has('SEND_MESSAGES')) {
       systemChannel.send('Hello there, I was invited by a guild admin! 👀 To start using Watcher, run the command `w!setup` & `w!help` to get started! If you are facing any issues setting up the bot, please join our support server: **https://discord.gg/83SAWkh**.').catch(() => { return; });
     }
 
-    await db.insert(this.client.mongod, 'events', {
+    await db.insert(this.mongod, 'events', {
       gID: guild.id,
       events: {
         channelCreate: false,
@@ -41,7 +36,7 @@ module.exports = class extends BotEvent {
         roleDelete: false 
       }
     });
-    await db.insert(this.client.mongod, 'events', {gID: guild.id, wb: { wbID: null, wbKey: null }, ignoreChannel: []});
+    await db.insert(this.mongod, 'events', {gID: guild.id, wb: { wbID: null, wbKey: null }, ignoreChannel: []});
 
     const hook = new WebhookClient('549476222686461972', this.config.webhookToken);
 
