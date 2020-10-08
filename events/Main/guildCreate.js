@@ -1,5 +1,6 @@
 const BotEvent = require('../../handlers/event.js');
 const { WebhookClient, MessageEmbed } = require('discord.js');
+const db = new (require('../../handlers/database.js'))();
 const moment = require('moment');
 const momenttime = require('moment-timezone');
 
@@ -8,21 +9,15 @@ module.exports = class extends BotEvent {
     super(client, filePath, {
       name: 'guildCreate'
     });
-    //this.updateSites();
   }
   async execute(guild) {
-
-    // TODO: add custom cmd prefixes
-
-    // dont remove v lol
     const systemChannel = guild.channels.cache.get(guild.systemChannelID);
-    if (!systemChannel);
     if (systemChannel && guild.me.permissionsIn(systemChannel).has('SEND_MESSAGES')) {
       systemChannel.send('Hello there, I was invited by a guild admin! 👀 To start using Watcher, run the command `w!setup` & `w!help` to get started! If you are facing any issues setting up the bot, please join our support server: **https://discord.gg/83SAWkh**.').catch(() => { return; });
     }
 
-    await this.mongod.db('watcher').collection('events').insertMany([{ 
-      gID: guild.id, 
+    await db.insert(this.mongod, 'events', {
+      gID: guild.id,
       events: {
         channelCreate: false,
         channelDelete: false,
@@ -37,11 +32,11 @@ module.exports = class extends BotEvent {
         voiceStateUpdate: false,
         messageReactionAdd: false,
         messageReactionRemove: false,
-        roleCreate: false
+        roleCreate: false,
+        roleDelete: false 
       }
-    }]);
-
-    await this.mongod.db('watcher').collection('guildSettings').insertMany([{gID: guild.id, wb: { wbID: null, wbKey: null }, ignoreChannel: []}]);
+    });
+    await db.insert(this.mongod, 'events', {gID: guild.id, wb: { wbID: null, wbKey: null }, ignoreChannel: []});
 
     const hook = new WebhookClient('549476222686461972', this.config.webhookToken);
 

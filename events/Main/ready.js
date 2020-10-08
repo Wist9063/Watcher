@@ -30,12 +30,16 @@ module.exports = class extends BotEvent {
         ['LISTENING', 'events n stuff. | w!help'],
         ['LISTENING', 'w!help']
       ];
-      const game = gameStatus[Math.floor(Math.random()*gameStatus.length)];
+      let game; //= gameStatus[Math.floor(Math.random()*gameStatus.length)];
+      if (process.env.NODE_ENV == 'production') {
+        game = gameStatus[Math.floor(Math.random()*gameStatus.length)];
+      } else {game = ['PLAYING', 'development mode.'];}
       a.user.setActivity(game[1], {'url': 'https://www.twitch.tv/monstercat', 'type': game[0] });
       setTimeout(() => {
         gameCycle(a);
       }, 300000);
     };
+    console.log('Set game status.');
 
     const datadogsync = function(c) {
       c.datadog.gauge('watcher_memory_usage', (process.memoryUsage().rss / 1024 / 1024).toFixed(2));
@@ -55,8 +59,9 @@ module.exports = class extends BotEvent {
     }
     console.log(`Guild Size: ${this.guilds.cache.size}\nUser Size: ${this.users.cache.size}\nChannels: ${this.channels.cache.size}\nUsing account: ${this.user.tag}\nLaunched at ${moment(this.readyAt).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}`);
     
-    datadogsync(this);
-    console.log('Datadog is now syncing.');
+    if (process.env.NODE_ENV == 'production') {
+      datadogsync(this) && console.log('Statistics ARE syncing to datadog servers.');
+    } else console.log('Statistics are NOT syncing to datadog servers.');
     gameCycle(this);
     console.log('<---------------->');
   }

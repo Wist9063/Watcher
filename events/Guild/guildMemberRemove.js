@@ -12,36 +12,34 @@ module.exports = class extends BotEvent {
 
   async execute(member) {
     const guild = member.guild;
-    await db.get(guild.id, this.mongod, 'events').then((a) => {
-      if (typeof a.events.guildMemberRemove === undefined) return;
-      if (a.events.guildMemberRemove === true) {
-        db.get(guild.id, this.mongod, 'guildSettings').then((b) => {
-          if (b.wb.wbID === null || b.wb.wbKey === null) return;
-          const logChannel = new WebhookClient(b.wb.wbID, b.wb.wbKey);
-          if (!logChannel) return;
-          this.eventsend++;
+    const b = await db.get(guild.id, this.mongod, 'guildSettings');
+    const a = await db.get(guild.id, this.mongod, 'events');
+    if (typeof a.events.guildMemberRemove === undefined) return;
+    if (a.events.guildMemberRemove === true) {
+      if (b.wb.wbID === null || b.wb.wbKey === null) return;
+      const logChannel = new WebhookClient(b.wb.wbID, b.wb.wbKey);
+      if (!logChannel) return;
+      this.eventsend++;
 
-          if (member.deleted) {
-            const embed = new MessageEmbed()
-              .setColor('#DD5449')
-              .setAuthor(`${member.user.tag} has left the server.`, member.user.displayAvatarURL(), 'https://discord.gg/83SAWkh')
-              .setDescription(` **${guild.name}** now has __${guild.memberCount}__ members.\nThis user joined discord on \`${moment(member.joinedAt).format('MMMM Do, YYYY, h:mm:ss A')} (Universal Coordinated Time)\``)
-              .setFooter(`Watcher Event • User Left | ID: ${member.user.id}`)
-              .setTimestamp();
-            return logChannel.send(embed).catch(e => console.error(e));
-          } else {
-            const embed = new MessageEmbed()
-              .setColor('#DD5449')
-              .setAuthor(`${member.user.tag} has left the server.`, member.user.displayAvatarURL(), 'https://discord.gg/83SAWkh')
-              .setDescription(` **${guild.name}** now has __${guild.memberCount}__ members.\nThis user joined discord on \`${moment(member.joinedAt).format('MMMM Do, YYYY, h:mm:ss A')} (Universal Coordinated Time)\``)
-              .setFooter(`Watcher Event • User Left | ID: ${member.user.id}`)
-              .setTimestamp();
-            return logChannel.send(embed).catch(e => console.error(e));
-          }
-        });
+      if (member.deleted) {
+        const embed = new MessageEmbed()
+          .setColor('#DD5449')
+          .setAuthor(`${member.user.tag} has left the server.`, member.user.displayAvatarURL(), 'https://discord.gg/83SAWkh')
+          .setDescription(` **${guild.name}** now has __${guild.memberCount}__ members.\nThis user joined discord on \`${moment(member.joinedAt).format('MMMM Do, YYYY, h:mm:ss A')} (Universal Coordinated Time)\``)
+          .setFooter(`Watcher Event • User Left | ID: ${member.user.id}`)
+          .setTimestamp();
+        return logChannel.send(embed).catch(e => console.error(e));
       } else {
-        return;
+        const embed = new MessageEmbed()
+          .setColor('#DD5449')
+          .setAuthor(`${member.user.tag} has left the server.`, member.user.displayAvatarURL(), 'https://discord.gg/83SAWkh')
+          .setDescription(` **${guild.name}** now has __${guild.memberCount}__ members.\nThis user joined discord on \`${moment(member.joinedAt).format('MMMM Do, YYYY, h:mm:ss A')} (Universal Coordinated Time)\``)
+          .setFooter(`Watcher Event • User Left | ID: ${member.user.id}`)
+          .setTimestamp();
+        return logChannel.send(embed).catch(e => console.error(e));
       }
-    });
+    } else {
+      return;
+    }
   }
 };
