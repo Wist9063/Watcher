@@ -43,8 +43,8 @@ module.exports = class extends BotEvent {
         if (newState.channel.parent && oldState.channel.parent === newState.channel.parent) {newPar = 'in the same category';} else if (newState.channel.parent) {newPar = `in the category **${newState.channel.parent.name}**`;}
         const embed = new MessageEmbed()
           .setColor('#5bc0de')
-          .setDescription(`${oldState.member.user.tag} has moved from **${voice1}** ${oldState.channel.parent ? 'in the category' : ''} ${oldState.channel.parent ? '**' + oldState.channel.parent.name + '**' : 'to'} ${oldState.channel.parent ? 'to' : ''} **${newState.channel.name}** ${newPar}`)
-          .setAuthor(`${newState.member.user.tag} ${newState.member.nickname ? '*(__' + newState.member.nickname + '__)* ' : ''}has moved to another voice channel.`, newState.member.user.displayAvatarURL(), 'https://discord.gg/83SAWkh')
+          .setDescription(`${oldState.member.user.tag} ${newState.member.nickname ? '*(__' + newState.member.nickname + '__)* ' : ''}has moved from **${voice1}** ${oldState.channel.parent ? 'in the category' : ''} ${oldState.channel.parent ? '**' + oldState.channel.parent.name + '**' : 'to'} ${oldState.channel.parent ? 'to' : ''} **${newState.channel.name}** ${newPar}`)
+          .setAuthor(`${newState.member.user.tag} has moved to another voice channel.`, newState.member.user.displayAvatarURL(), 'https://discord.gg/83SAWkh')
           .setFooter(`Watcher Event • Voice State Update | User ID: ${newState.member.user.id}`)
           .setTimestamp();
         return logChannel.send(embed);
