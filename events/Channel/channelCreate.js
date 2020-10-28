@@ -24,7 +24,6 @@ module.exports = class extends BotEvent {
         const embed = new MessageEmbed()
           .setColor('#5cb85c')
           .setTitle(`Text Channel __**${channel.name}**__ has been created.`)
-          .setURL('https://discord.gg/83SAWkh')
           .setDescription(`A new Text Channel has appeared. **${channel.name}** in ${channel.parent ? 'the catagory' : '**the default catagory.**'} ${channel.parent ? '**' + channel.parent.name + '**.' : ''}`)
           .setFooter(`Watcher Event • Text Channel Create | Channel ID: ${channel.id}`)
           .setTimestamp();
@@ -33,7 +32,6 @@ module.exports = class extends BotEvent {
         const embed = new MessageEmbed()
           .setColor('#5cb85c')
           .setTitle(`Voice Channel __**${channel.name}**__ has been created.`)
-          .setURL('https://discord.gg/83SAWkh')
           .setDescription(`A new Voice Channel has appeared. **${channel.name}** in ${channel.parent ? 'the catagory' : '**the default catagory.**'} ${channel.parent ? '**' + channel.parent.name + '**.' : ''}`)
           .setFooter(`Watcher Event • Voice Channel Create | Channel ID: ${channel.id}`)
           .setTimestamp();
@@ -42,7 +40,6 @@ module.exports = class extends BotEvent {
         const embed = new MessageEmbed()
           .setColor('#5cb85c')
           .setTitle('Category __**${channel.name}**__ has been created.')
-          .setURL('https://discord.gg/83SAWkh')
           .setDescription(`**${channel.name}** has been created.`)
           .setFooter(`ID: ${channel.id}`)
           .setTimestamp();
@@ -51,7 +48,6 @@ module.exports = class extends BotEvent {
         const embed = new MessageEmbed()
           .setColor('#5cb85c')
           .setTitle('Watcher Event - Unknown Channel Created')
-          .setURL('https://discord.gg/83SAWkh')
           .setDescription(`An unknown channel type has been created: **${channel.name}**.`)
           .setFooter(`ID: ${channel.id}`)
           .setTimestamp();

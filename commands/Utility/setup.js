@@ -52,7 +52,7 @@ module.exports = class extends Command {
                     const embed = new Discord.MessageEmbed()
                       .setColor('#7289DA')
                       .setTitle('Watcher is sending logs in this channel.')
-                      .setURL('https://discord.gg/83SAWkh')
+                      
                       .setDescription(`Watcher was told to send logs in this channel by ${message.author.tag}.`);
                     wb.send(embed).catch(error => {
                       return message.channel.send(`There was an error executing this action:\n\`\`\`${error}\`\`\``);
@@ -88,7 +88,7 @@ module.exports = class extends Command {
                     const embed = new Discord.MessageEmbed()
                       .setColor('#7289DA')
                       .setTitle('Watcher is sending logs in this channel.')
-                      .setURL('https://discord.gg/83SAWkh')
+                      
                       .setDescription(`Watcher was told to send logs in this channel by ${message.author.tag}.`);
           
                     wb.send(embed)

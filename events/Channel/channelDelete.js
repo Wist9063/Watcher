@@ -22,7 +22,6 @@ module.exports = class extends BotEvent {
       if (channel.type === 'text') {
         const embed = new MessageEmbed()
           .setColor('#DD5449').setTitle(`Text Channel __**${channel.name}**__ has been deleted.`)
-          .setURL('https://discord.gg/83SAWkh')
           .setDescription(`**${channel.name}** in ${channel.parent ? 'the catagory' : '**default catagory.**'} ${channel.parent ? '**' + channel.parent.name + '**.' : ''} has been deleted.`)
           .setFooter(`Watcher Event • Text Channel Delete | Channel ID: ${channel.id}`)
           .setTimestamp();
@@ -30,7 +29,6 @@ module.exports = class extends BotEvent {
       } else if (channel.type === 'voice') {
         const embed = new MessageEmbed()
           .setColor('#DD5449').setTitle(`Voice Channel __**${channel.name}**__ has been deleted.`)
-          .setURL('https://discord.gg/83SAWkh')
           .setDescription(`Voice channel **${channel.name}** in ${channel.parent ? 'the catagory' : '**default catagory.**'} ${channel.parent ? '**' + channel.parent.name + '**.' : ''} has been deleted.`)
           .setFooter(`Watcher Event • Voice Channel Delete | Channel ID: ${channel.id}`)
           .setTimestamp();
@@ -38,7 +36,6 @@ module.exports = class extends BotEvent {
       } else if (channel.type === 'category') {
         const embed = new MessageEmbed()
           .setColor('#DD5449').setTitle(`Category __**${channel.name}**__ has been deleted.`)
-          .setURL('https://discord.gg/83SAWkh')
           .setDescription(`Cateogry **${channel.name}** has been deleted.`)
           .setFooter(`Watcher Event • Category Channel Delete | Channel ID: ${channel.id}`)
           .setTimestamp();
@@ -46,7 +43,6 @@ module.exports = class extends BotEvent {
       } else {
         const embed = new MessageEmbed()
           .setColor('#DD5449').setTitle('Watcher Event - Unknown Channel Deleted')
-          .setURL('https://discord.gg/83SAWkh')
           .setDescription(`An unknown channel type has been deleted: **${channel.name}**.`)
           .setFooter(`ID: ${channel.id}`)
           .setTimestamp();

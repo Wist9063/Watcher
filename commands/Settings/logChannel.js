@@ -36,7 +36,7 @@ module.exports = class extends Command {
         const embed = new MessageEmbed()
           .setColor('#7289DA')
           .setTitle('Watcher is sending logs in this channel.')
-          .setURL('https://discord.gg/83SAWkh')
+          
           .setDescription(`Watcher was told to send logs in this channel by ${message.author.tag}.`);
 
         wb.send(embed)
@@ -75,7 +75,7 @@ module.exports = class extends Command {
         const embed = new MessageEmbed()
           .setColor('#7289DA')
           .setTitle('Watcher is sending logs in this channel.')
-          .setURL('https://discord.gg/83SAWkh')
+          
           .setDescription(`Watcher was told to send logs in this channel by ${message.author.tag}.`);
 
         wb.send(embed)

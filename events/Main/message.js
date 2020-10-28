@@ -49,26 +49,7 @@ module.exports = class extends BotEvent {
       if (!this.config.maintenance) {
         message.channel.startTyping();
         console.log(`[${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
-        command.execute(message).catch((e) => {
-          message.channel.stopTyping();
-          const IDstring = randomString(5);
-          console.log(e);
-    
-          sentry.withScope(function(scope) {
-            scope.setUser({id: message.author.id, username: message.author.username});
-            scope.setTag('errorID', IDstring);
-            scope.setTag('cmd_Name', command.name);
-            scope.setLevel('error');
-            sentry.captureException(e); 
-          });
-    
-          const embed = new Discord.MessageEmbed()
-            .setTitle('⚠️ Watcher has encountered an error with this command.')
-            .setDescription(`Watcher has encountered an error with this command & has logged this command. ID: **${IDstring}**\nError: \`${e}\``)
-            .setTimestamp()
-            .setColor('#FF0000');
-          return message.channel.send(embed);
-        });
+        command.execute(message);
         message.channel.stopTyping();
         this.datadog.increment('watcher_cmd_exe');
       } else if (this.config.maintenance) {

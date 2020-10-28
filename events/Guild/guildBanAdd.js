@@ -22,7 +22,7 @@ module.exports = class extends BotEvent {
 
       const embed = new MessageEmbed()
         .setColor('#5cb85c')
-        .setAuthor(`${user.tag} has been banned.`, user.displayAvatarURL(), 'https://discord.gg/83SAWkh')
+        .setAuthor(`${user.tag} has been banned.`, user.displayAvatarURL())
         .setDescription(`**${user.tag}** has been banned in this server. This member was banned at \`${moment.utc(new Date).format('MMMM Do YYYY, h:mm:ss A')} (Universal Coordinated Time)\``)
         .setFooter(`Watcher Event • Member Banned | User ID: ${user.id}.`)
         .setTimestamp();

@@ -22,7 +22,7 @@ module.exports = class extends BotEvent {
 
       const embed = new MessageEmbed()
         .setColor('#DD5449')
-        .setAuthor(`${user.tag} has been unbanned.`, user.displayAvatarURL(), 'https://discord.gg/83SAWkh')
+        .setAuthor(`${user.tag} has been unbanned.`, user.displayAvatarURL())
         .setDescription(`**${user.tag}** has been unbanned in this server. This user was unbanned at \`${moment.utc(new Date).format('MMMM Do YYYY, h:mm:ss A')} (Universal Coordinated Time)\``)
         .setFooter(`Watcher Event • Member Unbanned | User ID: ${user.id}.`)
         .setTimestamp();
