@@ -24,7 +24,6 @@ module.exports = class extends BotEvent {
       const gameStatus = [
         ['PLAYING', 'the waiting game. | w!help'],
         ['LISTENING', `${a.guilds.cache.size} guilds! | w!help`],
-        ['WATCHING', `${a.users.cache.size} users! | w!help`],
         ['WATCHING', 'your chat. | w!help'],
         ['WATCHING', 'netflix. | w!help'],
         ['LISTENING', 'events n stuff. | w!help'],
