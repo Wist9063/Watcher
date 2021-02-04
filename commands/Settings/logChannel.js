@@ -36,8 +36,7 @@ module.exports = class extends Command {
         const embed = new MessageEmbed()
           .setColor('#7289DA')
           .setTitle('Watcher is sending logs in this channel.')
-          
-          .setDescription(`Watcher was told to send logs in this channel by ${message.author.tag}.`);
+          .setDescription(`Watcher was told to send logs in this channel by ${message.author.tag}.\nRemember to use \`w!enable-all\` to enable all events.`);
 
         wb.send(embed)
           .catch(error => {

@@ -14,7 +14,7 @@ module.exports = class extends BotEvent {
     const message = messageReaction.message;
     const b = await db.get(message.guild.id, this.mongod, 'guildSettings');
     const a = await db.get(message.guild.id, this.mongod, 'events');
-    if (!(b.ignoreChannel)) return;
+    //if (!(b.ignoreChannel)) return;
     // if (b.ignoreChannel.includes(message.channel.id) === true) return;
     if (a.events.messageReactionAdd === false) return;
 
