@@ -36,7 +36,7 @@ module.exports = class extends BotEvent {
         roleDelete: false 
       }
     });
-    await db.insert(this.mongod, 'events', {gID: guild.id, wb: { wbID: null, wbKey: null }, ignoreChannel: []});
+    await db.insert(this.mongod, 'guildSettings', {gID: guild.id, wb: { wbID: null, wbKey: null }, ignoreChannel: []});
 
     const hook = new WebhookClient('549476222686461972', this.config.webhookToken);
 
