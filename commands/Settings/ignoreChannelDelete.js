@@ -5,6 +5,7 @@ module.exports = class extends Command {
   constructor(client, filePath) {
     super(client, filePath, {
       name: 'ignore-delete',
+      disabled : true,
       aliases: ['ignoredel', 'ignoredelete', 'igdel']
     });
   }

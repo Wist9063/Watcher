@@ -6,6 +6,7 @@ module.exports = class extends Command {
   constructor(client, filePath) {
     super(client, filePath, {
       name: 'ignore-list',
+      disabled: true,
       aliases: ['ignorelist', 'ignored', 'ig']
     });
   }
