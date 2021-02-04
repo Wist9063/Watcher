@@ -40,13 +40,13 @@ module.exports = class extends BotEvent {
 
     const hook = new WebhookClient('549476222686461972', this.config.webhookToken);
 
-    console.log(`[${momenttime(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] | I've joined a guild. Added from ${guild.name} (ID:${guild.id}), which is owned by ${guild.owner.user.tag} (ID:${guild.owner.user.id}), has ${guild.memberCount} members.`);
+    console.log(`[${momenttime(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] | I've joined a guild. Added from ${guild.name} (ID:${guild.id}), which is owned by  ID:${guild.ownerID}, has ${guild.memberCount} members.`);
 
     const embed = new MessageEmbed()
       .setColor('#5cb85c')
       .setTitle('Guild Create')
       
-      .setDescription(`Watcher now at **${this.guilds.cache.size}** guilds. Added from ${guild.name} (ID:${guild.id}), which is owned by ${guild.owner.user.tag} (ID:${guild.owner.user.id}), has ${guild.memberCount} members, and ${guild.members.cache.filter(mem => mem.user.bot).size} bots.\n\n\`\`\`autohotkey\n${moment(guild.createdAt).format('MMMM Do, YYYY, h:mm:ss A')}\`\`\``)
+      .setDescription(`Watcher now at **${this.guilds.cache.size}** guilds. Added from ${guild.name} (ID:${guild.id}), which is owned by ID:${guild.ownerID}, has ${guild.memberCount} members, and ${guild.members.cache.filter(mem => mem.user.bot).size} bots.\n\n\`\`\`autohotkey\n${moment(guild.createdAt).format('MMMM Do, YYYY, h:mm:ss A')}\`\`\``)
       .setFooter(`ID: ${guild.id}`);
     return hook.send(embed);
   }
