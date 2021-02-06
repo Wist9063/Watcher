@@ -24,10 +24,12 @@ module.exports = class extends Command {
     });
   }
 
-  execute(message) {
+  async execute(message) {
     if (message.guild.available) {
-      const veri = verfiCheck(message.guild.verificationLevel);
-      const ex = explictC(message.guild.explicitContentFilter);
+      await message.guild.members.fetch();
+
+      const veri = await verfiCheck(message.guild.verificationLevel);
+      const ex = await explictC(message.guild.explicitContentFilter);
 
       const embed = new MessageEmbed()
         .setColor('#7289DA')
@@ -44,7 +46,8 @@ module.exports = class extends Command {
         .addField('❯❯ Role Size', message.guild.roles.cache.size - 1, true)
         .setThumbnail(message.guild.iconURL({'format': 'png', 'size': 2048}) ? message.guild.iconURL({'format': 'png', 'size': 2048}) : 'https://discordapp.com/assets/2c21aeda16de354ba5334551a883b481.png');
 
-      message.channel.send(embed);
+      await message.channel.send(embed);
+      await message.guild.members.cache.clear();
     } else {
       message.channel.send('__Could not fetch guild metadata.__ Discord may be experiencing an outage or API would not respond. Try again later.');
     }
