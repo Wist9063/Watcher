@@ -23,7 +23,7 @@ module.exports = class extends Command {
   constructor(client, filePath) {
     super(client, filePath, {
       name: 'userinfo',
-      aliases: ['ui']
+      aliases: ['ui', 'whois', 'lookup']
     });
   }
 
@@ -31,16 +31,19 @@ module.exports = class extends Command {
     const args = message.content.slice(this.client.config.prefix.length).trim().split(' ');
     const members = [];
     const indexes = [];
+    await message.guild.members.fetch();
 
     message.guild.members.cache.forEach(async member => {
       members.push(member.user.username);
-      indexes.push(member.id);
+      indexes.push(member);
     });
 
     const match = sm.findBestMatch(args.join(' '), members);
     const username = match.bestMatch.target;
 
-    let member = message.guild.member(this.client.users.cache.get(indexes[members.indexOf(username)]));
+    // message.guild.members.fetch(indexes[members.indexOf(username)]);
+    //console.log(indexes[members.indexOf(username)])
+    let member = await message.guild.members.fetch(indexes[members.indexOf(username)]);
     let user = message.mentions.users.first();
 
     if (user) {
@@ -49,8 +52,8 @@ module.exports = class extends Command {
         .setAuthor(`Info for ${user.tag}`, user.avatarURL({ 'size': 2048 }))
         .setDescription(`${status(user.presence.status, this.client)} ${game(user.presence.activities[0] ? user.presence.activities[0] : null)}`)
         .addField('❯❯ Nickname',  member.nickname ? member.nickname : 'None', true)
-        .addField('❯❯ Joined Server', member.joinedAt.toUTCString(), true)
-        .addField('❯❯ Joined Discord', user.createdAt.toUTCString(), false)
+        .addField('❯❯ Joined Server', member.joinedAt, true)
+        .addField('❯❯ Joined Discord', user.createdAt, false)
         .addField(`❯❯ Roles (${member.roles.cache.size})`, member.roles.cache.map(role => role).join(' - '), false)
         .setFooter(`User ID: ${user.id}`)
         .setThumbnail(user.avatarURL({ 'size': 2048 }))
@@ -60,30 +63,32 @@ module.exports = class extends Command {
       const search = member.user;
       const value = args[1];
       if (!value) {
-        member = message.guild.member(message.author);
+        member = await message.guild.members.fetch(message.author);
         user = message.author;
         const embed = new Discord.MessageEmbed()
           .setAuthor(`Info for ${user.tag}`, user.avatarURL({ 'size': 2048 }))
           .setDescription(`${status(user.presence.status, this.client)} ${game(user.presence.activities[0] ? user.presence.activities[0] : null)}`)
           .addField('❯❯ Nickname',  member.nickname ? member.nickname : 'None', true)
-          .addField('❯❯ Joined Server', member.joinedAt.toUTCString(), true)
-          .addField('❯❯ Joined Discord', user.createdAt.toUTCString(), false)
+          .addField('❯❯ Joined Server', member.joinedAt, true)
+          .addField('❯❯ Joined Discord', user.createdAt, false)
           .addField(`❯❯ Roles (${member.roles.cache.size})`, member.roles.cache.map(role => role).join(' - '), false)
           .setThumbnail(user.avatarURL({ 'size': 2048 }))
           .setFooter(`User ID: ${user.id}`)
           .setColor('#7289DA');
+        await message.guild.members.cache.clear();
         return message.channel.send(embed);
       } else if (search.username.toLowerCase().includes(value.toLowerCase())) {
         const embed = new Discord.MessageEmbed()
           .setAuthor(`Info for ${search.tag}`, search.avatarURL({ 'size': 2048 }))
           .setDescription(`${status(search.presence.status, this.client)} ${game(search.presence.activities[0] ? search.presence.activities[0] : null)}`)
           .addField('❯❯ Nickname',  member.nickname ? member.nickname : 'None', true)
-          .addField('❯❯ Joined Server', member.joinedAt.toUTCString(), true)
-          .addField('❯❯ Joined Discord', search.createdAt.toUTCString(), false)
+          .addField('❯❯ Joined Server', member.joinedAt, true)
+          .addField('❯❯ Joined Discord', search.createdAt, false)
           .addField(`❯❯ Roles (${member.roles.cache.size})`, member.roles.cache.map(role => role).join(' - '), false)
           .setThumbnail(search.avatarURL({ 'size': 2048 }))
           .setFooter(`User ID: ${search.id}`)
           .setColor('#7289DA');
+        await message.guild.members.cache.clear();
         return message.channel.send(embed);
       } else {
         return message.channel.send('', { embed: { 'author': { 'name': message.author.tag, 'icon_url': message.author.avatarURL() }, 'description': `${this.client.emojis.cache.get('506673020014952448')} **This user could not be found, please try being more specific.**`, 'color': 0xFF0000 } });
