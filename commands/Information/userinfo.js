@@ -2,6 +2,7 @@ const Command = require('../../handlers/command.js');
 const Discord = require('discord.js');
 const sm = require('string-similarity');
 
+/*
 function status(data, client) {
   if (data === 'online') {return client.emojis.cache.get('742109432451825754');} 
   else if (data === 'idle') {return client.emojis.cache.get('742109349060804719');} 
@@ -17,7 +18,7 @@ function game(data) {
   else if (data.type == 'WATCHING') {return `**Watching** ${data.name}`;} 
   else if (data.type == 'CUSTOM_STATUS') {return data.name;} 
   else {return `**Playing** ${data.name}`;}
-}
+} */
 
 module.exports = class extends Command {
   constructor(client, filePath) {
@@ -50,7 +51,7 @@ module.exports = class extends Command {
       member = message.mentions.members.first();
       const embed = new Discord.MessageEmbed()
         .setAuthor(`Info for ${user.tag}`, user.avatarURL({ 'size': 2048 }))
-        .setDescription(`${status(user.presence.status, this.client)} ${game(user.presence.activities[0] ? user.presence.activities[0] : null)}`)
+        // .setDescription(`${status(user.presence.status, this.client)} ${game(user.presence.activities[0] ? user.presence.activities[0] : null)}`)
         .addField('❯❯ Nickname',  member.nickname ? member.nickname : 'None', true)
         .addField('❯❯ Joined Server', member.joinedAt, true)
         .addField('❯❯ Joined Discord', user.createdAt, false)
@@ -67,7 +68,7 @@ module.exports = class extends Command {
         user = message.author;
         const embed = new Discord.MessageEmbed()
           .setAuthor(`Info for ${user.tag}`, user.avatarURL({ 'size': 2048 }))
-          .setDescription(`${status(user.presence.status, this.client)} ${game(user.presence.activities[0] ? user.presence.activities[0] : null)}`)
+          //.setDescription(`${status(user.presence.status, this.client)} ${game(user.presence.activities[0] ? user.presence.activities[0] : null)}`)
           .addField('❯❯ Nickname',  member.nickname ? member.nickname : 'None', true)
           .addField('❯❯ Joined Server', member.joinedAt, true)
           .addField('❯❯ Joined Discord', user.createdAt, false)
@@ -80,7 +81,7 @@ module.exports = class extends Command {
       } else if (search.username.toLowerCase().includes(value.toLowerCase())) {
         const embed = new Discord.MessageEmbed()
           .setAuthor(`Info for ${search.tag}`, search.avatarURL({ 'size': 2048 }))
-          .setDescription(`${status(search.presence.status, this.client)} ${game(search.presence.activities[0] ? search.presence.activities[0] : null)}`)
+          //.setDescription(`${status(search.presence.status, this.client)} ${game(search.presence.activities[0] ? search.presence.activities[0] : null)}`)
           .addField('❯❯ Nickname',  member.nickname ? member.nickname : 'None', true)
           .addField('❯❯ Joined Server', member.joinedAt, true)
           .addField('❯❯ Joined Discord', search.createdAt, false)
