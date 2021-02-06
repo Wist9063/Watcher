@@ -50,7 +50,7 @@ module.exports = class extends BotEvent {
         message.channel.startTyping();
         console.log(`[${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
         command.execute(message);
-        message.channel.stopTyping(true);
+        message.channel.stopTyping();
         this.datadog.increment('watcher_cmd_exe');
       } else if (this.config.maintenance) {
         message.channel.startTyping();
