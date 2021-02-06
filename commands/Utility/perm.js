@@ -10,7 +10,7 @@ module.exports = class extends Command {
     });
   }
 
-  execute(message) {
+  async execute(message) {
     let match = /^<@!?(\d+)>$/.test(message.content.split(' ')[1]);
 
     // Checks
@@ -20,7 +20,7 @@ module.exports = class extends Command {
 
     let level, def;
 
-    const array = Permissions.fetch(match, message);
+    const array = await Permissions.fetch(match, message);
     if (array !== 'err') {
       level = array[0];
       def = array[1];

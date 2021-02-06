@@ -22,10 +22,9 @@ module.exports = class extends BotEvent {
   
   async execute(message) {
     if (!message.guild || message.author.bot) return;
-    message.mentions.users = message.mentions.users.filter(u => u.id != this.user.id);
+    //message.mentions.users = message.mentions.users.filter(u => u.id != this.user.id);
     if (!message.content.startsWith(this.config.prefix)) return;
-    await message.member.fetch()
-    message.perm = await new (require('../../handlers/permission.js'))().fetch(message)[0];
+    message.perm = await new (require('../../handlers/permission.js'))().fetch(message.author, message)[0];
     const content = message.content.slice(this.config.prefix.length);
     const command = await this.fetchCommand(content.split(' ')[0]);
     if (!command) return;
