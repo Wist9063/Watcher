@@ -28,21 +28,21 @@ module.exports = class extends Command {
 
     if (user) {
       const embed = new Discord.MessageEmbed()
-        .setAuthor(user.tag, user.avatarURL())
-        .setImage(user.avatarURL({ 'size': 2048 }));
+        .setAuthor(user.tag)
+        .setImage(user.avatarURL({ 'size': 2048, dynamic: true }));
       return message.channel.send(embed);
     } else if (!user) {
       const search = member.user;
       const value = args[1];
       if (!value) {
         const embed = new Discord.MessageEmbed()
-          .setAuthor(message.author.tag, message.author.avatarURL())
-          .setImage(message.author.avatarURL({ 'size': 2048 }));
+          .setAuthor(message.author.tag)
+          .setImage(message.author.avatarURL({ 'size': 2048, dynamic: true }));
         return message.channel.send(embed);
       } else if (search.username.toLowerCase().includes(value.toLowerCase())) {
         const embed = new Discord.MessageEmbed()
-          .setAuthor(search.tag, search.avatarURL())
-          .setImage(search.avatarURL({ 'size': 2048 }));
+          .setAuthor(search.tag)
+          .setImage(search.avatarURL({ 'size': 2048, dynamic: true }));
         return message.channel.send(embed);
       } else {
         return message.channel.send('', { embed: { 'author': { 'name': message.author.tag, 'icon_url': message.author.avatarURL() }, 'description': `${this.client.emojis.cache.get('506673020014952448')} **Too many users found, please try being more specific.**`, 'color': 0xFF0000 } });

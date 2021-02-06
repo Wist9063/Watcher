@@ -50,12 +50,13 @@ module.exports = class extends BotEvent {
         message.channel.startTyping();
         console.log(`[${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
         command.execute(message);
-        message.channel.stopTyping();
+        message.channel.stopTyping(true);
         this.datadog.increment('watcher_cmd_exe');
       } else if (this.config.maintenance) {
         message.channel.startTyping();
         console.log(`[${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
-        command.execute(message); message.channel.stopTyping();
+        command.execute(message);
+        message.channel.stopTyping();
         if (content.split(' ')[1] != '--force') {
           await message.channel.send('Watcher is currently undergoing maintenance and will not be responding to any commands. Please check our hub for maintenance times. __**<https://discord.gg/83SAWkh>**__');
         } else if (content.split(' ')[1] === '--force' && message.perm > 9) {
