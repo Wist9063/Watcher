@@ -50,14 +50,14 @@ module.exports = class extends Command {
     if (user) {
       member = message.mentions.members.first();
       const embed = new Discord.MessageEmbed()
-        .setAuthor(`Info for ${user.tag}`, user.avatarURL({ 'size': 2048 }))
+        .setAuthor(`Info for ${user.tag}`, user.avatarURL({ 'size': 2048, dynamic: true }))
         // .setDescription(`${status(user.presence.status, this.client)} ${game(user.presence.activities[0] ? user.presence.activities[0] : null)}`)
         .addField('❯❯ Nickname',  member.nickname ? member.nickname : 'None', true)
         .addField('❯❯ Joined Server', member.joinedAt, true)
         .addField('❯❯ Joined Discord', user.createdAt, false)
         .addField(`❯❯ Roles (${member.roles.cache.size})`, member.roles.cache.map(role => role).join(' - '), false)
         .setFooter(`User ID: ${user.id}`)
-        .setThumbnail(user.avatarURL({ 'size': 2048 }))
+        .setThumbnail(user.avatarURL({ 'size': 2048, dynamic: true }))
         .setColor('#7289DA');
       return message.channel.send(embed);
     } else if (!user) {
@@ -67,26 +67,26 @@ module.exports = class extends Command {
         member = await message.guild.members.fetch(message.author);
         user = message.author;
         const embed = new Discord.MessageEmbed()
-          .setAuthor(`Info for ${user.tag}`, user.avatarURL({ 'size': 2048 }))
+          .setAuthor(`Info for ${user.tag}`, user.avatarURL({ 'size': 2048, dynamic: true }))
           //.setDescription(`${status(user.presence.status, this.client)} ${game(user.presence.activities[0] ? user.presence.activities[0] : null)}`)
           .addField('❯❯ Nickname',  member.nickname ? member.nickname : 'None', true)
           .addField('❯❯ Joined Server', member.joinedAt, true)
           .addField('❯❯ Joined Discord', user.createdAt, false)
           .addField(`❯❯ Roles (${member.roles.cache.size})`, member.roles.cache.map(role => role).join(' - '), false)
-          .setThumbnail(user.avatarURL({ 'size': 2048 }))
+          .setThumbnail(user.avatarURL({ 'size': 2048, dynamic: true }))
           .setFooter(`User ID: ${user.id}`)
           .setColor('#7289DA');
         await message.guild.members.cache.clear();
         return message.channel.send(embed);
       } else if (search.username.toLowerCase().includes(value.toLowerCase())) {
         const embed = new Discord.MessageEmbed()
-          .setAuthor(`Info for ${search.tag}`, search.avatarURL({ 'size': 2048 }))
+          .setAuthor(`Info for ${search.tag}`, search.avatarURL({ 'size': 2048, dynamic: true }))
           //.setDescription(`${status(search.presence.status, this.client)} ${game(search.presence.activities[0] ? search.presence.activities[0] : null)}`)
           .addField('❯❯ Nickname',  member.nickname ? member.nickname : 'None', true)
           .addField('❯❯ Joined Server', member.joinedAt, true)
           .addField('❯❯ Joined Discord', search.createdAt, false)
           .addField(`❯❯ Roles (${member.roles.cache.size})`, member.roles.cache.map(role => role).join(' - '), false)
-          .setThumbnail(search.avatarURL({ 'size': 2048 }))
+          .setThumbnail(search.avatarURL({ 'size': 2048, dynamic: true }))
           .setFooter(`User ID: ${search.id}`)
           .setColor('#7289DA');
         await message.guild.members.cache.clear();
