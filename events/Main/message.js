@@ -29,7 +29,7 @@ module.exports = class extends BotEvent {
     const command = await this.fetchCommand(content.split(' ')[0]);
     if (!command) return;
     if (command.disabled == true) return message.channel.send('This command is globally disabled. Please try this command again at a later time or date.');
-    if (!message.channel.permissionsFor(message.guild.me).has(this.config.requiredPermissions)) return message.channel.send(`INVALID PERMISSIONS: Watcher requires the following permissions: \n${this.config.requiredPermissions.map(p => p)}`);
+    // if (!message.channel.permissionsFor(message.guild.me).has(this.config.requiredPermissions)) return message.channel.send(`INVALID PERMISSIONS: Watcher requires the following permissions: \n${this.config.requiredPermissions.map(p => p)}`);
     if (!cooldowns.has(command.name)) cooldowns.set(command.name, new Discord.Collection());
     const now = Date.now();
     const timestamps = cooldowns.get(command.name);
