@@ -16,7 +16,7 @@ module.exports = class extends Command {
       message.channel.send(`${message.author} | You didn't setup a log channel yet! Run w!setup to setup one.`);
     } else {
       if (message.perm < 2) return message.channel.send(`${message.author}, you have insufficient permissions required to execute this command.`);
-      if (!message.guild.me.hasPermission('MANAGE_MESSAGES')) return message.channel.send(`${message.author} | I'm not capable of deleting messages, please ensure that I have the proper permissions to do so.`);
+      //if (!message.guild.me.hasPermission('MANAGE_MESSAGES')) return message.channel.send(`${message.author} | I'm not capable of deleting messages, please ensure that I have the proper permissions to do so.`);
       const args = message.content.split(' ')[1];
       if (!args) return message.channel.send(`${message.author} | Please specify an amount of messages to purge.`);
       if (Number.isInteger(args[0])) return message.channel.send(`${message.author} | The value you've provided is not a valid number, please try again.`);
