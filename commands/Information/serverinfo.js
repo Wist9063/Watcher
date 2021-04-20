@@ -28,14 +28,14 @@ module.exports = class extends Command {
     if (message.guild.available) {
       await message.guild.members.fetch();
 
-      const veri = await verfiCheck(message.guild.verificationLevel);
-      const ex = await explictC(message.guild.explicitContentFilter);
+      const veri = verfiCheck(message.guild.verificationLevel);
+      const ex = explictC(message.guild.explicitContentFilter);
+      const owner = await message.guild.members.fetch(message.guild.ownerID);
 
       const embed = new MessageEmbed()
         .setColor('#7289DA')
         .setTitle(`Server information for __${message.guild.name}__`)
-        .setDescription(`There are **${message.guild.members.cache.filter(m => !m.user.bot).size}** users and **${message.guild.members.cache.filter(m => m.user.bot).size}** bot${message.guild.members.cache.filter(m => m.user.bot).size == 1 ? '' : 's'}. In total, there are **${message.guild.members.cache.size}** members.\nServer Owned By: **${message.guild.owner.user.tag}** (ID: ${message.guild.owner.user.id})`)
-        
+        .setDescription(`There are **${message.guild.members.cache.filter(m => !m.user.bot).size}** users and **${message.guild.members.cache.filter(m => m.user.bot).size}** bot${message.guild.members.cache.filter(m => m.user.bot).size == 1 ? '' : 's'}. In total, there are **${message.guild.members.cache.size}** members.\nServer Owned By: **${owner.user.username}#${owner.user.discriminator}** (ID: ${owner.user.id})`)
         .setFooter(`Guild ID: ${message.guild.id}`)
         .addField('❯❯ Verification Level', veri, true)
         .addField('❯❯ Explicit Content Fliter', ex, true)
@@ -43,10 +43,14 @@ module.exports = class extends Command {
         .addField('❯❯ Guild Created At', `\`${moment(message.guild.createdAt).format('MMMM Do YYYY, h:mm:ss A')}\``, false)
         .addField('❯❯ Text Channels', message.guild.channels.cache.filter(channel => channel.type === 'text').size, true)
         .addField('❯❯ Voice Channels', message.guild.channels.cache.filter(channel => channel.type === 'voice').size, true)
-        .addField('❯❯ Role Size', message.guild.roles.cache.size - 1, true)
-        .setThumbnail(message.guild.iconURL({'format': 'png', 'size': 2048}) ? message.guild.iconURL({'format': 'png', 'size': 2048}) : 'https://discordapp.com/assets/2c21aeda16de354ba5334551a883b481.png');
+        .setThumbnail(message.guild.iconURL({'size': 2048, dynamic: true}) ? message.guild.iconURL({'size': 2048, dynamic: true}) : 'https://discordapp.com/assets/2c21aeda16de354ba5334551a883b481.png');
+      const embed2 = new MessageEmbed()
+        .setColor('#7289DA')
+        .addField(`❯❯ Roles (${message.guild.roles.cache.size})`, message.guild.roles.cache.map(role => role).join(' - '), false)
+        .addField(`❯❯ Emojis (${message.guild.emojis.cache.size})`, message.guild.emojis.cache.map(role => role).join(' '), false);
 
       await message.channel.send(embed);
+      await message.channel.send(embed2);
       await message.guild.members.cache.clear();
     } else {
       message.channel.send('__Could not fetch guild metadata.__ Discord may be experiencing an outage or API would not respond. Try again later.');
