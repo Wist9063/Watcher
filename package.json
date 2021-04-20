@@ -31,7 +31,7 @@
     "moment-timezone": "^0.5.27",
     "mongodb": "^3.6.6",
     "nano": "^9.0.3",
-    "node-superfetch": "^0.1.9",
+    "node-superfetch": "^0.2.2",
     "snekfetch": "^4.0.4",
     "string-similarity": "^4.0.2",
     "utf-8-validate": "^5.0.2",
