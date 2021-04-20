@@ -64,4 +64,4 @@ typings/
 config.json*
 config.js*
 ecosystem.config.js*
-package-lock.json
+.vscode

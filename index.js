@@ -1,7 +1,7 @@
 /* Copyright (C) Cloud Development 2017-2021 - All Rights Reserved
  * Unauthorized copying of any file in this repo, via any medium is strictly prohibited.
  * Proprietary and confidential.
- * Written by wist9063 <wist9063@gmail.com> & jason.
+ * Written by wist9063 <me@joshlol.xyz> & jason.
  * 
  * __/\\\______________/\\\_____________________________________________/\\\______________________________________        
  *  _\/\\\_____________\/\\\____________________________________________\/\\\______________________________________       
@@ -19,8 +19,10 @@ const path = require('path');
 const sentry = require('@sentry/node');
 const statsd = require('hot-shots');
 const klaw = require('klaw');
-const { Client, Collection } = require('discord.js');
+const { Client, Collection, Intents } = require('discord.js');
 const MongoClient = require('mongodb').MongoClient;
+const intents = new Intents();
+intents.add('GUILDS', 'GUILD_MEMBERS', 'GUILD_BANS', 'GUILD_EMOJIS', 'GUILD_WEBHOOKS', 'GUILD_VOICE_STATES', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'GUILD_INVITES');
 
 const commandsPath = path.join(__dirname, 'commands');
 const eventsPath = path.join(__dirname, 'events');
@@ -28,16 +30,16 @@ const eventsPath = path.join(__dirname, 'events');
 new class extends Client {
   constructor() {
     super({      
+      intents: intents,
       disableMentions: 'everyone',
       messageCacheLifetime: 200,
       messageSweepInterval: 300,
-      messageCacheMaxSize: 150,
-      presence: {
+      messageCacheMaxSize: 150
+      /*presence: {
         status: 'idle',
         activity: {
           name: 'launching Watcher...',
-        }
-      }
+        }*/
     });
 
     this.config = require('./config.js');

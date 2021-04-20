@@ -33,6 +33,14 @@ module.exports = class extends BotEvent {
           .setFooter(`Watcher Event • Voice Channel Delete | Channel ID: ${channel.id}`)
           .setTimestamp();
         return logChannel.send(embed);
+      } else if (channel.type === 'stage') {
+        const embed = new MessageEmbed()
+          .setColor('#DD5449')
+          .setTitle(`Stage Channel __**${channel.name}**__ has been deleted.`)
+          .setDescription(`Stage channel **${channel.name}** in ${channel.parent ? 'the catagory' : '**the default catagory.**'} ${channel.parent ? '**' + channel.parent.name + '**.' : ''} has been deleted.`)
+          .setFooter(`Watcher Event • Voice Channel Create | Channel ID: ${channel.id}`)
+          .setTimestamp();
+        return logChannel.send(embed);
       } else if (channel.type === 'category') {
         const embed = new MessageEmbed()
           .setColor('#DD5449').setTitle(`Category __**${channel.name}**__ has been deleted.`)

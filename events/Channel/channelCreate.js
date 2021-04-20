@@ -36,6 +36,14 @@ module.exports = class extends BotEvent {
           .setFooter(`Watcher Event • Voice Channel Create | Channel ID: ${channel.id}`)
           .setTimestamp();
         return logChannel.send(embed);
+      } else if (channel.type === 'stage') {
+        const embed = new MessageEmbed()
+          .setColor('#5cb85c')
+          .setTitle(`Stage Channel __**${channel.name}**__ has been created.`)
+          .setDescription(`A new Stage Channel has appeared. **${channel.name}** in ${channel.parent ? 'the catagory' : '**the default catagory.**'} ${channel.parent ? '**' + channel.parent.name + '**.' : ''}`)
+          .setFooter(`Watcher Event • Voice Channel Create | Channel ID: ${channel.id}`)
+          .setTimestamp();
+        return logChannel.send(embed);
       } else if (channel.type === 'category') {
         const embed = new MessageEmbed()
           .setColor('#5cb85c')
