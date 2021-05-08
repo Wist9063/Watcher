@@ -34,7 +34,7 @@
     "node-superfetch": "^0.2.2",
     "snekfetch": "^4.0.4",
     "string-similarity": "^4.0.2",
-    "utf-8-validate": "^5.0.2",
+    "utf-8-validate": "^5.0.5",
     "zlib-sync": "^0.1.6"
   }
 }
