@@ -19,8 +19,8 @@ module.exports = class extends Command {
       // if (!message.channel.permissionsFor(this.client.user.id).has('SEND_MESSAGES')) return message.author.send(`Please ensure that I have permissions to speak in ${message.channel}.`);
       const value = message.content.split(' ')[1];
       if (!value) return message.reply('You did not specify a value, please include on or off.', {disableMentions: {repliedUser: false}});
-      if (value.toUpperCase() === 'ON' || value.toUpperCase() === 'enable') return await db.update(message.guild.id, this.client.mongod, 'events', {'events.channelDelete': true})  && message.reply('Logs will __now__ include `channelDelete`, database updated.');
-      if (value.toUpperCase() === 'OFF' || value.toUpperCase() === 'disable') return await db.update(message.guild.id, this.client.mongod, 'events', {'events.channelDelete': false}) && message.reply('Logs will __not__ include `channelDelete`, database updated.', {reply: false});
+      if (value.toUpperCase() === 'ON' || value.toUpperCase() === 'ENABLE') return await db.update(message.guild.id, this.client.mongod, 'events', {'events.channelDelete': true})  && message.reply('Logs will __now__ include `channelDelete`, database updated.');
+      if (value.toUpperCase() === 'OFF' || value.toUpperCase() === 'DISABLE') return await db.update(message.guild.id, this.client.mongod, 'events', {'events.channelDelete': false}) && message.reply('Logs will __not__ include `channelDelete`, database updated.', {reply: false});
       else return message.channel.send(`${message.author} | That is not a valid value, please try again.`);
     }
   }
