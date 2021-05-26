@@ -15,7 +15,7 @@ module.exports = class extends Command {
       message.channel.send(`${message.author} | You didn't setup a log channel yet! Run w!setup to setup one.`);
     } else {
       if (message.perm < 2) return message.channel.send(`${message.author} | Insufficient permissions required to execute this command.`).then(msg => msg.delete({timeout:15000}));
-      if (!message.channel.permissionsFor(this.client.user.id).has('SEND_MESSAGES')) return message.author.send(`Please ensure that I have permissions to speak in ${message.channel}.`);
+      // if (!message.channel.permissionsFor(this.client.user.id).has('SEND_MESSAGES')) return message.author.send(`Please ensure that I have permissions to speak in ${message.channel}.`);
       const value = message.content.split(' ')[1];
       if (!value) return message.reply('you did not specify a value, please include on or off.');
       if (value.toUpperCase() === 'ON' || value.toUpperCase() === 'enable') return await db.update(message.guild.id, this.client.mongod, 'events', {'events.guildBanAdd': true}) && message.channel.send(`${message.author} | Logs will __now__ include \`guildBanAdd\`, database updated.`);
