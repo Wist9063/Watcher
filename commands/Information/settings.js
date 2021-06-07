@@ -27,11 +27,12 @@ module.exports = class extends Command {
 
     const embed = new MessageEmbed()
       .setColor('#428bca')
-      .addField('⚙ Channel Settings', `**Log Channel**: ${b.wb.channelID ? `<#${b.wb.channelID}>` :  'None set.'}\n**channelCreate**: ${a.events.channelCreate ? check : tick}\n**channelDelete**: ${a.events.channelDelete ? check : tick}`, true)
       .addField('💬 Message Settings', `**messageDelete**: ${a.events.messageDelete ? check : tick}\n**messageUpdate**: ${a.events.messageUpdate ? check : tick}\n**voiceStateUpdate**: ${a.events.voiceStateUpdate ? check : tick}\n**messageReactionAdd**: ${a.events.messageReactionAdd ? check : tick}\n**messageReactionRemove**: ${a.events.messageReactionRemove ? check : tick}`, true)
       .addField('🗒 Guild Settings', `**guildBanAdd**: ${a.events.guildBanAdd ? check : tick}\n**guidBanRemove**: ${a.events.guildBanRemove ? check : tick}\n**guildMemberAdd**: ${a.events.guildMemberAdd ? check : tick}\n**guildMemberUpdate**: ${a.events.guildMemberUpdate ? check : tick}\n**guildMemberRemove**: ${a.events.guildMemberRemove ? check : tick}\n**roleCreate**: ${a.events.roleCreate ? check : tick}\n**roleDelete**: ${a.events.roleDelete ? check : tick}`, true)
+      .addField('⚙ Channel Settings', `**channelCreate**: ${a.events.channelCreate ? check : tick}\n**channelDelete**: ${a.events.channelDelete ? check : tick}`, true)
+      .addField('👀 Watcher Settings', `**Log Channel**: ${b.wb.channelID ? `<#${b.wb.channelID}>` :  'None set.'}`, true)
       .setFooter('w!<setting> <value> - Edit a setting, or run w!enable-all to turn all settings on, and w!disable-all to turn all settings off.');
 
-    return message.channel.send(`${check} **Displaying module information for \`${content ? this.client.guilds.resolve(content).name : message.guild.name}\`**.`, embed);
+    return message.reply(`${check} **Displaying module information for \`${content ? this.client.guilds.resolve(content).name : message.guild.name}\`**.`, {embed, allowedMentions: { repliedUser: false }});
   }
 };
