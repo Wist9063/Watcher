@@ -34,7 +34,7 @@ module.exports = class extends Command {
                 if (!b.wb.wbID) {
                   const embed = new Discord.MessageEmbed()
                     .setTitle(`You have set channel #${c1.name} to send logs to.`)
-                    .setDescription('__To activate Watcher__, type `w!enable-all` into the chat to enable all events & start logging!\n*Make sure that the bot has the __Administrator__ permission to ensure the bot is able to log **all** events that is happening in your server.*\n\nIf you want to __review/edit__ the settings of watcher type `w!settings` into the chat.\nTo change the log channel in the future, you can use the command `w!log-channel` to change the set logs.\n\nConsider donating to our patreon keep us afloat. [https://www.patreon.com/watcherbot](https://www.patreon.com/watcherbot)')
+                    .setDescription('**__To activate Watcher__, type `w!enable-all` into the chat to enable all events & start logging!**\n\n*Make sure that the bot has the __Administrator__ permission to ensure the bot is able to log **all** events that is happening in your server.*\n\nIf you want to __review/edit__ the settings of watcher type `w!settings` into the chat.\nTo change the log channel in the future, you can use the command `w!log-channel` to change the set logs.\n\nConsider donating to our patreon keep us afloat. [https://www.patreon.com/watcherbot](https://www.patreon.com/watcherbot)')
                     .setFooter(`Requested by ${message.author.tag}`)
                     .setThumbnail('https://cdn.discordapp.com/avatars/505571539333152781/cbf64e07e3991abb9b8847627dd2a2ab.webp?size=2048')
                     .setColor(0xcc8822);

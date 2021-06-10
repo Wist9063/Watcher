@@ -22,17 +22,18 @@ module.exports = class extends BotEvent {
 
     const gameCycle = function(a) {
       const gameStatus = [
-        ['PLAYING', 'the waiting game. | w!help'],
+        ['PLAYING', 'the waiting game | w!help'],
         ['LISTENING', `${a.guilds.cache.size} guilds! | w!help`],
-        ['WATCHING', 'your chat. | w!help'],
-        ['WATCHING', 'netflix. | w!help'],
-        ['LISTENING', 'events n stuff. | w!help'],
+        ['WATCHING', 'your chat | w!help'],
+        ['WATCHING', 'netflix | w!help'],
+        ['LISTENING', 'events n stuff | w!help'],
+        ['COMPETING', 'valorant | w!help'],
         ['LISTENING', 'w!help']
       ];
       let game; //= gameStatus[Math.floor(Math.random()*gameStatus.length)];
       if (process.env.NODE_ENV == 'production') {
         game = gameStatus[Math.floor(Math.random()*gameStatus.length)];
-      } else {game = ['PLAYING', 'development mode.'];}
+      } else {game = ['COMPETING', 'development mode.'];}
       a.user.setActivity(game[1], {'url': 'https://www.twitch.tv/monstercat', 'type': game[0] });
       setTimeout(() => {
         gameCycle(a);
@@ -52,6 +53,7 @@ module.exports = class extends BotEvent {
     };
 
     console.log('\nWelcome to Watcher. Info will be printed below. *made with love and keystrokes*');
+    
     console.log('<---------------->');
     if (this.config.maintenance) {
       console.log('[WARNING!] Watcher has launched in maintenance mode. Use --force to run any commands in maintenance mode!');

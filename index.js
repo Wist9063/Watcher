@@ -31,15 +31,14 @@ new class extends Client {
   constructor() {
     super({      
       intents: intents,
-      disableMentions: 'everyone',
+      allowedMentions: {parse: ['users', 'roles']},
       messageCacheLifetime: 200,
       messageSweepInterval: 300,
-      messageCacheMaxSize: 150
-      /*presence: {
+      messageCacheMaxSize: 150,
+      presence: {
         status: 'idle',
-        activity: {
-          name: 'launching Watcher...',
-        }*/
+        activities: [{name: 'launching watcher...', type: 'COMPETING'}]
+      }
     });
 
     this.config = require('./config.js');
