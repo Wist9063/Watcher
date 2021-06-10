@@ -9,11 +9,11 @@ module.exports = class extends Command {
   }
   async execute(message) {
     const mssg = await message.channel.send('✅ Our hub invite has been sent in your DM\'s!');
-    message.author.send('Thanks for joining our hub and inviting Watcher to your server!\n**discord.gg/83SAWkh**').catch(() => {
+    message.author.send('Thanks for joining our hub and inviting Watcher to your server!\n**discord.gg/YyGaApfrTc**').catch(() => {
       message.channel.send('I was unable to DM you, sending in this channel.').then(m => {
         setTimeout(() => {
           mssg.delete();
-          m.edit('Thanks for joining our hub and inviting Watcher to your server!\n**discord.gg/83SAWkh**');
+          m.edit('Thanks for joining our hub and inviting Watcher to your server!\n**discord.gg/YyGaApfrTc**');
         }, 5000);
       });
     });
