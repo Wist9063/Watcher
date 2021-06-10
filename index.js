@@ -36,7 +36,6 @@ new class extends Client {
       messageSweepInterval: 300,
       messageCacheMaxSize: 150,
       presence: {
-        status: 'idle',
         activities: [{name: 'launching watcher...', type: 'COMPETING'}]
       }
     });
