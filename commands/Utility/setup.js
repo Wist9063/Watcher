@@ -9,7 +9,7 @@ module.exports = class extends Command {
     });
   }
   async execute(message) {
-    const m = await message.channel.send('Would you like to run a __**step-by-step**__ setup (🙋‍♂️) or send a __**guide**__ (📖)?\n*You have 10 seconds to react.*');
+    const m = await message.channel.send('Would you like to run a __**step-by-step**__ setup (🙋‍♂️) or send a __**guide**__ (📖)?\n*You have 20 seconds to react.*');
     const filter = (reaction, user) => {
       return reaction.emoji.name === '🙋‍♂️' || reaction.emoji.name === '📖' && user.id === message.author.id;
     };
@@ -21,7 +21,7 @@ module.exports = class extends Command {
     await m.react('🙋‍♂️');
     await setTimeout(() => { m.react('📖');},1000);
 
-    await m.awaitReactions(filter, { maxEmojis: 1, time: 10000, errors: ['time'] })
+    await m.awaitReactions(filter, { maxEmojis: 1, time: 20000, errors: ['time'] })
       .then((c) => {
         if (c.first().emoji.name === '🙋‍♂️') {
           message.channel.send('Now running a __**step-by-step**__ setup.');
