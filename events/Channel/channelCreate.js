@@ -27,7 +27,7 @@ module.exports = class extends BotEvent {
           .setDescription(`A new Text Channel has appeared. **${channel.name}** in ${channel.parent ? 'the catagory' : '**the default catagory.**'} ${channel.parent ? '**' + channel.parent.name + '**.' : ''}`)
           .setFooter(`Watcher Event • Text Channel Create | Channel ID: ${channel.id}`)
           .setTimestamp();
-        return logChannel.send(embed);
+        return logChannel.send({ embeds: [embed] });
       } else if (channel.type === 'voice') {
         const embed = new MessageEmbed()
           .setColor('#5cb85c')
@@ -35,7 +35,7 @@ module.exports = class extends BotEvent {
           .setDescription(`A new Voice Channel has appeared. **${channel.name}** in ${channel.parent ? 'the catagory' : '**the default catagory.**'} ${channel.parent ? '**' + channel.parent.name + '**.' : ''}`)
           .setFooter(`Watcher Event • Voice Channel Create | Channel ID: ${channel.id}`)
           .setTimestamp();
-        return logChannel.send(embed);
+        return logChannel.send({ embeds: [embed] });
       } else if (channel.type === 'stage') {
         const embed = new MessageEmbed()
           .setColor('#5cb85c')
@@ -43,7 +43,7 @@ module.exports = class extends BotEvent {
           .setDescription(`A new Stage Channel has appeared. **${channel.name}** in ${channel.parent ? 'the catagory' : '**the default catagory.**'} ${channel.parent ? '**' + channel.parent.name + '**.' : ''}`)
           .setFooter(`Watcher Event • Voice Channel Create | Channel ID: ${channel.id}`)
           .setTimestamp();
-        return logChannel.send(embed);
+        return logChannel.send({ embeds: [embed] });
       } else if (channel.type === 'category') {
         const embed = new MessageEmbed()
           .setColor('#5cb85c')
@@ -51,7 +51,7 @@ module.exports = class extends BotEvent {
           .setDescription(`**${channel.name}** has been created.`)
           .setFooter(`ID: ${channel.id}`)
           .setTimestamp();
-        return logChannel.send(embed);
+        return logChannel.send({ embeds: [embed] });
       } else {
         const embed = new MessageEmbed()
           .setColor('#5cb85c')
@@ -59,7 +59,7 @@ module.exports = class extends BotEvent {
           .setDescription(`An unknown channel type has been created: **${channel.name}**.`)
           .setFooter(`ID: ${channel.id}`)
           .setTimestamp();
-        return logChannel.send(embed);
+        return logChannel.send({ embeds: [embed] });
       }
     } else {
       return;

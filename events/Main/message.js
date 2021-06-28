@@ -87,7 +87,7 @@ module.exports = class extends BotEvent {
         .setDescription(`Watcher has encountered an error with this command & has logged this command. ID: **${IDstring}**\nError: \`${e}\``)
         .setTimestamp()
         .setColor('#FF0000');
-      return await message.channel.send(embed);
+      return await message.channel.send({ embeds: [embed] });
     } 
   }
 };

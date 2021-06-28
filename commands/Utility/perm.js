@@ -31,6 +31,6 @@ module.exports = class extends Command {
       .setDescription(`**${def}**\nPermission Level: __${level}__`)
       .setFooter(`Requested by ${message.author.tag}`)
       .setColor(0xcc8822);
-    return message.channel.send(embed);
+    return message.channel.send({embeds: [embed]});
   }
 };

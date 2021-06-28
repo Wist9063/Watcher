@@ -33,6 +33,6 @@ module.exports = class extends Command {
       .addField('👀 Watcher Settings', `**Log Channel**: ${b.wb.channelID ? `<#${b.wb.channelID}>` :  'None set.'}`, true)
       .setFooter('w!<setting> <value> - Edit a setting, or run w!enable-all to turn all settings on, and w!disable-all to turn all settings off.');
 
-    return message.reply(`${check} **Displaying module information for \`${content ? this.client.guilds.resolve(content).name : message.guild.name}\`**.`, {embed, allowedMentions: { repliedUser: false }});
+    return message.reply({ content: `${check} **Displaying module information for \`${content ? this.client.guilds.resolve(content).name : message.guild.name}\`**.`, embeds: [embed], allowedMentions: { repliedUser: false }});
   }
 };

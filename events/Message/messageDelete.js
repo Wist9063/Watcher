@@ -19,7 +19,6 @@ module.exports = class extends BotEvent {
     if (a.events.messageDelete === true) {
       if (b.wb.wbID === null || b.wb.wbKey === null) return;
       const logChannel = new WebhookClient(b.wb.wbID, b.wb.wbKey);
-      if (!logChannel) return;
       this.eventsend++;
 
       let contentValue = message.content;
@@ -30,7 +29,7 @@ module.exports = class extends BotEvent {
         .setDescription(`In channel: ${message.channel}\n\`\`\`md\nMessage Below\n====\n\n< ${contentValue} >\`\`\``)
         .setFooter(`Watcher Event • Message Deleted | Author ID: ${message.author.id} • Message ID: ${message.id}`)
         .setTimestamp();
-      return logChannel.send(embed);
+      return logChannel.send({ embeds: [embed] });
     } else {
       return;
     }

@@ -31,7 +31,7 @@ module.exports = class extends Command {
         .setDescription(`**${args}** messages has been deleted.\nIn channel: ${message.channel}`)
         .setFooter(`Watcher Event • Bulk Delete | User ID: ${message.author.id}`)
         .setTimestamp();
-      return logChannel.send(embed);
+      return logChannel.send({ embeds: [embed] });
     }
   }
 };

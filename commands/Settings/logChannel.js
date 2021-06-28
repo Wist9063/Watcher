@@ -38,7 +38,7 @@ module.exports = class extends Command {
           .setTitle('Watcher is sending logs in this channel.')
           .setDescription(`Watcher was told to send logs in this channel by ${message.author.tag}.\nRemember to use \`w!enable-all\` to enable all events.`);
 
-        wb.send(embed)
+        wb.send({ embeds: [embed] })
           .catch(error => {
             return message.channel.send(`There was an error executing this action:\n\`\`\`${error}\`\`\``);
           });
@@ -77,7 +77,7 @@ module.exports = class extends Command {
           
           .setDescription(`Watcher was told to send logs in this channel by ${message.author.tag}.`);
 
-        wb.send(embed)
+        wb.send({ embeds: [embed] })
           .catch(error => {
             return error;
           });

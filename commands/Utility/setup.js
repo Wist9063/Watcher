@@ -38,7 +38,7 @@ module.exports = class extends Command {
                     .setFooter(`Requested by ${message.author.tag}`)
                     .setThumbnail('https://cdn.discordapp.com/avatars/505571539333152781/cbf64e07e3991abb9b8847627dd2a2ab.webp?size=2048')
                     .setColor(0xcc8822);
-                  message.channel.send(embed);
+                  message.channel.send({embeds: [embed]});
                   
                   c1.createWebhook('Watcher', {
                     avatar: 'https://i.imgur.com/kGgTC0b.png', 
@@ -54,7 +54,7 @@ module.exports = class extends Command {
                       .setTitle('Watcher is sending logs in this channel.')
                       
                       .setDescription(`Watcher was told to send logs in this channel by ${message.author.tag}.`);
-                    wb.send(embed).catch(error => {
+                    wb.send({embeds: [embed]}).catch(error => {
                       return message.channel.send(`There was an error executing this action:\n\`\`\`${error}\`\`\``);
                     });
                   });
@@ -67,7 +67,7 @@ module.exports = class extends Command {
                     .setFooter(`Requested by ${message.author.tag}`)
                     .setThumbnail('https://cdn.discordapp.com/avatars/505571539333152781/cbf64e07e3991abb9b8847627dd2a2ab.webp?size=2048')
                     .setColor(0xcc8822);
-                  message.channel.send(embed);
+                  message.channel.send({embeds: [embed]});
                   this.client.mongod.db('watcher').collection('guildSettings').updateOne({gID: message.guild.id}, {$set: {wb: {
                     wbID: null,
                     wbKey: null,
@@ -91,7 +91,7 @@ module.exports = class extends Command {
                       
                       .setDescription(`Watcher was told to send logs in this channel by ${message.author.tag}.`);
           
-                    wb.send(embed)
+                    wb.send({embeds: [embed]})
                       .catch(error => {
                         return error;
                       });

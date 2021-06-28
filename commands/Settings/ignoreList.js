@@ -25,7 +25,7 @@ module.exports = class extends Command {
         return message.channel.send('There are currently no channels ignored. To ignore a channel run the ignore command (`w!ignore <channel-mention>`), and to remove it, run the ignore-delete command (`w!ignore-delete <#channel-mention>`).');
       } else {
         const embed = new Discord.MessageEmbed().setDescription(channelList).setFooter(`Listing all ignored channels, requested by ${message.author.tag}.`, message.author.displayAvatarURL());
-        return message.channel.send(embed);
+        return message.channel.send({ embeds: [embed] });
       }
     }
   }

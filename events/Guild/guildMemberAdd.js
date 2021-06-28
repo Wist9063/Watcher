@@ -28,7 +28,7 @@ module.exports = class extends BotEvent {
         .setDescription(` **${guild.name}** now has __${guild.memberCount}__ members.\nThis user joined discord on \`${moment(member.joinedAt).format('MMMM Do, YYYY, h:mm:ss A')} (Universal Coordinated Time)\``)
         .setFooter(`Watcher Event • User Joined | User ID: ${member.user.id}.`)
         .setTimestamp();
-      return logChannel.send(embed);
+      return logChannel.send({ embeds: [embed] });
     } else {
       return;
     }

@@ -48,6 +48,6 @@ module.exports = class extends BotEvent {
       
       .setDescription(`Watcher now at **${this.guilds.cache.size}** guilds. Added from ${guild.name} (ID:${guild.id}), which is owned by ID:${guild.ownerID}, has ${guild.memberCount} members, and ${guild.members.cache.filter(mem => mem.user.bot).size} bots.\n\n\`\`\`autohotkey\n${moment(guild.createdAt).format('MMMM Do, YYYY, h:mm:ss A')}\`\`\``)
       .setFooter(`ID: ${guild.id}`);
-    return hook.send(embed);
+    return hook.send({ embeds: [embed] });
   }
 };

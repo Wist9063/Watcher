@@ -22,6 +22,6 @@ module.exports = class extends Command {
       .addField('Settings [16]', '`channelcreate`, `channeldelete`, `all-off`, `all-on`, `guildbanadd`, `guildbanremove`, `guildmemberadd`, `guildmemberremove`, `guildmemberupdate`, `log-channel`, `messagedelete`, `messagebulkdelete`, `messageupdate`, `roleCreate`, `roleDelete`, `voicestateupdate`, `messageReactionAdd`, `messageReactionRemove`')
       .addField('Donate', '[https://www.patreon.com/watcherbot](https://www.patreon.com/watcherbot)')
       .setFooter('Made by wist9063. Original Idea by jason.#1234 - yo');
-    return message.reply({embed, allowedMentions: { repliedUser: false }});
+    return message.reply({ embeds: [embed], allowedMentions: { repliedUser: false }});
   }
 };

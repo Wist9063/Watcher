@@ -11,6 +11,7 @@ module.exports = class extends Command {
 
   async execute(message) {
     const b = await db.get(message.guild.id, this.client.mongod, 'guildSettings');
+    const a = await db.get(message.guild.id, this.client.mongod, 'events');
     if (b.wb.wbID === null || b.wb.wbKey === null) {
       message.channel.send(`${message.author} | You didn't setup a log channel yet! Run w!setup to setup one.`);
     } else {
@@ -20,8 +21,20 @@ module.exports = class extends Command {
 
       const value = message.content.split(' ')[1];
       if (!value) return message.reply('you did not specify a value, please include on or off.');
-      if (value.toUpperCase() === 'ON' || value.toUpperCase() === 'enable') return await db.update(message.guild.id, this.client.mongod, 'events', {'events.channelCreate': true}) && message.channel.send(`${message.author} | Logs will __now__ include \`channelCreate\`, database updated.`);
-      if (value.toUpperCase() === 'OFF' || value.toUpperCase() === 'disable') return await db.update(message.guild.id, this.client.mongod, 'events', {'events.channelCreate': false}) && message.channel.send(`${message.author} | Logs will __not__ include \`channelCreate\`, database updated.`);
+      if (value.toUpperCase() === 'ON' || value.toUpperCase() === 'ENABLE') {
+        if (a.events.channelCreate === true) {
+          return message.reply({ content: 'The event `channelCreate` is already enabled.', allowedMentions: { repliedUser: false }});
+        } else {
+          return await db.update(message.guild.id, this.client.mongod, 'events', {'events.channelCreate': true}) && message.reply({ content: 'Logs will __now__ include `channelCreate`, database updated.', allowedMentions: { repliedUser: true }});
+        }
+      }
+      if (value.toUpperCase() === 'OFF' || value.toUpperCase() === 'DISABLE') {
+        if (a.events.channelCreate === true) {
+          return message.reply({ content: 'The event `channelCreate` is already disabled.', allowedMentions: { repliedUser: false }});
+        } else {
+          return await db.update(message.guild.id, this.client.mongod, 'events', {'events.channelCreate': true}) && message.reply({ content: 'Logs will __not__ include `channelCreate`, database updated.', allowedMentions: { repliedUser: true }});
+        }
+      }
       else return message.channel.send(`${message.author} | That is not a valid value, please try again.`);
     }
   }

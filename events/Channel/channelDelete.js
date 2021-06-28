@@ -25,14 +25,14 @@ module.exports = class extends BotEvent {
           .setDescription(`**${channel.name}** in ${channel.parent ? 'the catagory' : '**default catagory.**'} ${channel.parent ? '**' + channel.parent.name + '**.' : ''} has been deleted.`)
           .setFooter(`Watcher Event • Text Channel Delete | Channel ID: ${channel.id}`)
           .setTimestamp();
-        return logChannel.send(embed);
+        return logChannel.send({ embeds: [embed] });
       } else if (channel.type === 'voice') {
         const embed = new MessageEmbed()
           .setColor('#DD5449').setTitle(`Voice Channel __**${channel.name}**__ has been deleted.`)
           .setDescription(`Voice channel **${channel.name}** in ${channel.parent ? 'the catagory' : '**default catagory.**'} ${channel.parent ? '**' + channel.parent.name + '**.' : ''} has been deleted.`)
           .setFooter(`Watcher Event • Voice Channel Delete | Channel ID: ${channel.id}`)
           .setTimestamp();
-        return logChannel.send(embed);
+        return logChannel.send({ embeds: [embed] });
       } else if (channel.type === 'stage') {
         const embed = new MessageEmbed()
           .setColor('#DD5449')
@@ -40,21 +40,21 @@ module.exports = class extends BotEvent {
           .setDescription(`Stage channel **${channel.name}** in ${channel.parent ? 'the catagory' : '**the default catagory.**'} ${channel.parent ? '**' + channel.parent.name + '**.' : ''} has been deleted.`)
           .setFooter(`Watcher Event • Voice Channel Create | Channel ID: ${channel.id}`)
           .setTimestamp();
-        return logChannel.send(embed);
+        return logChannel.send({ embeds: [embed] });
       } else if (channel.type === 'category') {
         const embed = new MessageEmbed()
           .setColor('#DD5449').setTitle(`Category __**${channel.name}**__ has been deleted.`)
           .setDescription(`Cateogry **${channel.name}** has been deleted.`)
           .setFooter(`Watcher Event • Category Channel Delete | Channel ID: ${channel.id}`)
           .setTimestamp();
-        return logChannel.send(embed);
+        return logChannel.send({ embeds: [embed] });
       } else {
         const embed = new MessageEmbed()
           .setColor('#DD5449').setTitle('Watcher Event - Unknown Channel Deleted')
           .setDescription(`An unknown channel type has been deleted: **${channel.name}**.`)
           .setFooter(`ID: ${channel.id}`)
           .setTimestamp();
-        return logChannel.send(embed);
+        return logChannel.send({ embeds: [embed] });
       }
     } else {
       return;

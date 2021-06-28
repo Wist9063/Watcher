@@ -26,7 +26,7 @@ module.exports = class extends BotEvent {
         .setDescription(`**Name:** \`${role.name}\`\n**Hex Color:** \`${role.hexColor}\`\n**Position Was?** \`${role.position}\`\n**Was Mentionable?** \`${role.mentionable ? 'True' : 'False'}\`\n**Deleted At:** \`${moment(new Date).format('MMMM Do YYYY, h:mm:ss A')} PST\``)
         .setFooter(`Watcher Event • Role Deleted | Role ID: ${role.id}`)
         .setTimestamp();
-      return logChannel.send(embed);
+      return logChannel.send({ embeds: [embed] });
     } else {
       return;
     }

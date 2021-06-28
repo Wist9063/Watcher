@@ -30,7 +30,7 @@ module.exports = class extends Command {
       const embed = new Discord.MessageEmbed()
         .setAuthor(user.tag)
         .setImage(user.avatarURL({ 'size': 2048, dynamic: true }));
-      return message.channel.send(embed);
+      return message.channel.send({ embeds: [embed] });
     } else if (!user) {
       const search = member.user;
       const value = args[1];
@@ -38,14 +38,15 @@ module.exports = class extends Command {
         const embed = new Discord.MessageEmbed()
           .setAuthor(message.author.tag)
           .setImage(message.author.avatarURL({ 'size': 2048, dynamic: true }));
-        return message.channel.send(embed);
+        return message.channel.send({ embeds: [embed] });
       } else if (search.username.toLowerCase().includes(value.toLowerCase())) {
         const embed = new Discord.MessageEmbed()
           .setAuthor(search.tag)
           .setImage(search.avatarURL({ 'size': 2048, dynamic: true }));
-        return message.channel.send(embed);
+        return message.channel.send({ embeds: [embed] });
       } else {
-        return message.channel.send('', { embed: { 'author': { 'name': message.author.tag, 'icon_url': message.author.avatarURL() }, 'description': `${this.client.emojis.cache.get('506673020014952448')} **Too many users found, please try being more specific.**`, 'color': 0xFF0000 } });
+        //return message.channel.send('', { embed: { 'author': { 'name': message.author.tag, 'icon_url': message.author.avatarURL() }, 'description': `${this.client.emojis.cache.get('506673020014952448')} **Too many users found, please try being more specific.**`, 'color': 0xFF0000 } });
+        return message.channel.send(`${this.client.emojis.cache.get('506673020014952448')} **Too many users found, please try being more specific.**`);
       }
     }
   }
