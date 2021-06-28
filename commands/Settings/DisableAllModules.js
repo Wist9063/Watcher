@@ -10,10 +10,10 @@ module.exports = class extends Command {
   }
 
   async execute(message) {
-    if (message.perm < 2) return message.channel.send(`${message.author} | Insufficient permissions required to execute this command.`);
+    if (message.perm < 2) return message.reply({ content: 'Insufficient permissions required to execute this command.', allowedMentions: { repliedUser: true }});
     const b = await db.get(message.guild.id, this.client.mongod, 'guildSettings');
     if (b.wb.wbID === null || b.wb.wbKey === null) {
-      message.channel.send(`${message.author} | You didn't setup a log channel yet! Run w!setup to setup one.`);
+      message.reply({ content: 'You didn\'t setup a log channel yet! Run w!setup to setup one.', allowedMentions: { repliedUser: true }});
     } else {
       await db.update(message.guild.id, this.client.mongod, 'events', {
         events: {
@@ -35,7 +35,7 @@ module.exports = class extends Command {
         }
       });
 
-      return message.channel.send(`${message.author} | Disabled **all** log events, database updated.`);
+      return message.reply({ content: 'Disabled **all** log events, database updated.', allowedMentions: { repliedUser: true }});
     }
   }
 };

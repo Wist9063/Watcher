@@ -11,21 +11,20 @@ module.exports = class extends Command {
     });
   }
   async execute(message) {
-    if (message.perm < 2) return message.channel.send(`${message.author} | Insufficient permissions required to execute this command.`);
+    if (message.perm < 2) return message.reply({ content: 'Insufficient permissions required to execute this command.', allowedMentions: { repliedUser: true }});
     const b = await db.get(message.guild.id, this.client.mongod, 'guildSettings');
     if (!b.wb.wbID) {
-      message.channel.send(`${message.author} | You didn't setup a log channel yet! Run w!setup to setup one.`);
+      message.reply({ content: 'You didn\'t setup a log channel yet! Run w!setup to setup one.', allowedMentions: { repliedUser: true }});
     } else {
-      if (message.perm < 2) return message.channel.send(`${message.author} | Insufficient permissions required to execute this command.`);
       let channelList = '';
       message.guild.channels.cache.forEach(c => {
         if (b.ignoreChannel.includes(c.id)) channelList += `**#${c.name}** \`(ID:${c.id})\`` + '\n';
       });
       if (channelList === '') {
-        return message.channel.send('There are currently no channels ignored. To ignore a channel run the ignore command (`w!ignore <channel-mention>`), and to remove it, run the ignore-delete command (`w!ignore-delete <#channel-mention>`).');
+        return message.reply({ content: 'There are currently no channels ignored. To ignore a channel run the ignore command (`w!ignore <channel-mention>`), and to remove it, run the ignore-delete command (`w!ignore-delete <#channel-mention>`).', allowedMentions: { repliedUser: true }});
       } else {
         const embed = new Discord.MessageEmbed().setDescription(channelList).setFooter(`Listing all ignored channels, requested by ${message.author.tag}.`, message.author.displayAvatarURL());
-        return message.channel.send({ embeds: [embed] });
+        return message.reply({ embeds: [embed], allowedMentions: { repliedUser: true } });
       }
     }
   }
