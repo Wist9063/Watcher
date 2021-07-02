@@ -1,4 +1,5 @@
 const Command = require('../../handlers/command.js');
+const config = require('../../config.js');
 
 module.exports = class extends Command {
   constructor(client, filePath) {
@@ -11,7 +12,7 @@ module.exports = class extends Command {
   }
 
   async execute(message) {
-    if (message.perm < 9) return;
+    if (!config.owners.includes(message.author.id)) return;
     message.channel.send('MySQL & quick.db not detected.');
     /*
     const g = this.client.guilds.cache.array();

@@ -1,4 +1,5 @@
 const Command = require('../../handlers/command.js');
+const config = require('../../config.js');
 
 module.exports = class extends Command {
   constructor(client, filePath) {
@@ -11,7 +12,7 @@ module.exports = class extends Command {
 
   async execute(message) {
     const a = message.content.slice(message.content.search(' ') + 1);
-    if (message.perm < 9) return;
+    if (!config.owners.includes(message.author.id)) return;
     if (!a) {
       return message.channel.send('You must provide a module to reload!');
     }

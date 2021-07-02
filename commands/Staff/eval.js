@@ -23,6 +23,7 @@ module.exports = class extends Command {
   
 
   async execute(message) {
+    if (!config.owners.includes(message.author.id)) return;
     const a = message.content.slice(message.content.search(' ') + 1);
     if (!a) return message.channel.send('You must provide some code to evaluate!');
   
