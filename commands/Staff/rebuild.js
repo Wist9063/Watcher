@@ -5,7 +5,8 @@ module.exports = class extends Command {
     super(client, filePath, {
       name: 'rebuild',
       aliases: [],
-      disabled: true
+      disabled: true,
+      onlyOwner: true
     });
   }
 

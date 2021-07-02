@@ -16,7 +16,7 @@ module.exports = class extends Command {
     // Checks
     if (!/^<@!?(\d+)>$/.test(message.content.split(' ')[1])) match = message.author;
     if (!message.mentions.users) return message.channel.send(`${message.author} | You didn't mention a user. Usage: \`w!perm [@user]\``);
-    if (/^<@!?(\d+)>$/.test(message.content.split(' ')[1]) && message.mentions.users) match = message.mentions.users.first(); 
+    if (/^<@!?(\d+)>$/.test(message.content.split(' ')[1])) match = message.mentions.users.first(); 
 
     let level, def;
 

@@ -4,7 +4,8 @@ module.exports = class extends Command {
   constructor(client, filePath) {
     super(client, filePath, {
       name: 'restart',
-      aliases: ['reboot']
+      aliases: ['reboot'],
+      onlyOwner: true
     });
   }
   execute(message) {

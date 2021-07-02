@@ -4,7 +4,8 @@ module.exports = class extends Command {
   constructor(client, filePath) {
     super(client, filePath, {
       name: 'reload',
-      aliases: ['rel']
+      aliases: ['rel'],
+      onlyOwner: true
     });
   }
 
