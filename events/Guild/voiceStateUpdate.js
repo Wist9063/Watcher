@@ -1,6 +1,6 @@
 const BotEvent = require('../../handlers/event.js');
 const db = new (require('../../handlers/database.js'))();
-const { MessageEmbed/*, WebhookClient */} = require('discord.js');
+const { MessageEmbed, WebhookClient } = require('discord.js');
 
 module.exports = class extends BotEvent {
   constructor(client, filePath) {
@@ -15,8 +15,7 @@ module.exports = class extends BotEvent {
     if (a.events.voiceStateUpdate === null) return;
     if (a.events.voiceStateUpdate === true) {
       if (b.wb.wbID === null || b.wb.wbKey === null) return;
-      //const logChannel = new WebhookClient(b.wb.wbID, b.wb.wbKey);
-      const logChannel = await newState.guild.channels.fetch(b.wb.channelID);
+      const logChannel = new WebhookClient(b.wb.wbID, b.wb.wbKey);
       if (!logChannel) return;
       this.eventsend++;
       const voice1 = (oldState.channel ? oldState.channel.name : 'None');
