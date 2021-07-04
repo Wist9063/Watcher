@@ -11,8 +11,8 @@ module.exports = class extends BotEvent {
   }
 
   async execute(guild, user) {
-    const b = await db.get(guild.id, this.mongod, 'guildSettings');
-    const a = await db.get(guild.id, this.mongod, 'events');
+    const b = await db.get(guild.id, this.mongod, 'guildSettings').catch((e) => {console.error(e);});
+    const a = await db.get(guild.id, this.mongod, 'events').catch((e) => {console.error(e);});
     if (a.events.guildBanAdd === null) return;
     if (a.events.guildBanAdd === true) {
       if (b.wb.wbID === null || b.wb.wbKey === null) return;

@@ -10,8 +10,8 @@ module.exports = class extends BotEvent {
   }
 
   async execute(oldState, newState) {
-    const b = await db.get(oldState.guild.id, this.mongod, 'guildSettings');
-    const a = await db.get(oldState.guild.id, this.mongod, 'events');
+    const b = await db.get(oldState.guild.id, this.mongod, 'guildSettings').catch((e) => {console.error(e);});
+    const a = await db.get(oldState.guild.id, this.mongod, 'events').catch((e) => {console.error(e);});
     if (a.events.voiceStateUpdate === null) return;
     if (a.events.voiceStateUpdate === true) {
       if (b.wb.wbID === null || b.wb.wbKey === null) return;

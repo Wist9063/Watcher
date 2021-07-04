@@ -11,8 +11,8 @@ module.exports = class extends BotEvent {
 
   async execute(oldMember, newMember) {
     if (oldMember.user.bot) return;
-    const b = await db.get(newMember.guild.id, this.mongod, 'guildSettings');
-    const a = await db.get(newMember.guild.id, this.mongod, 'events');
+    const b = await db.get(newMember.guild.id, this.mongod, 'guildSettings').catch((e) => {console.error(e);});
+    const a = await db.get(newMember.guild.id, this.mongod, 'events').catch((e) => {console.error(e);});
     if (a === undefined) return;
     if (a.events.guildMemberUpdate === null) return;
     if (a.events.guildMemberUpdate === true) {
