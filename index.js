@@ -131,9 +131,7 @@ new class extends Client {
       if (!file.ext || file.ext !== '.js') return;
 
       const event = new (require(`${file.dir}/${file.base}`))(this);
-      this.on(event.name, event.execute).catch((e) => {
-        console.error(e);
-      });
+      this.on(event.name, event.execute);
       sentry.addBreadcrumb({
         category: 'initEvent',
         message: 'initialized events.',
