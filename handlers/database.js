@@ -7,7 +7,7 @@ class database {
         docs = (JSON.parse(JSON.stringify(docs)))[0];
         return resolve(docs);
       });
-    });
+    }).catch((e) => {throw e;});
   }
 
   update(id, db, collection, data) {
@@ -16,7 +16,7 @@ class database {
         if (err) return reject(err);
         return resolve(r.modifiedCount); // returns modified count 
       });
-    });
+    }).catch((e) => {throw e;});
   }
 
   insert(db, collection, data) {
@@ -25,7 +25,7 @@ class database {
         if (err) return reject(err);
         return resolve(r.modifiedCount); // returns modified count 
       });
-    });
+    }).catch((e) => {throw e;});
   }
 
   delete(db, collection, data) {
@@ -34,7 +34,7 @@ class database {
         if (err) return reject(err);
         return resolve(r.modifiedCount); // returns modified count 
       });
-    });
+    }).catch((e) => {throw e;});
   }
 
 }

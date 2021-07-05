@@ -53,13 +53,13 @@ module.exports = class extends Command {
         .setAuthor(`Info for ${user.tag}`, user.avatarURL({ 'size': 2048, dynamic: true }))
         // .setDescription(`${status(user.presence.status, this.client)} ${game(user.presence.activities[0] ? user.presence.activities[0] : null)}`)
         .addField('❯❯ Nickname',  member.nickname ? member.nickname : 'None', true)
-        .addField('❯❯ Joined Server', member.joinedAt, true)
-        .addField('❯❯ Joined Discord', user.createdAt, false)
+        .addField('❯❯ Joined Server', `${member.joinedAt}`, true)
+        .addField('❯❯ Joined Discord', `${user.createdAt}`, false)
         .addField(`❯❯ Roles (${member.roles.cache.size})`, member.roles.cache.map(role => role).join(' - '), false)
         .setFooter(`User ID: ${user.id}`)
         .setThumbnail(user.avatarURL({ 'size': 2048, dynamic: true }))
         .setColor('#7289DA');
-      return message.channel.send({embeds: [embed]});
+      return await message.channel.send({embeds: [embed]});
     } else if (!user) {
       const search = member.user;
       const value = args[1];
@@ -70,29 +70,29 @@ module.exports = class extends Command {
           .setAuthor(`Info for ${user.tag}`, user.avatarURL({ 'size': 2048, dynamic: true }))
           //.setDescription(`${status(user.presence.status, this.client)} ${game(user.presence.activities[0] ? user.presence.activities[0] : null)}`)
           .addField('❯❯ Nickname',  member.nickname ? member.nickname : 'None', true)
-          .addField('❯❯ Joined Server', member.joinedAt, true)
-          .addField('❯❯ Joined Discord', user.createdAt, false)
+          .addField('❯❯ Joined Server', `${member.joinedAt}`, true)
+          .addField('❯❯ Joined Discord', `${user.createdAt}`, false)
           .addField(`❯❯ Roles (${member.roles.cache.size})`, member.roles.cache.map(role => role).join(' - '), false)
           .setThumbnail(user.avatarURL({ 'size': 2048, dynamic: true }))
           .setFooter(`User ID: ${user.id}`)
           .setColor('#7289DA');
         await message.guild.members.cache.clear();
-        return message.channel.send({embeds: [embed]});
+        return await message.channel.send({embeds: [embed]});
       } else if (search.username.toLowerCase().includes(value.toLowerCase())) {
         const embed = new Discord.MessageEmbed()
           .setAuthor(`Info for ${search.tag}`, search.avatarURL({ 'size': 2048, dynamic: true }))
           //.setDescription(`${status(search.presence.status, this.client)} ${game(search.presence.activities[0] ? search.presence.activities[0] : null)}`)
           .addField('❯❯ Nickname',  member.nickname ? member.nickname : 'None', true)
-          .addField('❯❯ Joined Server', member.joinedAt, true)
-          .addField('❯❯ Joined Discord', search.createdAt, false)
+          .addField('❯❯ Joined Server', `${member.joinedAt}`, true)
+          .addField('❯❯ Joined Discord', `${user.createdAt}`, false)
           .addField(`❯❯ Roles (${member.roles.cache.size})`, member.roles.cache.map(role => role).join(' - '), false)
           .setThumbnail(search.avatarURL({ 'size': 2048, dynamic: true }))
           .setFooter(`User ID: ${search.id}`)
           .setColor('#7289DA');
         await message.guild.members.cache.clear();
-        return message.channel.send({embeds: [embed]});
+        return await message.channel.send({embeds: [embed]});
       } else {
-        return message.channel.send(`${this.client.emojis.cache.get('506673020014952448')} **Too many users found, please try being more specific.**`);
+        return await message.channel.send(`${this.client.emojis.cache.get('506673020014952448')} **Too many users found, please try being more specific.**`);
         //return message.channel.send('', { embed: { 'author': { 'name': message.author.tag, 'icon_url': message.author.avatarURL() }, 'description': `${this.client.emojis.cache.get('506673020014952448')} **This user could not be found, please try being more specific.**`, 'color': 0xFF0000 } });
       }
     }

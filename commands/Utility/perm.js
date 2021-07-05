@@ -24,13 +24,13 @@ module.exports = class extends Command {
     if (array !== 'err') {
       level = array[0];
       def = array[1];
-    } else { return message.channel.send(`${message.author} | An error has occured while fetching the permissions. Please try again later.`); }
+    } else { return await message.channel.send(`${message.author} | An error has occured while fetching the permissions. Please try again later.`); }
 
     const embed = new MessageEmbed()
       .setTitle(`Permission Level for ${match.username}`)
       .setDescription(`**${def}**\nPermission Level: __${level}__`)
       .setFooter(`Requested by ${message.author.tag}`)
       .setColor(0xcc8822);
-    return message.channel.send({embeds: [embed]});
+    return await message.channel.send({embeds: [embed]});
   }
 };

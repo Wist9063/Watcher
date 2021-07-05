@@ -30,7 +30,7 @@ module.exports = class extends BotEvent {
           .setTimestamp()
           .addField('Previous Nickname', oldMember.nickname === null ? oldMember.user.tag : oldMember.nickname, true)
           .addField('Current Nickname', newMember.nickname === null ? newMember.user.tag : newMember.nickname, true);
-        return logChannel.send({ embeds: [embed] });
+        return await logChannel.send({ embeds: [embed] });
       } else if (oldMember.roles.cache.size != newMember.roles.cache.size) {
         const oldRoles = oldMember.roles.cache.map(r => r).join(' ').replace('@everyone', ' ');
         if (oldRoles.length > 99) oldRoles.substring(0, 100) + ', and more.';
@@ -44,7 +44,7 @@ module.exports = class extends BotEvent {
           .addField('Current Roles', `󠂪󠂪${newRoles}`)
           .setFooter(`Watcher Event • Roles Edited | User ID: ${newMember.user.id}`)
           .setTimestamp();
-        return logChannel.send({ embeds: [embed] });
+        return await logChannel.send({ embeds: [embed] });
       }
     } else {
       return;

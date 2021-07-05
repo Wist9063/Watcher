@@ -8,6 +8,6 @@ module.exports = class extends Command {
     });
   }
   async execute(message) {
-    message.channel.send('We care about your privacy. Here is how we use your data.\n<https://www.notion.so/Watcher-Privacy-Policy-270fc96623d84176beac89bc6a20dae4>');
+    await message.channel.send('We care about your privacy. Here is how we use your data.\n<https://www.notion.so/Watcher-Privacy-Policy-270fc96623d84176beac89bc6a20dae4>');
   }
 };

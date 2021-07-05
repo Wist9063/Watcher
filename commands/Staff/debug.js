@@ -9,9 +9,9 @@ module.exports = class extends Command {
     });
   }
 
-  execute(message) {
+  async execute(message) {
     if (!config.owners.includes(message.author.id)) return;
-    message.channel.send('Debug not available on production.');
+    await message.channel.send(null);//.catch((e) => {throw e;});
     /*
     db.get('502895390807293963', this.client.mongod, 'guildSettings').then((b) => {
 

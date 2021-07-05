@@ -36,7 +36,7 @@ module.exports = class extends BotEvent {
         .setDescription(`Channel: ${oldMessage.channel}\nJump To Message: [Click Here](${newMessage.url})\n\n\`\`\`md\nPrevious Message\n====\n\n< ${oldContent} >\n\nCurrent Message\n====\n\n< ${newContent} >\`\`\``)
         .setFooter(`Watcher Event • Message Edited/Updated | Message ID: ${oldMessage.id}`)
         .setTimestamp();
-      return logChannel.send({ embeds: [embed] });
+      return await logChannel.send({ embeds: [embed] });
     } else {
       return;
     }

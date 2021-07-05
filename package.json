@@ -1,6 +1,6 @@
 {
   "name": "watcher",
-  "version": "1.7.7",
+  "version": "1.7.8",
   "description": "a logger bot, made with love.",
   "main": "index.js",
   "scripts": {

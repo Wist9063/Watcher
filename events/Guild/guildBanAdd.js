@@ -26,7 +26,7 @@ module.exports = class extends BotEvent {
         .setDescription(`**${user.tag}** has been banned in this server. This member was banned at \`${moment.utc(new Date).format('MMMM Do YYYY, h:mm:ss A')} (Universal Coordinated Time)\``)
         .setFooter(`Watcher Event • Member Banned | User ID: ${user.id}.`)
         .setTimestamp();
-      return logChannel.send({ embeds: [embed] });
+      return await logChannel.send({ embeds: [embed] });
     } else {
       return;
     }

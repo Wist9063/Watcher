@@ -13,7 +13,7 @@ module.exports = class extends Command {
       aliases: ['stats', 'botinfo']
     });
   }
-  execute(message) {
+  async execute(message) {
     const duration = moment.duration(this.client.uptime).format(' D [days], H [hrs], m [mins], s [secs]');
     const embed = new Discord.MessageEmbed()
       .setColor('#428bca')
@@ -24,6 +24,6 @@ module.exports = class extends Command {
       .addField('❯❯ Module Information', `Discord.js - \`${Discord.version}\`\nNode.js - \`${process.version}\`\nWatcher Version - \`${pkg.version}\``, true)
       .addField('❯❯ Additional Information', `\nMemory Usage - \`${(process.memoryUsage().rss / 1024 / 1024).toFixed(2)}\`MB\nHeap Usage - \`${bytes(process.memoryUsage().heapUsed)}\``)
       .setThumbnail('https://cdn.discordapp.com/avatars/505571539333152781/cbf64e07e3991abb9b8847627dd2a2ab.webp?size=2048');
-    return message.channel.send({ embeds: [embed] }).catch(e => message.channel.send(`\`\`\`${e}\`\`\``));
+    return await message.channel.send({ embeds: [embed] }).catch(e => message.channel.send(`\`\`\`${e}\`\`\``));
   }
 };
