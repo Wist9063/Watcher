@@ -23,7 +23,7 @@ module.exports = class extends BotEvent {
       const embed = new MessageEmbed()
         .setColor('#5cb85c')
         .setTitle(`The role "${role.name}" has been created.`)
-        .setDescription(`**Name:** \`${role.name}\`\n**Hex Color:** \`${role.hexColor}\`\n**Position:** \`${role.position}\`\n**Mentionable?** \`${role.mentionable ? 'True' : 'False'}\`\n**Created At:** ${moment(role.createdAt).format('MMMM Do YYYY, h:mm:ss A')} PST`)
+        .setDescription(`**Name:** \`${role.name}\`\n**Hex Color:** \`${role.hexColor}\`\n**Position:** \`${role.position}\`\n**Mentionable?** \`${role.mentionable ? 'True' : 'False'}\`\n**Created At:** ${moment(role.createdAt).format('MMMM Do YYYY, h:mm:ss A')} (Pacific Standard Time)`)
         .setFooter(`Watcher Event • Role Created | Role ID: ${role.id}`)
         .setTimestamp();
       return await logChannel.send({ embeds: [embed] });

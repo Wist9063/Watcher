@@ -10,9 +10,9 @@ module.exports = class extends BotEvent {
     });
   }
 
-  async execute(guild, user) {
-    const b = await db.get(guild.id, this.mongod, 'guildSettings').catch((e) => {console.error(e);});
-    const a = await db.get(guild.id, this.mongod, 'events').catch((e) => {console.error(e);});
+  async execute(ban) {
+    const b = await db.get(ban.guild.id, this.mongod, 'guildSettings').catch((e) => {console.error(e);});
+    const a = await db.get(ban.guild.id, this.mongod, 'events').catch((e) => {console.error(e);});
     if (a.events.guildBanAdd === null) return;
     if (a.events.guildBanAdd === true) {
       if (b.wb.wbID === null || b.wb.wbKey === null) return;
@@ -21,10 +21,10 @@ module.exports = class extends BotEvent {
       this.eventsend++;
 
       const embed = new MessageEmbed()
-        .setColor('#5cb85c')
-        .setAuthor(`${user.tag} has been banned.`, user.displayAvatarURL())
-        .setDescription(`**${user.tag}** has been banned in this server. This member was banned at \`${moment.utc(new Date).format('MMMM Do YYYY, h:mm:ss A')} (Universal Coordinated Time)\``)
-        .setFooter(`Watcher Event • Member Banned | User ID: ${user.id}.`)
+        .setColor('#DD5449')
+        .setAuthor(`${ban.user.tag} has been banned from the server.`, ban.user.displayAvatarURL())
+        .setDescription(`__Reason:__ ${ban.reason ? ban.reason : 'No Reason Provided'}\nThis member was banned at \`${moment(new Date).format('MMMM Do YYYY, h:mm:ss A')} (Pacific Standard Time)\``)
+        .setFooter(`Watcher Event • Member Banned | User ID: ${ban.user.id}.`)
         .setTimestamp();
       return await logChannel.send({ embeds: [embed] });
     } else {
