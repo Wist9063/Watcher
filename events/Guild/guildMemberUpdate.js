@@ -17,7 +17,6 @@ module.exports = class extends BotEvent {
     if (a.events.guildMemberUpdate === true) {
       if (b.wb.wbID === null || b.wb.wbKey === null) return;
       const logChannel = new WebhookClient(b.wb.wbID, b.wb.wbKey);
-      if (!logChannel) return;
       this.eventsend++;
 
       if (oldMember.nickname != newMember.nickname) {
@@ -31,10 +30,10 @@ module.exports = class extends BotEvent {
           .addField('Current Nickname', newMember.nickname === null ? newMember.user.tag : newMember.nickname, true);
         return await logChannel.send({ embeds: [embed] });
       } else if (oldMember.roles.cache.size != newMember.roles.cache.size) {
-        const oldRoles = oldMember.roles.cache.map(r => r).join(' ').replace('@everyone', ' ');
-        if (oldRoles.length > 99) oldRoles.substring(0, 100) + ', and more.';
-        const newRoles = newMember.roles.cache.map(r => r).join(' ').replace('@everyone', ' ');
-        if (newRoles.length > 99) newRoles.substring(0, 100) + ', and more.';
+        const oldRoles = oldMember.roles.cache.map(r => r).sort((a, b) => b.position - a.position || b.id - a.id).join(' ').replace('@everyone', ' ');
+        //if (oldRoles.length > 99) oldRoles.substring(0, 100) + ', and more.';
+        const newRoles = newMember.roles.cache.map(r => r).sort((a, b) => b.position - a.position || b.id - a.id).join(' ').replace('@everyone', ' ');
+        //if (newRoles.length > 99) newRoles.substring(0, 100) + ', and more.';
         const embed = new MessageEmbed()
           .setColor('#5bc0de')
           .setAuthor(`${newMember.user.tag} edited their roles.`, newMember.user.displayAvatarURL())
