@@ -27,7 +27,9 @@ module.exports = class extends BotEvent {
         ['WATCHING', 'your chat | w!help'],
         ['WATCHING', 'netflix | w!help'],
         ['LISTENING', 'events n stuff | w!help'],
+        ['LISTENING', 'myself | w!help'],
         ['COMPETING', 'valorant | w!help'],
+        ['WATCHING', 'you | w!help'],
         ['LISTENING', 'w!help']
       ];
       let game; //= gameStatus[Math.floor(Math.random()*gameStatus.length)];
