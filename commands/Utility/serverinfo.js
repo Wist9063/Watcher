@@ -31,7 +31,7 @@ module.exports = class extends Command {
 
       const veri = verfiCheck(message.guild.verificationLevel);
       const ex = explictC(message.guild.explicitContentFilter);
-      const owner = await message.guild.members.fetch(message.guild.ownerID);
+      const owner = await message.guild.members.fetch(message.guild.ownerId);
 
       const embed = new MessageEmbed()
         .setColor('#7289DA')
