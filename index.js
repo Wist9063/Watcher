@@ -38,7 +38,7 @@ new class extends Client {
       restTimeOffset: 1000,
       restGlobalRateLimit: 40,
       presence: {
-        activities: [{name: 'launching watcher...', type: 'COMPETING'}]
+        activities: [{name: 'launching watcher..', type: 'COMPETING'}]
       }
     });
 
