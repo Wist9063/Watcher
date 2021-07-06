@@ -52,7 +52,6 @@ module.exports = class extends BotEvent {
       setTimeout(() => {
         datadogsync(c);
       }, 30000);
-      return console.log('Statistics ARE syncing to datadog servers.');
     };
 
     console.log('\nWelcome to Watcher. Info will be printed below. *made with love and keystrokes*');
@@ -64,6 +63,7 @@ module.exports = class extends BotEvent {
     console.log(`Guild Size: ${this.guilds.cache.size}\nUser Size: ${this.users.cache.size}\nChannels: ${this.channels.cache.size}\nUsing account: ${this.user.tag}\nLaunched at ${moment(this.readyAt).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}`);
     
     if (process.env.NODE_ENV == 'production') {
+      console.log('Statistics ARE syncing to datadog servers.');
       datadogsync(this);
     } else console.log('Statistics are NOT syncing to datadog servers.');
     gameCycle(this);
