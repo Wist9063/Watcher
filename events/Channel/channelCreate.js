@@ -17,7 +17,6 @@ module.exports = class extends BotEvent {
     if (a.events.channelCreate === true) {
       if (b.wb.wbID === null || b.wb.wbKey === null) return;
       const logChannel = new WebhookClient(b.wb.wbID, b.wb.wbKey);
-      if (!logChannel) return;
       this.eventsend++;
      
       if (channel.type === 'text') {

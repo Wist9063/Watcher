@@ -17,7 +17,6 @@ module.exports = class extends BotEvent {
     if (a.events.guildBanAdd === true) {
       if (b.wb.wbID === null || b.wb.wbKey === null) return;
       const logChannel = new WebhookClient(b.wb.wbID, b.wb.wbKey);
-      if (!logChannel) return;
       this.eventsend++;
 
       const embed = new MessageEmbed()
