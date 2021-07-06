@@ -25,6 +25,7 @@ const intents = new Intents();
 intents.add('GUILDS', 'GUILD_MEMBERS', 'GUILD_BANS', 'GUILD_EMOJIS', 'GUILD_WEBHOOKS', 'GUILD_VOICE_STATES', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS');
 
 const commandsPath = path.join(__dirname, 'commands');
+const InteractionCommandsPath = path.join(__dirname, 'InteractionCommands');
 const eventsPath = path.join(__dirname, 'events');
 
 new class extends Client {
@@ -47,8 +48,10 @@ new class extends Client {
     this.datadog = new statsd();
     this.eventsend = 0;
     this.commands = new Collection();
+    this.InteractionCommands = new Collection();
     this.mongod = new MongoClient(`mongodb+srv://${process.env.mdbKEY}@watcherdev-too26.azure.mongodb.net/test?retryWrites=true&w=majority`, { useUnifiedTopology: true, useNewUrlParser: true, poolSize: 15, tls: true});
     this.init();
+    this.InterInit();
     this.initEvents();
     this.connect();
   }
@@ -110,6 +113,15 @@ new class extends Client {
     });
   }
 
+  
+  fetchInterCommand(text) {
+    return new Promise((resolve) => {
+      if (this.InteractionCommands.has(text)) return resolve(this.InteractionCommands.get(text));
+      this.InteractionCommands.forEach(c => { if (c.aliases && c.aliases.includes(text)) return resolve(c); });
+      return resolve();
+    });
+  }
+
   init() {
     klaw(commandsPath).on('data', item => {
       const file = path.parse(item.path);
@@ -120,6 +132,21 @@ new class extends Client {
       sentry.addBreadcrumb({
         category: 'initEvent',
         message: 'initialized commands.',
+        level: sentry.Severity.Info
+      });
+    });
+  }
+
+  InterInit() {
+    klaw(InteractionCommandsPath).on('data', item => {
+      const file = path.parse(item.path);
+      if (!file.ext || file.ext !== '.js') return;
+
+      const command = new (require(`${file.dir}/${file.base}`))(this);
+      this.InteractionCommands.set(command.name, command);
+      sentry.addBreadcrumb({
+        category: 'initEvent',
+        message: 'initialized interavtions commands.',
         level: sentry.Severity.Info
       });
     });

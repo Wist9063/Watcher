@@ -10,13 +10,13 @@ module.exports = class extends Command {
   }
 
   async execute(message) {
-    if (!config.owners.includes(message.author.id)) return;
-    await message.channel.send(null);//.catch((e) => {throw e;});
-    /*
-    db.get('502895390807293963', this.client.mongod, 'guildSettings').then((b) => {
+    const data = {
+      name: 'ping',
+      description: 'Replies with Watcher\'s ping!',
+    };
 
-      console.log(b);
-    }); */
+    const command = this.client.guilds.cache.get('502895390807293963').commands.create(data);
+    console.log(command);
     
 
   }

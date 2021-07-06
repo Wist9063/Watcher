@@ -13,7 +13,7 @@ module.exports = class extends Command {
   async execute(message) {
     const b = await db.get(message.guild.id, this.client.mongod, 'guildSettings');
     if (b.wb.wbID === null || b.wb.wbKey === null) {
-      message.reply({ content: 'You didn\'t setup a log channel yet! Run w!setup to setup one.', allowedMentions: { repliedUser: true }});
+      message.reply({ content: 'You didn\'t setup a moderation log channel yet! Run w!setup to setup one.', allowedMentions: { repliedUser: true }});
     } else {
       if (message.perm < 2) return message.channel.send(`${message.author}, you have insufficient permissions required to execute this command.`);
       //if (!message.guild.me.hasPermission('MANAGE_MESSAGES')) return message.channel.send(`${message.author} | I'm not capable of deleting messages, please ensure that I have the proper permissions to do so.`);

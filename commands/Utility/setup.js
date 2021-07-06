@@ -9,6 +9,59 @@ module.exports = class extends Command {
     });
   }
   async execute(message) {
+    const filter = (interaction) => interaction.user.id === message.author.id;
+    const buttons = [
+      [ 
+        new Discord.MessageButton()
+          .setCustomId('stepbystep')
+          .setEmoji('🙋‍♂️')
+          .setStyle('PRIMARY'),
+      ],
+      [ 
+        new Discord.MessageButton()
+          .setCustomId('guide')
+          .setEmoji('📖')
+          .setStyle('PRIMARY'),
+      ]
+    ];
+
+    const row = new Discord.MessageActionRow()
+      .addComponents(buttons);
+
+    const m = await message.channel.send({ content: 'Would you like to run a __**step-by-step**__ setup (🙋‍♂️) or send a __**guide**__ (📖)?', components: [row] });
+
+    m.awaitMessageComponent({ filter, time: 15000 })
+      .then(interaction => {
+        if (interaction.customId === 'guide') {
+          const info_line = '**Thanks for inviting me! First and foremost, to setup the bot, you are required to invite it first. Once the bot is in your server, follow these steps below:**';
+          const step_one = '`[1]` **Set a log channel.**\nSetting a log channel is simple and easy, simply run `w!log-channel #channel`. In addition, make sure that the bot has the __**Administrator**__ permission to ensure the bot is able to log events that is happening in your server.';
+          const step_two = '`[2]` **Enable/Disable modules.**\nNow for the best part, logging modules. Run the command `w!modules`, and enable the modules you\'d like to log. __**Keep in mind that the whole command must be lowercase**__. (e.g `w!guildmemberjoin on`)';
+          const step_three = '`[3]` **Finalizing.**\nFinalize the modules you\'d like to log, and you can now rest and know that your server has an advanced Discord logging bot! Moreover, if you\'d like to suggest a neat logging feature or you are having problems with Watcher, simply join our support server below.\n**<https://discord.gg/83SAWkh>**';
+          const donate = '`[4]` **Donating.**\nIf you like the bot and want to keep it up and running, please consider donating to our patreon. *pls <3* **<https://www.patreon.com/watcherbot>**';
+          return interaction.reply({ content: `${info_line}\n\n${step_one}\n\n${step_two}\n\n${step_three}\n\n${donate}` });
+        }
+      })
+      .catch(console.error);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
     const m = await message.channel.send('Would you like to run a __**step-by-step**__ setup (🙋‍♂️) or send a __**guide**__ (📖)?\n*You have 20 seconds to react.*');
     const filter = (reaction, user) => {
       return reaction.emoji.name === '🙋‍♂️' || reaction.emoji.name === '📖' && user.id === message.author.id;
@@ -111,6 +164,6 @@ module.exports = class extends Command {
         }
       }).catch(() => {
         message.channel.send('**You ran out of time to pick an emoji!** Rerun the command and pick an emoji.');
-      });
+      });*/
   }
 };
