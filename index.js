@@ -36,6 +36,7 @@ new class extends Client {
       messageSweepInterval: 300,
       messageCacheMaxSize: 150,
       restTimeOffset: 1000,
+      invalidRequestWarningInterval: 500,
       restGlobalRateLimit: 40,
       presence: {
         activities: [{name: 'launching watcher..', type: 'COMPETING'}]
