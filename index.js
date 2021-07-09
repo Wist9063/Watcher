@@ -143,7 +143,7 @@ new class extends Client {
 
 };
 
-process.on('uncaughtException', err => console.error(err.stack, true) && sentry.captureException(err.stack));
-process.on('unhandledRejection', err => console.error(err.stack, true) && sentry.captureException(err.stack));
+process.on('uncaughtException', err => console.error(err.stack) && sentry.captureException(err.stack));
+process.on('unhandledRejection', err => console.error(err.stack) && sentry.captureException(err.stack));
 
 // end of file, move fast break things 
