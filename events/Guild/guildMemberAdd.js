@@ -23,8 +23,8 @@ module.exports = class extends BotEvent {
       const embed = new MessageEmbed()
         .setColor('#5cb85c')
         .setAuthor(`${member.user.tag} has joined the server.`, member.user.displayAvatarURL())
-        .setDescription(` **${guild.name}** now has __${guild.memberCount}__ members.\nThis user joined discord on \`${moment(member.joinedAt).format('MMMM Do, YYYY, h:mm:ss A')} (Pacific Standard Time)\``)
-        .setFooter(`Watcher Event • User Joined | User ID: ${member.user.id}.`)
+        .setDescription(` **${guild.name}** now has __${guild.memberCount}__ members.\nJoined discord on \`${moment(member.user.createdAt).format('MMMM Do, YYYY, h:mm:ss A')} (Pacific Standard Time)\`\nThat was **${moment(member.user.createdAt).fromNow()}**.`)
+        .setFooter(`Watcher Event • User Joined | User ID: ${member.user.id}`)
         .setTimestamp();
       return await logChannel.send({ embeds: [embed] });
     } else {
