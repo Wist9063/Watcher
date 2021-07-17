@@ -40,7 +40,7 @@ module.exports = class extends Command {
         .setFooter(`Guild ID: ${message.guild.id}`)
         .addField('❯❯ Verification Level', veri, true)
         .addField('❯❯ Explicit Content Fliter', ex, true)
-        .addField('❯❯ Guild Created At', `\`${moment(message.guild.createdAt).format('MMMM Do YYYY, h:mm:ss A')}\``, false)
+        .addField('❯❯ Guild Created At', `\`${moment(message.guild.createdAt).format('MMMM Do YYYY, h:mm:ss A')} (Pacific Standard Time)\` `, false)
         .addField('❯❯ Text Channels', `${message.guild.channels.cache.filter(channel => channel.type === 'text').size}`, true)
         .addField('❯❯ Voice Channels', `${message.guild.channels.cache.filter(channel => channel.type === 'voice').size}`, true)
         .setThumbnail(message.guild.iconURL({'size': 2048, dynamic: true}) ? message.guild.iconURL({'size': 2048, dynamic: true}) : 'https://discordapp.com/assets/2c21aeda16de354ba5334551a883b481.png');

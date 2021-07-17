@@ -1,5 +1,6 @@
 const Command = require('../../handlers/command.js');
 const Discord = require('discord.js');
+const moment = require('moment');
 const sm = require('string-similarity');
 
 /*
@@ -53,8 +54,8 @@ module.exports = class extends Command {
         .setAuthor(`Info for ${user.tag}`, user.avatarURL({ 'size': 2048, dynamic: true }))
         // .setDescription(`${status(user.presence.status, this.client)} ${game(user.presence.activities[0] ? user.presence.activities[0] : null)}`)
         .addField('❯❯ Nickname',  member.nickname ? member.nickname : 'None', true)
-        .addField('❯❯ Joined Server', `${member.joinedAt}`, true)
-        .addField('❯❯ Joined Discord', `${user.createdAt}`, false)
+        .addField('❯❯ Joined Server', `\`${moment(member.joinedAt).format('MMMM Do YYYY, h:mm:ss A')} (Pacific Standard Time)\``, true)
+        .addField('❯❯ Joined Discord', `\`${moment(user.createdAt).format('MMMM Do YYYY, h:mm:ss A')} (Pacific Standard Time)\``, false)
         .addField(`❯❯ Roles (${member.roles.cache.size})`, member.roles.cache.map(role => role).join(' - '), false)
         .setFooter(`User ID: ${user.id}`)
         .setThumbnail(user.avatarURL({ 'size': 2048, dynamic: true }))
@@ -70,8 +71,8 @@ module.exports = class extends Command {
           .setAuthor(`Info for ${user.tag}`, user.avatarURL({ 'size': 2048, dynamic: true }))
           //.setDescription(`${status(user.presence.status, this.client)} ${game(user.presence.activities[0] ? user.presence.activities[0] : null)}`)
           .addField('❯❯ Nickname',  member.nickname ? member.nickname : 'None', true)
-          .addField('❯❯ Joined Server', `${member.joinedAt}`, true)
-          .addField('❯❯ Joined Discord', `${user.createdAt}`, false)
+          .addField('❯❯ Joined Server', `\`${moment(member.joinedAt).format('MMMM Do YYYY, h:mm:ss A')} (Pacific Standard Time)\``, true)
+          .addField('❯❯ Joined Discord', `\`${moment(user.createdAt).format('MMMM Do YYYY, h:mm:ss A')} (Pacific Standard Time)\``, false)
           .addField(`❯❯ Roles (${member.roles.cache.size})`, member.roles.cache.map(role => role).join(' - '), false)
           .setThumbnail(user.avatarURL({ 'size': 2048, dynamic: true }))
           .setFooter(`User ID: ${user.id}`)
@@ -83,8 +84,8 @@ module.exports = class extends Command {
           .setAuthor(`Info for ${search.tag}`, search.avatarURL({ 'size': 2048, dynamic: true }))
           //.setDescription(`${status(search.presence.status, this.client)} ${game(search.presence.activities[0] ? search.presence.activities[0] : null)}`)
           .addField('❯❯ Nickname',  member.nickname ? member.nickname : 'None', true)
-          .addField('❯❯ Joined Server', `${member.joinedAt}`, true)
-          .addField('❯❯ Joined Discord', `${member.user.createdAt}`, false)
+          .addField('❯❯ Joined Server', `\`${moment(member.joinedAt).format('MMMM Do YYYY, h:mm:ss A')} (Pacific Standard Time)\``, true)
+          .addField('❯❯ Joined Discord', `\`${moment(user.createdAt).format('MMMM Do YYYY, h:mm:ss A')} (Pacific Standard Time)\``, false)
           .addField(`❯❯ Roles (${member.roles.cache.size})`, member.roles.cache.map(role => role).join(' - '), false)
           .setThumbnail(search.avatarURL({ 'size': 2048, dynamic: true }))
           .setFooter(`User ID: ${search.id}`)
