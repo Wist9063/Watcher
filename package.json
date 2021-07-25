@@ -29,7 +29,7 @@
     "moment-duration-format": "^2.3.2",
     "moment-shortformat": "^2.1.0",
     "moment-timezone": "^0.5.27",
-    "mongodb": "^3.6.8",
+    "mongodb": "^4.0.1",
     "nano": "^9.0.3",
     "node-superfetch": "^0.2.3",
     "snekfetch": "^4.0.4",
