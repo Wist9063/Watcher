@@ -19,7 +19,7 @@ module.exports = class extends Command {
     if (!b.wb.wbID) {
       const channel = message.mentions.channels.first();
       if (!channel) return message.reply('You did not specify a channel, please try again.');
-      const setChannel = message.guild.channels.cache.get(channel.id);
+      const setChannel = message.guild.channels.fetch(channel.id);
       if (!setChannel) return message.reply('I couldn\'t locate that channel, please try again.');
 
       message.reply(`Logs will now be sent to ${channel}, testing my permissions.`).catch(error => {return message.channel.send(`There was an error executing this action:\n\`\`\`${error}\`\`\``);});
