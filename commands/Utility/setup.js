@@ -5,99 +5,108 @@ const db = new (require('../../handlers/database.js'))();
 module.exports = class extends Command {
   constructor(client, filePath) {
     super(client, filePath, {
-      name: 'setup'
+      name: 'setup',
+      disabled: true,
+      disabledReason: 'Please run `w!log-channel <#channel>` to setup a log channel instead.'
     });
   }
   async execute(message) {
+    console.log(message.author.id)
     const m = await message.channel.send('Would you like to run a __**step-by-step**__ setup (🙋‍♂️) or send a __**guide**__ (📖)?\n*You have 20 seconds to react.*');
     const filter = (reaction, user) => {
       return reaction.emoji.name === '🙋‍♂️' || reaction.emoji.name === '📖' && user.id === message.author.id;
     };
-    const filter1 = (m) => {
-      return m.mentions && m.author.id === message.author.id;
+    const filter1 = (msg) => {
+      return msg.mentions.channels && msg.author.id === message.author.id;
     };
 
     // reactions 
     await m.react('🙋‍♂️');
-    await setTimeout(() => { m.react('📖');},1000);
+    await setTimeout(() => { m.react('📖'); }, 1000);
 
-    await m.awaitReactions(filter, { maxEmojis: 1, time: 20000, errors: ['time'] })
+    await m.awaitReactions({filter, maxEmojis: 1, time: 20000, errors: ['time'] })
       .then((c) => {
+        console.log('triggered')
         if (c.first().emoji.name === '🙋‍♂️') {
-          message.channel.send('Now running a __**step-by-step**__ setup.');
-          setTimeout(() => { message.channel.send(`${message.author}, say a channel you want to send logs. Ex: \`#logs\` or \`#audit-log\``);},1500);
-          message.channel.awaitMessages(filter1, { max: 1, time: 15000, errors: ['time'] })
+          setTimeout(() => { message.channel.send('Now running a __**step-by-step**__ setup.'); }, 1500);
+          setTimeout(() => { message.channel.send(`${message.author}, say a channel you want to send logs. Ex: \`#logs\` or \`#audit-log\``); }, 1500);
+          message.channel.awaitMessages({filter1, max: 1, time: 15000, errors: ['time'] })
             .then((c) => {
-              const c1 = c.first().mentions.channels.first();
+              console.log(c)
+              if (c.first().mentions.channels.first().type === 'GUILD_TEXT') {
               
-              db.get(message.guild.id, this.client.mongod, 'guildSettings').then((b) => {
-                if (!b.wb.wbID) {
-                  const embed = new Discord.MessageEmbed()
-                    .setTitle(`You have set channel #${c1.name} to send logs to.`)
-                    .setDescription('**__To activate Watcher__, type `w!enable-all` into the chat to enable all events & start logging!**\n\n*Make sure that the bot has the __Administrator__ permission to ensure the bot is able to log **all** events that is happening in your server.*\n\nIf you want to __review/edit__ the settings of watcher type `w!settings` into the chat.\nTo change the log channel in the future, you can use the command `w!log-channel` to change the set logs.\n\nConsider donating to our patreon keep us afloat. [https://www.patreon.com/watcherbot](https://www.patreon.com/watcherbot)')
-                    .setFooter(`Requested by ${message.author.tag}`)
-                    .setThumbnail('https://cdn.discordapp.com/avatars/505571539333152781/cbf64e07e3991abb9b8847627dd2a2ab.webp?size=2048')
-                    .setColor(0xcc8822);
-                  message.channel.send({embeds: [embed]});
+                this.client.channels.fetch(c.first().mentions.channels.first().id)
+                  .then((c1) => {
+                    db.get(message.guild.id, this.client.mongod, 'guildSettings').then((b) => {
+                      if (!b.wb.wbID) {
+                        const embed = new Discord.MessageEmbed()
+                          .setTitle(`You have set channel #${c1.name} to send logs to.`)
+                          .setDescription('**__To activate Watcher__, type `w!enable-all` into the chat to enable all events & start logging!**\n\n*Make sure that the bot has the __Administrator__ permission to ensure the bot is able to log **all** events that is happening in your server.*\n\nIf you want to __review/edit__ the settings of watcher type `w!settings` into the chat.\nTo change the log channel in the future, you can use the command `w!log-channel` to change the set logs.\n\nConsider donating to our patreon keep us afloat. [https://www.patreon.com/watcherbot](https://www.patreon.com/watcherbot)')
+                          .setFooter(`Requested by ${message.author.tag}`)
+                          .setThumbnail('https://cdn.discordapp.com/avatars/505571539333152781/cbf64e07e3991abb9b8847627dd2a2ab.webp?size=2048')
+                          .setColor(0xcc8822);
+                        message.channel.send({embeds: [embed]});
                   
-                  c1.createWebhook('Watcher', {
-                    avatar: 'https://i.imgur.com/kGgTC0b.png', 
-                    reason: `This is used to send watcher logs, do not delete or your logs will not send! Request made by ${message.author.tag}.`}).then(wb => {
-                    this.client.mongod.db('watcher').collection('guildSettings').updateOne({gID: message.guild.id}, {$set: {wb: {
-                      wbID: wb.id,
-                      wbKey: wb.token,
-                      channelID: c1.id
-                    }}});
+                        c1.createWebhook('Watcher', {
+                          avatar: 'https://i.imgur.com/kGgTC0b.png', 
+                          reason: `This is used to send watcher logs, do not delete or your logs will not send! Request made by ${message.author.tag}.`}).then(wb => {
+                          this.client.mongod.db('watcher').collection('guildSettings').updateOne({gID: message.guild.id}, {$set: {wb: {
+                            wbID: wb.id,
+                            wbKey: wb.token,
+                            channelID: c1.id
+                          }}});
 
-                    const embed = new Discord.MessageEmbed()
-                      .setColor('#7289DA')
-                      .setTitle('Watcher is sending logs in this channel.')
+                          const embed = new Discord.MessageEmbed()
+                            .setColor('#7289DA')
+                            .setTitle('Watcher is sending logs in this channel.')
                       
-                      .setDescription(`Watcher was told to send logs in this channel by ${message.author.tag}.`);
-                    wb.send({embeds: [embed]}).catch(error => {
-                      return message.channel.send(`There was an error executing this action:\n\`\`\`${error}\`\`\``);
+                            .setDescription(`Watcher was told to send logs in this channel by ${message.author.tag}.`);
+                          wb.send({embeds: [embed]}).catch(error => {
+                            return message.channel.send(`There was an error executing this action:\n\`\`\`${error}\`\`\``);
+                          });
+                        });
+                      } else if (b.wb.wbID) {
+                        const hook = new Discord.WebhookClient(b.wb.wbID, b.wb.wbKey);
+                        hook.delete(`Replacing hook for other log channel. Request made by ${message.author.tag}`);
+                        const embed = new Discord.MessageEmbed()
+                          .setTitle(`You have replaced the previous log channel with #${c1.name}.`)
+                          .setDescription('__To activate Watcher__, type `w!enable-all` into the chat to enable all events & start logging!\n*Make sure that the bot has the __Administrator__ permission to ensure the bot is able to log **all** events that is happening in your server.*\n\nIf you want to __review/edit__ the settings of watcher type `w!settings` into the chat.\nTo change the log channel in the future, you can use the command `w!log-channel` to change the set logs.\n\nConsider donating to our patreon keep us afloat. [https://www.patreon.com/watcherbot](https://www.patreon.com/watcherbot)')
+                          .setFooter(`Requested by ${message.author.tag}`)
+                          .setThumbnail('https://cdn.discordapp.com/avatars/505571539333152781/cbf64e07e3991abb9b8847627dd2a2ab.webp?size=2048')
+                          .setColor(0xcc8822);
+                        message.channel.send({embeds: [embed]});
+                        this.client.mongod.db('watcher').collection('guildSettings').updateOne({gID: message.guild.id}, {$set: {wb: {
+                          wbID: null,
+                          wbKey: null,
+                          channelID: null
+                        }}
+                        });
+                        c1.createWebhook('Watcher', {
+                          avatar: 'https://i.imgur.com/kGgTC0b.png', 
+                          reason: `This is used to send watcher logs, do not delete or your logs will not send! Request made by ${message.author.tag}.`}).then(wb => {
+          
+                          this.client.mongod.db('watcher').collection('guildSettings').updateOne({gID: message.guild.id}, {$set: {wb: {
+                            wbID: wb.id,
+                            wbKey: wb.token,
+                            channelID: c1.id
+                          }}
+                          });
+          
+                          const embed = new Discord.MessageEmbed()
+                            .setColor('#7289DA')
+                            .setTitle('Watcher is sending logs in this channel.')
+                      
+                            .setDescription(`Watcher was told to send logs in this channel by ${message.author.tag}.`);
+          
+                          wb.send({embeds: [embed]})
+                            .catch(error => {
+                              return error;
+                            });
+                        });
+                      }
                     });
                   });
-                } else if (b.wb.wbID) {
-                  const hook = new Discord.WebhookClient(b.wb.wbID, b.wb.wbKey);
-                  hook.delete(`Replacing hook for other log channel. Request made by ${message.author.tag}`);
-                  const embed = new Discord.MessageEmbed()
-                    .setTitle(`You have replaced the previous log channel with #${c1.name}.`)
-                    .setDescription('__To activate Watcher__, type `w!enable-all` into the chat to enable all events & start logging!\n*Make sure that the bot has the __Administrator__ permission to ensure the bot is able to log **all** events that is happening in your server.*\n\nIf you want to __review/edit__ the settings of watcher type `w!settings` into the chat.\nTo change the log channel in the future, you can use the command `w!log-channel` to change the set logs.\n\nConsider donating to our patreon keep us afloat. [https://www.patreon.com/watcherbot](https://www.patreon.com/watcherbot)')
-                    .setFooter(`Requested by ${message.author.tag}`)
-                    .setThumbnail('https://cdn.discordapp.com/avatars/505571539333152781/cbf64e07e3991abb9b8847627dd2a2ab.webp?size=2048')
-                    .setColor(0xcc8822);
-                  message.channel.send({embeds: [embed]});
-                  this.client.mongod.db('watcher').collection('guildSettings').updateOne({gID: message.guild.id}, {$set: {wb: {
-                    wbID: null,
-                    wbKey: null,
-                    channelID: null
-                  }}
-                  });
-                  c1.createWebhook('Watcher', {
-                    avatar: 'https://i.imgur.com/kGgTC0b.png', 
-                    reason: `This is used to send watcher logs, do not delete or your logs will not send! Request made by ${message.author.tag}.`}).then(wb => {
-          
-                    this.client.mongod.db('watcher').collection('guildSettings').updateOne({gID: message.guild.id}, {$set: {wb: {
-                      wbID: wb.id,
-                      wbKey: wb.token,
-                      channelID: c1.id
-                    }}
-                    });
-          
-                    const embed = new Discord.MessageEmbed()
-                      .setColor('#7289DA')
-                      .setTitle('Watcher is sending logs in this channel.')
-                      
-                      .setDescription(`Watcher was told to send logs in this channel by ${message.author.tag}.`);
-          
-                    wb.send({embeds: [embed]})
-                      .catch(error => {
-                        return error;
-                      });
-                  });
-                }
-              });
+              }
             }).catch(() => {
               message.channel.send('You haven\'t picked a channel. Rerun the command & try again.');
             });

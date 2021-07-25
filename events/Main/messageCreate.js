@@ -28,7 +28,7 @@ module.exports = class extends BotEvent {
     const content = message.content.slice(this.config.prefix.length);
     const command = await this.fetchCommand(content.split(' ')[0]);
     if (!command) return;
-    if (command.disabled == true) return message.channel.send('This command is globally disabled. Please try this command again at a later time or date.');
+    if (command.disabled == true) return message.channel.send(`This command is globally disabled. Please try this command again at a later time or date.\n${command.disabledReason}`);
     // if (!message.channel.permissionsFor(message.guild.me).has(this.config.requiredPermissions)) return message.channel.send(`INVALID PERMISSIONS: Watcher requires the following permissions: \n${this.config.requiredPermissions.map(p => p)}`);
     if (!cooldowns.has(command.name)) cooldowns.set(command.name, new Discord.Collection());
     const now = Date.now();
@@ -47,16 +47,16 @@ module.exports = class extends BotEvent {
 
     try { 
       if (!this.config.maintenance) {
-        message.channel.startTyping();
+        message.channel.sendTyping();
         console.log(`[${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
         command.execute(message);
-        message.channel.stopTyping();
+        message.channel.sendTyping();
         this.datadog.increment('watcher_cmd_exe');
       } else {
-        message.channel.startTyping();
+        message.channel.sendTyping();
         console.log(`[${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
         command.execute(message);
-        message.channel.stopTyping();
+        message.channel.sendTyping();
         if (content.split(' ')[1] != '--force') {
           await message.channel.send('Watcher is currently undergoing maintenance and will not be responding to any commands. Please check our hub for maintenance times. __**<https://discord.gg/83SAWkh>**__');
         } else if (content.split(' ')[1] === '--force' && message.perm > 9) {
