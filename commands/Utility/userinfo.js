@@ -85,7 +85,7 @@ module.exports = class extends Command {
           //.setDescription(`${status(search.presence.status, this.client)} ${game(search.presence.activities[0] ? search.presence.activities[0] : null)}`)
           .addField('❯❯ Nickname',  member.nickname ? member.nickname : 'None', true)
           .addField('❯❯ Joined Server', `\`${moment(member.joinedAt).format('MMMM Do YYYY, h:mm:ss A')} (Pacific Standard Time)\``, true)
-          .addField('❯❯ Joined Discord', `\`${moment(user.createdAt).format('MMMM Do YYYY, h:mm:ss A')} (Pacific Standard Time)\``, false)
+          .addField('❯❯ Joined Discord', `\`${moment(member.user.createdAt).format('MMMM Do YYYY, h:mm:ss A')} (Pacific Standard Time)\``, false)
           .addField(`❯❯ Roles (${member.roles.cache.size})`, member.roles.cache.map(role => role).join(' - '), false)
           .setThumbnail(search.avatarURL({ 'size': 2048, dynamic: true }))
           .setFooter(`User ID: ${search.id}`)
