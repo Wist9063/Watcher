@@ -9,7 +9,7 @@ module.exports = class extends Command {
     });
   }
   async execute(message) {
-    if (message.perm < 3) return message.reply({ content: 'Insufficient permissions required to execute this command.', allowedMentions: { repliedUser: true }});
+    if (message.perm < 3) return message.channel.send({ content: 'Insufficient permissions required to execute this command.'});
     const buttons = [
       [ 
         new Discord.MessageButton()
