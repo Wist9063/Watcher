@@ -11,7 +11,7 @@ module.exports = class extends Command {
   }
   async execute(message) {
     const embed = new MessageEmbed()
-      .setColor('#428bca')
+      .setColor('#7289DA')
       .setTitle('Watcher | The Advanced Logging Bot')
       .setDescription('**Prefix**: `w!`\n**To get started, run `w!setup`.**\nNeed help setting up Watcher? Join our support server [here](https://discord.gg/YyGaApfrTc)!\n\nWatcher provides your server with feature-rich advanced customizable logging features, to enhance your user experience.\n\nEvents we currently support:\nchannelCreate, channelDelete, guildBanAdd, guildBanRemove, guildMemberAdd, guildMemberRemove, guildMemberUpdate & more!\n\n__**Special thanks to Nettle#2222 for donating & keeping the project alive!**__\nCheck out our privacy policy [here](https://www.notion.so/Watcher-Privacy-Policy-270fc96623d84176beac89bc6a20dae4)! \n\n**Available commands are listed below.**')
       .setURL('https://discord.gg/83SAWkh')

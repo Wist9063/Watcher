@@ -26,7 +26,7 @@ module.exports = class extends Command {
     const tick = this.client.emojis.resolve('506673020014952448');
 
     const embed = new MessageEmbed()
-      .setColor('#428bca')
+      .setColor('#7289DA')
       .addField('💬 Message Settings', `**messageDelete**: ${a.events.messageDelete ? check : tick}\n**messageUpdate**: ${a.events.messageUpdate ? check : tick}\n**voiceStateUpdate**: ${a.events.voiceStateUpdate ? check : tick}\n**messageReactionAdd**: ${a.events.messageReactionAdd ? check : tick}\n**messageReactionRemove**: ${a.events.messageReactionRemove ? check : tick}`, true)
       .addField('🗒 Guild Settings', `**guildBanAdd**: ${a.events.guildBanAdd ? check : tick}\n**guidBanRemove**: ${a.events.guildBanRemove ? check : tick}\n**guildMemberAdd**: ${a.events.guildMemberAdd ? check : tick}\n**guildMemberUpdate**: ${a.events.guildMemberUpdate ? check : tick}\n**guildMemberRemove**: ${a.events.guildMemberRemove ? check : tick}\n**roleCreate**: ${a.events.roleCreate ? check : tick}\n**roleDelete**: ${a.events.roleDelete ? check : tick}`, true)
       .addField('⚙ Channel Settings', `**channelCreate**: ${a.events.channelCreate ? check : tick}\n**channelDelete**: ${a.events.channelDelete ? check : tick}`, true)
