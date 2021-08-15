@@ -27,8 +27,8 @@ module.exports = class extends Command {
   async execute(message) {
     if (message.guild.available) {
       await message.guild.members.fetch();
-      await message.guild.channels.fetch();
 
+      const channelSize = await message.guild.channels.fetch();
       const veri = verfiCheck(message.guild.verificationLevel);
       const ex = explictC(message.guild.explicitContentFilter);
       const owner = await message.guild.members.fetch(message.guild.ownerId);
@@ -41,8 +41,8 @@ module.exports = class extends Command {
         .addField('❯❯ Verification Level', veri, true)
         .addField('❯❯ Explicit Content Fliter', ex, true)
         .addField('❯❯ Guild Created At', `\`${moment(message.guild.createdAt).format('MMMM Do YYYY, h:mm:ss A')} (Pacific Standard Time)\` `, false)
-        .addField('❯❯ Text Channels', `${message.guild.channels.cache.filter(channel => channel.type === 'text').size}`, true)
-        .addField('❯❯ Voice Channels', `${message.guild.channels.cache.filter(channel => channel.type === 'voice').size}`, true)
+        .addField('❯❯ Text Channels', `${channelSize.filter(channel => channel.type === 'GUILD_TEXT').size}`, true)
+        .addField('❯❯ Voice Channels', `${channelSize.filter(channel => channel.type === 'GUILD_VOICE').size}`, true)
         .setThumbnail(message.guild.iconURL({'size': 2048, dynamic: true}) ? message.guild.iconURL({'size': 2048, dynamic: true}) : 'https://discordapp.com/assets/2c21aeda16de354ba5334551a883b481.png');
       const embed2 = new MessageEmbed()
         .setColor('#7289DA')

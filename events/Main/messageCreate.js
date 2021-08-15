@@ -50,21 +50,19 @@ module.exports = class extends BotEvent {
         message.channel.sendTyping();
         console.log(`[${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
         command.execute(message);
-        message.channel.sendTyping();
         this.datadog.increment('watcher_cmd_exe');
       } else {
         message.channel.sendTyping();
         console.log(`[${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
         command.execute(message);
-        message.channel.sendTyping();
         if (content.split(' ')[1] != '--force') {
           await message.channel.send('Watcher is currently undergoing maintenance and will not be responding to any commands. Please check our hub for maintenance times. __**<https://discord.gg/83SAWkh>**__');
         } else if (content.split(' ')[1] === '--force' && message.perm > 9) {
-          message.channel.startTyping();
+          message.channel.sendTyping();
           message.content = message.content.replace('--force', '');
           message.channel.send('This command has been forced to run while Watcher is in maintenance mode.');
           console.log(`[WARNING!] [${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] Executed using --force. - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
-          command.execute(message); message.channel.stopTyping();
+          command.execute(message);
         }
       }
     } catch (e) {

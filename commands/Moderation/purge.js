@@ -18,7 +18,7 @@ module.exports = class extends Command {
       if (message.perm < 2) return message.channel.send(`${message.author}, you have insufficient permissions required to execute this command.`);
       //if (!message.guild.me.hasPermission('MANAGE_MESSAGES')) return message.channel.send(`${message.author} | I'm not capable of deleting messages, please ensure that I have the proper permissions to do so.`);
       const args = message.content.split(' ')[1];
-      const logChannel = new WebhookClient(b.wb.wbID, b.wb.wbKey);
+      const logChannel = new WebhookClient({id: b.wb.wbID, token: b.wb.wbKey});
       if (!args) return message.reply({ content: 'Please specify an amount of messages to purge.', allowedMentions: { repliedUser: true }});
       if (!Number(args[0])) return message.reply({ content: 'The value you\'ve provided is not a valid number, please try again.', allowedMentions: { repliedUser: false }});
       if (args < 1) return message.reply({ content: 'Provide a number over 1, then try again.', allowedMentions: { repliedUser: false }});

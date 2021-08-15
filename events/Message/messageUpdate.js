@@ -21,7 +21,7 @@ module.exports = class extends BotEvent {
     if (a.events.messageUpdate === false) return;
     if (a.events.messageUpdate === true) {
       if (b.wb.wbID === null || b.wb.wbKey === null) return;
-      const logChannel = new WebhookClient(b.wb.wbID, b.wb.wbKey);
+      const logChannel = new WebhookClient({id: b.wb.wbID, token: b.wb.wbKey});
       this.eventsend++;
 
       let oldContent = oldMessage.content;
