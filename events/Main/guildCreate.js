@@ -38,7 +38,7 @@ module.exports = class extends BotEvent {
     });
     await db.insert(this.mongod, 'guildSettings', {gID: guild.id, wb: { wbID: null, wbKey: null }, ignoreChannel: []});
 
-    const hook = new WebhookClient('549476222686461972', this.config.webhookToken);
+    const hook = new WebhookClient({id: '549476222686461972', token: this.config.webhookToken});
 
     console.log(`[${momenttime(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] | I've joined a guild. Added from ${guild.name} (ID:${guild.id}), which is owned by  ID:${guild.ownerID}, has ${guild.memberCount} members.`);
 
