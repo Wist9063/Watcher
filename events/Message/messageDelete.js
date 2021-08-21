@@ -45,7 +45,7 @@ module.exports = class extends BotEvent {
 
       embed2.setColor('#DD5449');
       embed2.setAuthor(`${message.author.tag}'s${text} message has been deleted.`, message.author.displayAvatarURL());
-      embed2.setDescription(`${text2}__Message Content:__ \`${contentValue ? contentValue : 'No Text'}\`${contentEmbed[1] ? '\n\n**More than one embed has been detected in this message.**' : ''}`);
+      embed2.setDescription(`Deleted in ${message.channel}\n${text2}__Message Content:__ \`${contentValue ? contentValue : 'No Text'}\`${contentEmbed[1] ? '\n\n**More than one embed has been detected in this message.**' : ''}`);
       embed2.setImage(regeximg.test(contentAttachment.contentType) ? contentAttachment.proxyURL : null);
       embed2.setFooter(`Watcher Event • Message Deleted | Author ID: ${message.author.id} • Message ID: ${message.id}`);
       embed2.setTimestamp();
