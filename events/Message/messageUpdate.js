@@ -1,6 +1,7 @@
 const BotEvent = require('../../handlers/event.js');
 const db = new (require('../../handlers/database.js'))();
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
+const sender = require('../../modules/WebhookSender.js');
 
 module.exports = class extends BotEvent {
   constructor(client, filePath) {
@@ -21,7 +22,6 @@ module.exports = class extends BotEvent {
     if (a.events.messageUpdate === false) return;
     if (a.events.messageUpdate === true) {
       if (b.wb.wbID === null || b.wb.wbKey === null) return;
-      const logChannel = new WebhookClient({id: b.wb.wbID, token: b.wb.wbKey});
       this.eventsend++;
 
       let oldContent = oldMessage.content;
@@ -36,7 +36,7 @@ module.exports = class extends BotEvent {
         .setDescription(`Channel: ${oldMessage.channel}\nJump To Message: [Click Here](${newMessage.url})\n\n\`\`\`md\nPrevious Message\n====\n\n< ${oldContent} >\n\nCurrent Message\n====\n\n< ${newContent} >\`\`\``)
         .setFooter(`Watcher Event • Message Edited/Updated | Message ID: ${oldMessage.id}`)
         .setTimestamp();
-      return await logChannel.send({ embeds: [embed] });
+      return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed.toJSON()});
     } else {
       return;
     }

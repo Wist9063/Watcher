@@ -1,6 +1,7 @@
 const BotEvent = require('../../handlers/event.js');
 const db = new (require('../../handlers/database.js'))();
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const sender = require('../../modules/WebhookSender.js');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = class extends BotEvent {
   constructor(client, filePath) {
@@ -18,7 +19,6 @@ module.exports = class extends BotEvent {
 
     if (a.events.messageDelete === true) {
       if (b.wb.wbID === null || b.wb.wbKey === null) return;
-      const logChannel = new WebhookClient({id: b.wb.wbID, token: b.wb.wbKey});
       this.eventsend++;
 
       let contentValue = message.content;
@@ -45,12 +45,12 @@ module.exports = class extends BotEvent {
 
       embed2.setColor('#DD5449');
       embed2.setAuthor(`${message.author.tag}'s${text} message has been deleted.`, message.author.displayAvatarURL());
-      embed2.setDescription(`${text2}__Message Content:__ \`${contentValue ? contentValue : 'No Text'}\`${contentEmbed[1] ? '\n\n**More than one embed has been detected in this message.**' : ''}`);
+      embed2.setDescription(`Deleted in ${message.channel}\n${text2}__Message Content:__ \`${contentValue ? contentValue : 'No Text'}\`${contentEmbed[1] ? '\n\n**More than one embed has been detected in this message.**' : ''}`);
       embed2.setImage(regeximg.test(contentAttachment.contentType) ? contentAttachment.proxyURL : null);
       embed2.setFooter(`Watcher Event • Message Deleted | Author ID: ${message.author.id} • Message ID: ${message.id}`);
       embed2.setTimestamp();
 
-      return await logChannel.send({ embeds: [embed2] });
+      return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed2.toJSON()});
     } else {
       return;
     }

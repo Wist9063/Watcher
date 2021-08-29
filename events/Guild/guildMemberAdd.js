@@ -1,6 +1,7 @@
 const BotEvent = require('../../handlers/event.js');
 const db = new (require('../../handlers/database.js'))();
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
+const sender = require('../../modules/WebhookSender.js');
 const moment = require('moment');
 
 module.exports = class extends BotEvent {
@@ -17,7 +18,6 @@ module.exports = class extends BotEvent {
     if (a.events.guildMemberAdd === null) return;
     if (a.events.guildMemberAdd === true) {
       if (b.wb.wbID === null || b.wb.wbKey === null) return;
-      const logChannel = new WebhookClient({id: b.wb.wbID, token: b.wb.wbKey});
       this.eventsend++;
 
       const embed = new MessageEmbed()
@@ -26,7 +26,7 @@ module.exports = class extends BotEvent {
         .setDescription(`<@${member.id}>\n**${guild.name}** now has __${guild.memberCount}__ members.\nJoined discord on \`${moment(member.user.createdAt).format('MMMM Do, YYYY, h:mm:ss A')} (Pacific Standard Time)\`\nThat was **${moment(member.user.createdAt).fromNow()}**.`)
         .setFooter(`Watcher Event • User Joined | User ID: ${member.user.id}`)
         .setTimestamp();
-      return await logChannel.send({ embeds: [embed] });
+      return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed.toJSON()});
     } else {
       return;
     }

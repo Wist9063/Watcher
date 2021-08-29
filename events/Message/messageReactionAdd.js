@@ -1,6 +1,7 @@
 const BotEvent = require('../../handlers/event.js');
 const db = new (require('../../handlers/database.js'))();
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
+const sender = require('../../modules/WebhookSender.js');
 
 module.exports = class extends BotEvent {
   constructor(client, filePath) {
@@ -19,7 +20,6 @@ module.exports = class extends BotEvent {
     if (a.events.messageReactionAdd === false) return;
     if (a.events.messageReactionAdd === true) {
       if (b.wb.wbID === null || b.wb.wbKey === null) return;
-      const logChannel = new WebhookClient({id: b.wb.wbID, token: b.wb.wbKey}, {restGlobalRateLimit: 30});
       this.eventsend++;
 
       const embed = new MessageEmbed()
@@ -28,7 +28,7 @@ module.exports = class extends BotEvent {
         .setDescription(`Jump To Message: [Click Here](${messageReaction.message.url})\n\`\`\`autohotkey\nEmoji Name: ${messageReaction.emoji.name}\n(ID: ${messageReaction.emoji.id})\nEmoji Animated? ${messageReaction.emoji.animated ? 'Yes' : 'No'}\n---\nCategory Name: ${message.channel.parent ? message.channel.parent.name : 'None'}\nChannel: #${message.channel.name}\n(ID: ${message.channel.id})\n\`\`\``)
         .setFooter(`Watcher Event • Reaction Added | Message ID: ${message.id} • Author ID: ${user.id}`)
         .setTimestamp();
-      return await logChannel.send({ embeds: [embed] });
+      return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed.toJSON()});
     } else {
       return;
     }

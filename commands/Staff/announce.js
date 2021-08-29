@@ -30,7 +30,7 @@ module.exports = class extends Command {
       if (item.wb.wbID == null) {return;}    
 
       const logChannel = new WebhookClient({id: item.wb.wbID, token: item.wb.wbKey});
-      return logChannel.send({ embeds: [embed] });
+      return logChannel.send({ embeds: [embed], username: 'Watcher Announcements' });
     }); 
     message.reply({content: `Sent announcements to **${count}** channels with the message:`, embeds: [embed] });
   }
