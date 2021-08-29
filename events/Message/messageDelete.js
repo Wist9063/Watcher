@@ -21,9 +21,13 @@ module.exports = class extends BotEvent {
       if (b.wb.wbID === null || b.wb.wbKey === null) return;
       this.eventsend++;
 
+      const fetchedLogs = await message.guild.fetchAuditLogs({ limit: 1, type: 'MESSAGE_DELETE' });
+      const check = fetchedLogs.entries.first();
+
       let contentValue = message.content;
       let text;
       let text2 = '';
+      let textUser = '';
       const embed2 = new MessageEmbed();
       const regeximg = /image+\/[-+.\w]+/g;
       let contentAttachment = message.attachments.first();
@@ -38,14 +42,24 @@ module.exports = class extends BotEvent {
       if (contentEmbed[0] && contentEmbed[0].url) {embed2.setURL(contentEmbed[0].url);}
       if (contentEmbed[0] && contentEmbed[0].thumbnail) {embed2.setThumbnail(contentEmbed[0].thumbnail.proxyURL);}
       if (contentEmbed[0] && contentEmbed[0].description) {text2 = '__Embed Description:__ ' + contentEmbed[0].description + '\n\n';} 
+      if (check.executor) {textUser = `This message was deleted by **${check.executor.tag}**.\n`;}
       else if (contentEmbed[0]) {text2 = '**No Embed Description**\n\n';} 
 
       if (contentValue.length > 500) contentValue = contentValue.substring(0, 499) + '...';
       if (text2.length > 500) text2 = text2.substring(0, 499) + '...';
 
+      if (!check) {
+        embed2.setColor('#DD5449');
+        embed2.setAuthor(`${message.author.tag}'s${text} message has been deleted.`, message.author.displayAvatarURL());
+        embed2.setDescription(`Deleted in ${message.channel}\n${text2}__Message Content:__ \`${contentValue ? contentValue : 'No Text'}\`${contentEmbed[1] ? '\n\n**More than one embed has been detected in this message.**' : ''}\n\n*I could not fetch additional data from the audit log.*`);
+        embed2.setImage(regeximg.test(contentAttachment.contentType) ? contentAttachment.proxyURL : null);
+        embed2.setFooter(`Watcher Event • Message Deleted | Author ID: ${message.author.id} • Message ID: ${message.id}`);
+        embed2.setTimestamp();
+      }
+
       embed2.setColor('#DD5449');
       embed2.setAuthor(`${message.author.tag}'s${text} message has been deleted.`, message.author.displayAvatarURL());
-      embed2.setDescription(`Deleted in ${message.channel}\n${text2}__Message Content:__ \`${contentValue ? contentValue : 'No Text'}\`${contentEmbed[1] ? '\n\n**More than one embed has been detected in this message.**' : ''}`);
+      embed2.setDescription(`${textUser}Deleted in ${message.channel}\n${text2}__Message Content:__ \`${contentValue ? contentValue : 'No Text'}\`${contentEmbed[1] ? '\n\n**More than one embed has been detected in this message.**' : ''}`);
       embed2.setImage(regeximg.test(contentAttachment.contentType) ? contentAttachment.proxyURL : null);
       embed2.setFooter(`Watcher Event • Message Deleted | Author ID: ${message.author.id} • Message ID: ${message.id}`);
       embed2.setTimestamp();

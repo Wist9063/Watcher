@@ -32,7 +32,6 @@ new class extends Client {
     super({      
       intents: intents,
       allowedMentions: {parse: ['users', 'roles']},
-      messageCacheMaxSize: 150,
       restTimeOffset: 1000,
       invalidRequestWarningInterval: 500,
       restGlobalRateLimit: 40,
