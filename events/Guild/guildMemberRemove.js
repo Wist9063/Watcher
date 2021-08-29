@@ -1,6 +1,7 @@
 const BotEvent = require('../../handlers/event.js');
 const db = new (require('../../handlers/database.js'))();
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const sender = require('../../modules/WebhookSender.js');
+const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 
 module.exports = class extends BotEvent {
@@ -17,9 +18,7 @@ module.exports = class extends BotEvent {
     if (a.events.guildMemberRemove === null) return;
     if (a.events.guildMemberRemove === true) {
       if (b.wb.wbID === null || b.wb.wbKey === null) return;
-      const logChannel = new WebhookClient({id: b.wb.wbID, token: b.wb.wbKey});
       this.eventsend++;
-
 
       const embed = new MessageEmbed()
         .setColor('#DD5449')
@@ -27,7 +26,7 @@ module.exports = class extends BotEvent {
         .setDescription(`<@${member.id}>\n**${guild.name}** now has __${guild.memberCount}__ members.\nThis user joined discord on \`${moment(member.joinedAt).format('MMMM Do, YYYY, h:mm:ss A')} (Pacific Standard Time)\``)
         .setFooter(`Watcher Event • User Left | ID: ${member.user.id}`)
         .setTimestamp();
-      return await logChannel.send({ embeds: [embed] }).catch(e => console.error(e));
+      return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed.toJSON()});
     } else {
       return;
     }

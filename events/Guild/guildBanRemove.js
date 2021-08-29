@@ -1,6 +1,7 @@
 const BotEvent = require('../../handlers/event.js');
 const db = new (require('../../handlers/database.js'))();
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
+const sender = require('../../modules/WebhookSender.js');
 const moment = require('moment');
 
 module.exports = class extends BotEvent {
@@ -16,7 +17,6 @@ module.exports = class extends BotEvent {
     if (a.events.guildBanRemove === null) return;
     if (a.events.guildBanRemove === true) {
       if (b.wb.wbID === null || b.wb.wbKey === null) return;
-      const logChannel = new WebhookClient({id: b.wb.wbID, token: b.wb.wbKey});
       this.eventsend++;
 
       const embed = new MessageEmbed()
@@ -25,7 +25,7 @@ module.exports = class extends BotEvent {
         .setDescription(`__Reason:__ ${ban.reason ? ban.reason : 'No Reason Provided'}\nThis user was unbanned at \`${moment(new Date).format('MMMM Do YYYY, h:mm:ss A')} (Pacific Standard Time)\``)
         .setFooter(`Watcher Event • Member Unbanned | User ID: ${ban.user.id}.`)
         .setTimestamp();
-      return await logChannel.send({ embeds: [embed] });
+      return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed.toJSON()});
     } else {
       return;
     }

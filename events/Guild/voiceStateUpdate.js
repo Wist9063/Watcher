@@ -1,6 +1,7 @@
 const BotEvent = require('../../handlers/event.js');
 const db = new (require('../../handlers/database.js'))();
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const sender = require('../../modules/WebhookSender.js');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = class extends BotEvent {
   constructor(client, filePath) {
@@ -15,7 +16,6 @@ module.exports = class extends BotEvent {
     if (a.events.voiceStateUpdate === null) return;
     if (a.events.voiceStateUpdate === true) {
       if (b.wb.wbID === null || b.wb.wbKey === null) return;
-      const logChannel = new WebhookClient({id: b.wb.wbID, token: b.wb.wbKey});
       this.eventsend++;
       const voice1 = (oldState.channel ? oldState.channel.name : 'None');
       const voice2 = (newState.channel ? newState.channel.name : 'Left');
@@ -27,7 +27,7 @@ module.exports = class extends BotEvent {
           .setDescription(`**${newState.member.user.tag}** ${newState.member.nickname ? '*(__' + newState.member.nickname + '__)* ' : ''}joined the voice channel **${voice2}** ${newState.channel.parent ? 'in the category' : '.'} ${newState.channel.parent ? '**' + newState.channel.parent.name + '**.' : ''}`)
           .setFooter(`Watcher Event • Voice State Update | User ID: ${newState.member.user.id}`)
           .setTimestamp();
-        return await logChannel.send({ embeds: [embed] });
+        return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed.toJSON()});
       } else if (voice2 == 'Left') {
         const embed = new MessageEmbed()
           .setColor('#DD5449')
@@ -35,7 +35,7 @@ module.exports = class extends BotEvent {
           .setDescription(`**${oldState.member.user.tag}** ${newState.member.nickname ? '*(__' + newState.member.nickname + '__)* ' : ''}left the voice channel **${voice1}** ${oldState.channel.parent ? 'in the category' : '.'} ${oldState.channel.parent ? '**' + oldState.channel.parent.name + '**.' : ''}`)
           .setFooter(`Watcher Event • Voice State Update | User ID: ${oldState.member.user.id}`)
           .setTimestamp();
-        return await logChannel.send({ embeds: [embed] });
+        return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed.toJSON()});
       } else if (voice1 != newState.channel.name) {
         // fuck this part of code bro
         let newPar = '.';
@@ -46,7 +46,7 @@ module.exports = class extends BotEvent {
           .setAuthor(`${newState.member.user.tag} has moved to another voice channel.`, newState.member.user.displayAvatarURL())
           .setFooter(`Watcher Event • Voice State Update | User ID: ${newState.member.user.id}`)
           .setTimestamp();
-        return await logChannel.send({ embeds: [embed] });
+        return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed.toJSON()});
       } 
     }
   }

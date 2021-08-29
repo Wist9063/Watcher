@@ -1,6 +1,7 @@
 const BotEvent = require('../../handlers/event.js');
 const db = new (require('../../handlers/database.js'))();
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const sender = require('../../modules/WebhookSender.js');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = class extends BotEvent {
   constructor(client, filePath) {
@@ -16,7 +17,6 @@ module.exports = class extends BotEvent {
     if (a.events.guildMemberUpdate === null) return;
     if (a.events.guildMemberUpdate === true) {
       if (b.wb.wbID === null || b.wb.wbKey === null) return;
-      const logChannel = new WebhookClient({id: b.wb.wbID, token: b.wb.wbKey});
       this.eventsend++;
 
       if (oldMember.nickname != newMember.nickname) {
@@ -28,7 +28,7 @@ module.exports = class extends BotEvent {
           .setTimestamp()
           .addField('Previous Nickname', oldMember.nickname === null ? oldMember.user.tag : oldMember.nickname, true)
           .addField('Current Nickname', newMember.nickname === null ? newMember.user.tag : newMember.nickname, true);
-        return await logChannel.send({ embeds: [embed] });
+        return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed.toJSON()});
       } else if (oldMember.roles.cache.size != newMember.roles.cache.size) {
         const oldRoles = oldMember.roles.cache.map(r => r).sort((a, b) => b.position - a.position || b.id - a.id).join(' ').replace('@everyone', ' ');
         //if (oldRoles.length > 99) oldRoles.substring(0, 100) + ', and more.';
@@ -42,7 +42,7 @@ module.exports = class extends BotEvent {
           .addField('Current Roles', `󠂪󠂪${newRoles}`)
           .setFooter(`Watcher Event • Roles Edited | User ID: ${newMember.user.id}`)
           .setTimestamp();
-        return await logChannel.send({ embeds: [embed] });
+        return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed.toJSON()});
       }
     } else {
       return;

@@ -1,6 +1,7 @@
 const BotEvent = require('../../handlers/event.js');
 const db = new (require('../../handlers/database.js'))();
-const { MessageEmbed, WebhookClient } = require('discord.js');
+const sender = require('../../modules/WebhookSender.js');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = class extends BotEvent {
   constructor(client, filePath) {
@@ -18,7 +19,6 @@ module.exports = class extends BotEvent {
 
     if (a.events.messageDelete === true) {
       if (b.wb.wbID === null || b.wb.wbKey === null) return;
-      const logChannel = new WebhookClient({id: b.wb.wbID, token: b.wb.wbKey});
       this.eventsend++;
 
       let contentValue = message.content;
@@ -50,7 +50,7 @@ module.exports = class extends BotEvent {
       embed2.setFooter(`Watcher Event • Message Deleted | Author ID: ${message.author.id} • Message ID: ${message.id}`);
       embed2.setTimestamp();
 
-      return await logChannel.send({ embeds: [embed2] });
+      return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed2.toJSON()});
     } else {
       return;
     }
