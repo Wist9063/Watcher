@@ -1,7 +1,7 @@
 const BotEvent = require('../../handlers/event.js');
-const moment = require('moment-timezone');
 const sentry = require('@sentry/node');
 const Discord = require('discord.js');
+const log = require('../../modules/logger.js');
 const cooldowns = new Discord.Collection();
 
 function randomString(length) {
@@ -38,7 +38,7 @@ module.exports = class extends BotEvent {
     if (timestamps.has(message.author.id)) {
       const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
       if (now < expirationTime) {
-        return console.log(`[USER RATELIMIT] [${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] Action has been ratelimited. - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
+        return log('USER RATELIMITED', `Action has been ratelimited. User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
       }
     }
 
@@ -48,12 +48,12 @@ module.exports = class extends BotEvent {
     try { 
       if (!this.config.maintenance) {
         message.channel.sendTyping();
-        console.log(`[${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
+        log('COMMAND', `User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);        
         command.execute(message);
         this.datadog.increment('watcher_cmd_exe');
       } else {
         message.channel.sendTyping();
-        console.log(`[${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
+        log('COMMAND', `User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);        
         command.execute(message);
         if (content.split(' ')[1] != '--force') {
           await message.channel.send('Watcher is currently undergoing maintenance and will not be responding to any commands. Please check our hub for maintenance times. __**<https://discord.gg/83SAWkh>**__');
@@ -61,14 +61,15 @@ module.exports = class extends BotEvent {
           message.channel.sendTyping();
           message.content = message.content.replace('--force', '');
           message.channel.send('This command has been forced to run while Watcher is in maintenance mode.');
-          console.log(`[WARNING!] [${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] Executed using --force. - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);
+          log('WARNING! COMMAND', `Executed using --force. - User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);        
           command.execute(message);
         }
       }
     } catch (e) {
       message.channel.stopTyping();
       const IDstring = randomString(5);
-      console.log(`[ERROR!] [${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] [ID:${IDstring}] -  ` + e);
+      log('COMMAND ERROR!', `[ID:${IDstring}] ${e}`);        
+
 
       sentry.withScope(function(scope) {
         scope.setUser({id: message.author.id, username: message.author.username});

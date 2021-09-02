@@ -39,7 +39,7 @@ module.exports = class extends BotEvent {
         embed
           .setColor('#DD5449')
           .setAuthor(`${ban.user.tag} has been banned from the server.`, ban.user.displayAvatarURL())
-          .setDescription(`${ban.user} was banned by ${banLog.executor.tag}\n__Reason:__ ${ban.reason ? ban.reason : 'No Reason Provided'}\nThis member was banned at \`${moment(new Date).format('MMMM Do YYYY, h:mm:ss A')} (Pacific Standard Time)\``)
+          .setDescription(`${ban.user} was banned by ${banLog.executor.tag}\n__Reason:__ ${banLog.reason ? banLog.reason : 'No Reason Provided'}\nThis member was banned at \`${moment(new Date).format('MMMM Do YYYY, h:mm:ss A')} (Pacific Standard Time)\``)
           .setFooter(`Watcher Event • Member Banned | Banned User's ID: ${ban.user.id} | Banned By (ID): ${banLog.executor.id}`)
           .setTimestamp();
       } else {
