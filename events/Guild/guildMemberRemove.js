@@ -33,12 +33,6 @@ module.exports = class extends BotEvent {
 
       if (banned) return;
 
-      if (!check) {
-        embed.setColor('#DD5449')
-          .setAuthor(`${member.user.tag} has left the server.`, member.user.displayAvatarURL({ dynamic: true }))
-          .setDescription(`<@${member.id}>\n**${guild.name}** now has __${guild.memberCount}__ members.\nThis user joined discord on \`${moment(member.joinedAt).format('MMMM Do, YYYY, h:mm:ss A')} (Pacific Standard Time)\``)
-          .setFooter(`Watcher Event • User Left | ID: ${member.user.id}`);
-      }
       if (check.target.id === member.id) {
         embed.setColor('#DD5449')
           .setAuthor(`${member.user.tag} has been kicked from the server.`, member.user.displayAvatarURL({ dynamic: true }))

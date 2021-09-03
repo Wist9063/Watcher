@@ -26,15 +26,6 @@ module.exports = class extends BotEvent {
       const banLog = fetchedLogs.entries.first();
       const embed = new MessageEmbed();
 
-      if (!banLog) {
-        embed
-          .setColor('#DD5449')
-          .setAuthor(`${ban.user.tag} has been banned from the server.`, ban.user.displayAvatarURL())
-          .setDescription(`__Reason:__ ${ban.reason ? ban.reason : 'No Reason Provided'}\nThis member was banned at \`${moment(new Date).format('MMMM Do YYYY, h:mm:ss A')} (Pacific Standard Time)\`\n*I could not fetch audit log data for this ban.*`)
-          .setFooter(`Watcher Event • Member Banned | Banned User's ID: ${ban.user.id}.`)
-          .setTimestamp();
-      }
-
       if (banLog.target.id === ban.user.id) {
         embed
           .setColor('#DD5449')

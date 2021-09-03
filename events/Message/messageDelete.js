@@ -42,7 +42,6 @@ module.exports = class extends BotEvent {
       if (contentEmbed[0] && contentEmbed[0].url) {embed2.setURL(contentEmbed[0].url);}
       if (contentEmbed[0] && contentEmbed[0].thumbnail) {embed2.setThumbnail(contentEmbed[0].thumbnail.proxyURL);}
       if (contentEmbed[0] && contentEmbed[0].description) {text2 = '__Embed Description:__ ' + contentEmbed[0].description + '\n\n';} 
-      if (check.executor) {textUser = `This message was deleted by **${check.executor.tag}**.\n`;}
       else if (contentEmbed[0]) {text2 = '**No Embed Description**\n\n';} 
 
       if (contentValue.length > 500) contentValue = contentValue.substring(0, 499) + '...';
@@ -56,6 +55,8 @@ module.exports = class extends BotEvent {
         embed2.setFooter(`Watcher Event • Message Deleted | Author ID: ${message.author.id} • Message ID: ${message.id}`);
         embed2.setTimestamp();
       }
+      if (check.executor) {textUser = `This message was deleted by **${check.executor.tag}**.\n`;}
+
 
       embed2.setColor('#DD5449');
       embed2.setAuthor(`${message.author.tag}'s${text} message has been deleted.`, message.author.displayAvatarURL());
