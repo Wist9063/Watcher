@@ -47,7 +47,7 @@ module.exports = class extends BotEvent {
       if (contentValue.length > 500) contentValue = contentValue.substring(0, 499) + '...';
       if (text2.length > 500) text2 = text2.substring(0, 499) + '...';
 
-      if (!check) {
+      if (!check || !fetchedLogs) {
         embed2.setColor('#DD5449');
         embed2.setAuthor(`${message.author.tag}'s${text} message has been deleted.`, message.author.displayAvatarURL());
         embed2.setDescription(`Deleted in ${message.channel}\n${text2}__Message Content:__ \`${contentValue ? contentValue : 'No Text'}\`${contentEmbed[1] ? '\n\n**More than one embed has been detected in this message.**' : ''}\n\n*I could not fetch additional data from the audit log.*`);
@@ -56,15 +56,14 @@ module.exports = class extends BotEvent {
         embed2.setTimestamp();
       } else {
         textUser = `This message was deleted by **${check.executor.tag}**.\n`;
+
+        embed2.setColor('#DD5449');
+        embed2.setAuthor(`${message.author.tag}'s${text} message has been deleted.`, message.author.displayAvatarURL());
+        embed2.setDescription(`${textUser}Deleted in ${message.channel}\n${text2}__Message Content:__ \`${contentValue ? contentValue : 'No Text'}\`${contentEmbed[1] ? '\n\n**More than one embed has been detected in this message.**' : ''}`);
+        embed2.setImage(regeximg.test(contentAttachment.contentType) ? contentAttachment.proxyURL : null);
+        embed2.setFooter(`Watcher Event • Message Deleted | Author ID: ${message.author.id} • Message ID: ${message.id}`);
+        embed2.setTimestamp();
       }
-
-
-      embed2.setColor('#DD5449');
-      embed2.setAuthor(`${message.author.tag}'s${text} message has been deleted.`, message.author.displayAvatarURL());
-      embed2.setDescription(`${textUser}Deleted in ${message.channel}\n${text2}__Message Content:__ \`${contentValue ? contentValue : 'No Text'}\`${contentEmbed[1] ? '\n\n**More than one embed has been detected in this message.**' : ''}`);
-      embed2.setImage(regeximg.test(contentAttachment.contentType) ? contentAttachment.proxyURL : null);
-      embed2.setFooter(`Watcher Event • Message Deleted | Author ID: ${message.author.id} • Message ID: ${message.id}`);
-      embed2.setTimestamp();
 
       return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed2.toJSON()});
     } else {
