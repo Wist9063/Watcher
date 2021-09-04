@@ -29,20 +29,17 @@ module.exports = class extends BotEvent {
       });
 
       const check = fetchedLogs.entries.first();
-      const banned = await guild.bans.fetch(member);
-
-      if (banned) return;
 
       if (check.target.id === member.id) {
         embed.setColor('#DD5449')
           .setAuthor(`${member.user.tag} has been kicked from the server.`, member.user.displayAvatarURL({ dynamic: true }))
           .setDescription(`<@${member.id}> has been kicked from the server by ${check.executor}\n__Reason:__ ${check.reason ? check.reason : 'No Reason Found'}\n**${guild.name}** now has __${guild.memberCount}__ members.\nThis user was kicked on \`${moment(new Date).format('MMMM Do, YYYY, h:mm:ss A')} (Pacific Standard Time)\``)
-          .setFooter(`Watcher Event • User Kicked/Left | ID: ${member.user.id}`);
+          .setFooter(`Watcher Event • User Kicked | ID: ${member.user.id}`);
       } else {
         embed.setColor('#DD5449')
-          .setAuthor(`${member.user.tag} has been kicked from the server.`, member.user.displayAvatarURL({ dynamic: true }))
-          .setDescription(`<@${member.id}>\n**${guild.name}** now has __${guild.memberCount}__ members.\nThis user joined discord on \`${moment(new Date).format('MMMM Do, YYYY, h:mm:ss A')} (Pacific Standard Time)\`\n\n*I wasn't able to fetch who kicked this user*`)
-          .setFooter(`Watcher Event • User Kicked/Left | ID: ${member.user.id}`);
+          .setAuthor(`${member.user.tag} has left the server from the server.`, member.user.displayAvatarURL({ dynamic: true }))
+          .setDescription(`<@${member.id}>\n**${guild.name}** now has __${guild.memberCount}__ members.\nThis user joined discord on \`${moment(new Date).format('MMMM Do, YYYY, h:mm:ss A')} (Pacific Standard Time)\`\n\n*I wasn't able to fetch data from the audit log, so this user may have been kicked.*`)
+          .setFooter(`Watcher Event • User Left | ID: ${member.user.id}`);
       }
 
       return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed.toJSON()});
