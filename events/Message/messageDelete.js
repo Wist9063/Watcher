@@ -20,9 +20,11 @@ module.exports = class extends BotEvent {
     if (a.events.messageDelete === true) {
       if (b.wb.wbID === null || b.wb.wbKey === null) return;
       this.eventsend++;
+      let check = null;
 
-      const fetchedLogs = await message.guild.fetchAuditLogs({ limit: 1, type: 'MESSAGE_DELETE' });
-      const check = fetchedLogs.entries.first();
+      const fetchedLogs = await message.guild.fetchAuditLogs({ limit: 1, type: 'MESSAGE_DELETE' }).catch(() => {});
+      if (fetchedLogs) {check = fetchedLogs.entries.first();}
+
 
       let contentValue = message.content;
       let text;
@@ -50,7 +52,7 @@ module.exports = class extends BotEvent {
       if (!check || !fetchedLogs) {
         embed2.setColor('#DD5449');
         embed2.setAuthor(`${message.author.tag}'s${text} message has been deleted.`, message.author.displayAvatarURL());
-        embed2.setDescription(`Deleted in ${message.channel}\n${text2}__Message Content:__ \`${contentValue ? contentValue : 'No Text'}\`${contentEmbed[1] ? '\n\n**More than one embed has been detected in this message.**' : ''}\n\n*I could not fetch additional data from the audit log.*`);
+        embed2.setDescription(`Deleted in ${message.channel}\n${text2}__Message Content:__ \`${contentValue ? contentValue : 'No Text'}\`${contentEmbed[1] ? '\n\n**More than one embed has been detected in this message.**' : ''}\n\n*I could not fetch additional data from the audit log. Please check if I have access to audit logs!*`);
         embed2.setImage(regeximg.test(contentAttachment.contentType) ? contentAttachment.proxyURL : null);
         embed2.setFooter(`Watcher Event • Message Deleted | Author ID: ${message.author.id} • Message ID: ${message.id}`);
         embed2.setTimestamp();
@@ -65,7 +67,7 @@ module.exports = class extends BotEvent {
         embed2.setTimestamp();
       }
 
-      return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed2.toJSON()});
+      return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed2.toJSON(), guildId: message.guild.id});
     } else {
       return;
     }
