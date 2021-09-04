@@ -18,10 +18,10 @@
   "homepage": "https://github.com/Wist9063/Watcher#readme",
   "dependencies": {
     "@sentry/node": "^6.7.1",
-    "bufferutil": "^4.0.1",
+    "bufferutil": "^4.0.3",
     "bytes": "^3.1.0",
     "discord.js": "github:discordjs/discord.js#main",
-    "erlpack": "github:discordapp/erlpack",
+    "erlpack": "github:discord/erlpack",
     "figlet": "^1.5.0",
     "hot-shots": "^8.3.1",
     "klaw": "^3.0.0",
@@ -35,6 +35,6 @@
     "snekfetch": "^4.0.4",
     "string-similarity": "^4.0.2",
     "utf-8-validate": "^5.0.5",
-    "zlib-sync": "^0.1.6"
+    "zlib-sync": "^0.1.7"
   }
 }
