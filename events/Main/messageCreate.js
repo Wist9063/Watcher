@@ -47,9 +47,9 @@ module.exports = class extends BotEvent {
 
     try { 
       if (!this.config.maintenance) {
-        message.channel.sendTyping();
+        await message.channel.sendTyping();
         log('COMMAND', `User ${message.author.username} (${message.author.id}) issued server command ${this.config.prefix}${command.name} in ${message.guild.name} (${message.guild.id}), #${message.channel.name}.`);        
-        command.execute(message);
+        await command.execute(message);
         this.datadog.increment('watcher_cmd_exe');
       } else {
         message.channel.sendTyping();
@@ -66,9 +66,13 @@ module.exports = class extends BotEvent {
         }
       }
     } catch (e) {
-      message.channel.stopTyping();
+      if (e.code === 50013 || e.httpStatus === 403 || e === 'DiscordAPIError: Missing Permissions') {
+        log('PERM COMMAND ERROR!', 'Had to send a message for perms!');      
+        return message.author.send(`I couldn't send send a message back to ${message.channel}!\nPlease make sure I have the \`Administrator\` permission so I can send/receive messages & log events in your server more faster.`);
+      }
+
       const IDstring = randomString(5);
-      log('COMMAND ERROR!', `[ID:${IDstring}] ${e}`);        
+      log('COMMAND ERROR!', `[ID:${IDstring}]\n${e}`);        
 
 
       sentry.withScope(function(scope) {
@@ -89,3 +93,4 @@ module.exports = class extends BotEvent {
     } 
   }
 };
+
