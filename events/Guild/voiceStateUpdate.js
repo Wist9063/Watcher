@@ -19,6 +19,7 @@ module.exports = class extends BotEvent {
       this.eventsend++;
       const voice1 = (oldState.channel ? oldState.channel.name : 'None');
       const voice2 = (newState.channel ? newState.channel.name : 'Left');
+      const limitSec = 2000;
 
       if (voice1 == 'None') {
         const embed = new MessageEmbed()
@@ -27,7 +28,9 @@ module.exports = class extends BotEvent {
           .setDescription(`**${newState.member.user.tag}** ${newState.member.nickname ? '*(__' + newState.member.nickname + '__)* ' : ''}joined the voice channel **${voice2}** ${newState.channel.parent ? 'in the category' : '.'} ${newState.channel.parent ? '**' + newState.channel.parent.name + '**.' : ''}`)
           .setFooter(`Watcher Event • Voice State Update | User ID: ${newState.member.user.id}`)
           .setTimestamp();
-        return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed.toJSON()});
+        setTimeout( function() {
+          return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed.toJSON()});
+        }, limitSec);
       } else if (voice2 == 'Left') {
         const embed = new MessageEmbed()
           .setColor('#DD5449')
@@ -35,7 +38,9 @@ module.exports = class extends BotEvent {
           .setDescription(`**${oldState.member.user.tag}** ${newState.member.nickname ? '*(__' + newState.member.nickname + '__)* ' : ''}left the voice channel **${voice1}** ${oldState.channel.parent ? 'in the category' : '.'} ${oldState.channel.parent ? '**' + oldState.channel.parent.name + '**.' : ''}`)
           .setFooter(`Watcher Event • Voice State Update | User ID: ${oldState.member.user.id}`)
           .setTimestamp();
-        return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed.toJSON()});
+        setTimeout( function() {
+          return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed.toJSON()});
+        }, limitSec);
       } else if (voice1 != newState.channel.name) {
         // fuck this part of code bro
         let newPar = '.';
@@ -46,7 +51,9 @@ module.exports = class extends BotEvent {
           .setAuthor(`${newState.member.user.tag} has moved to another voice channel.`, newState.member.user.displayAvatarURL())
           .setFooter(`Watcher Event • Voice State Update | User ID: ${newState.member.user.id}`)
           .setTimestamp();
-        return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed.toJSON()});
+        setTimeout( function() {
+          return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed.toJSON()});
+        }, limitSec);
       } 
     }
   }
