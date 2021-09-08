@@ -27,7 +27,7 @@ module.exports = class extends BotEvent {
       const fetchedLogs = await member.guild.fetchAuditLogs({
         limit: 1,
         type: 'MEMBER_KICK',
-      });
+      }).catch(() => {});
       if (fetchedLogs) {check = fetchedLogs.entries.first();}
 
       if (check.target.id === member.id) {
