@@ -52,7 +52,7 @@ module.exports = class extends BotEvent {
       if (!check || !fetchedLogs) {
         embed2.setColor('#DD5449');
         embed2.setAuthor(`${message.author.tag}'s${text} message has been deleted.`, message.author.displayAvatarURL());
-        embed2.setDescription(`Deleted in ${message.channel}\n${text2}__Message Content:__ \`${contentValue ? contentValue : 'No Text'}\`${contentEmbed[1] ? '\n\n**More than one embed has been detected in this message.**' : ''}\n\n*I could not fetch additional data from the audit log. Please check if I have access to audit logs!*`);
+        embed2.setDescription(`Deleted in ${message.channel}\n${text2}__Message Content:__ \`${contentValue ? contentValue : 'No Text'}\`${contentEmbed[1] ? '\n\n**More than one embed has been detected in this message.**' : ''}\n\n*I could not fetch additional data from the audit log.*`);
         embed2.setImage(regeximg.test(contentAttachment.contentType) ? contentAttachment.proxyURL : null);
         embed2.setFooter(`Watcher Event • Message Deleted | Author ID: ${message.author.id} • Message ID: ${message.id}`);
         embed2.setTimestamp();
