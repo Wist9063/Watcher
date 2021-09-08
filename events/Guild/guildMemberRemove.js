@@ -22,13 +22,13 @@ module.exports = class extends BotEvent {
 
       const embed = new MessageEmbed()
         .setTimestamp();
+      let check;
 
       const fetchedLogs = await member.guild.fetchAuditLogs({
         limit: 1,
         type: 'MEMBER_KICK',
       });
-
-      const check = fetchedLogs.entries.first();
+      if (fetchedLogs) {check = fetchedLogs.entries.first();}
 
       if (check.target.id === member.id) {
         embed.setColor('#DD5449')
@@ -38,7 +38,7 @@ module.exports = class extends BotEvent {
       } else {
         embed.setColor('#DD5449')
           .setAuthor(`${member.user.tag} has left the server from the server.`, member.user.displayAvatarURL({ dynamic: true }))
-          .setDescription(`<@${member.id}>\n**${guild.name}** now has __${guild.memberCount}__ members.\nThis user joined discord on \`${moment(new Date).format('MMMM Do, YYYY, h:mm:ss A')} (Pacific Standard Time)\`\n\n*I wasn't able to fetch data from the audit log, so this user may have been kicked.*`)
+          .setDescription(`<@${member.id}>\n**${guild.name}** now has __${guild.memberCount}__ members.\nThis user joined discord on \`${moment(new Date).format('MMMM Do, YYYY, h:mm:ss A')} (Pacific Standard Time)\``)
           .setFooter(`Watcher Event • User Left | ID: ${member.user.id}`);
       }
 
