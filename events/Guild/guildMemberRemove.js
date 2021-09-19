@@ -22,7 +22,7 @@ module.exports = class extends BotEvent {
 
       const embed = new MessageEmbed()
         .setTimestamp();
-      let check;
+      let check = null;
 
       const fetchedLogs = await member.guild.fetchAuditLogs({
         limit: 1,
