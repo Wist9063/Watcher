@@ -65,3 +65,4 @@ config.json*
 config.js*
 ecosystem.config.js*
 .vscode
+package-lock.json*
