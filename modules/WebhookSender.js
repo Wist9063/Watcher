@@ -2,7 +2,7 @@ const { WebhookClient } = require('discord.js');
 const log = require('./logger.js');
 const MongoClient = require('mongodb').MongoClient;
 const db = new (require('../handlers/database.js'))();
-const mongo = new MongoClient(`mongodb+srv://${process.env.mdbKEY}@watcherdev-too26.azure.mongodb.net/test?retryWrites=true&w=majority`, { useUnifiedTopology: true, useNewUrlParser: true, poolSize: 15, tls: true});
+const mongo = new MongoClient(`mongodb+srv://${process.env.mdbKEY}@watcherdev-too26.azure.mongodb.net/test?retryWrites=true&w=majority`, { useUnifiedTopology: true, useNewUrlParser: true, tls: true});
 
 module.exports = pkg => { 
   if (!pkg.webhook) return;

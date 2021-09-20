@@ -45,7 +45,7 @@ new class extends Client {
     this.datadog = new statsd();
     this.eventsend = 0;
     this.commands = new Collection();
-    this.mongod = new MongoClient(`mongodb+srv://${process.env.mdbKEY}@watcherdev-too26.azure.mongodb.net/test?retryWrites=true&w=majority`, { useUnifiedTopology: true, useNewUrlParser: true, poolSize: 15, tls: true});
+    this.mongod = new MongoClient(`mongodb+srv://${process.env.mdbKEY}@watcherdev-too26.azure.mongodb.net/test?retryWrites=true&w=majority`, { useUnifiedTopology: true, useNewUrlParser: true, tls: true});
     this.init();
     this.initEvents();
     this.connect();
