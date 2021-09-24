@@ -30,7 +30,7 @@ module.exports = class extends BotEvent {
       }).catch(() => {});
       if (fetchedLogs) {check = fetchedLogs.entries.first();}
 
-      if (!check || !fetchedLogs) {
+      if (check === null|| !fetchedLogs) {
         embed.setColor('#DD5449')
           .setAuthor(`${member.user.tag} has been kicked from the server.`, member.user.displayAvatarURL({ dynamic: true }))
           .setDescription(`<@${member.id}> has been kicked from the server by ${check.executor}\n__Reason:__ ${check.reason ? check.reason : 'No Reason Found'}\n**${guild.name}** now has __${guild.memberCount}__ members.\nThis user was kicked on \`${moment(new Date).format('MMMM Do, YYYY, h:mm:ss A')} (Pacific Standard Time)\``)
