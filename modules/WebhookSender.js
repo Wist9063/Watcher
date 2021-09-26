@@ -21,6 +21,8 @@ module.exports = pkg => {
           log('WEBHOOK', `couldn't delete an unexisting webhook... id: ${pkg.webhook.id} error: ${deleted}`);
           await mongo.close();
         }
+      } else {
+        console.error(e);
       }
     });
 };
