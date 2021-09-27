@@ -8,7 +8,7 @@ module.exports = class extends BotEvent {
     });
   }
 
-  async execute(rateLimitInfo) {
-    console.log(`[API RATELIMIT!] [${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] - Ratelimit has been emited, timed out for ${rateLimitInfo.timeout}. Method: ${rateLimitInfo.path}`);
+  async execute(rateLimitData) {
+    console.log(`[API RATELIMIT!] [${moment(new Date).tz('America/Los_Angeles').format('MMMM Do YYYY, h:mm:ss A')}] - Ratelimit has been emited, timed out for ${rateLimitData.timeout}. Method: ${rateLimitData.path}. Global? ${rateLimitData.global}`);
   }
 };
