@@ -21,7 +21,7 @@ module.exports = class extends BotEvent {
     if (a.events.messageReactionAdd === true) {
       if (b.wb.wbID === null || b.wb.wbKey === null) return;
       this.eventsend++;
-      const limitSec = 1000;
+      const limitSec = 2000;
 
       const embed = new MessageEmbed()
         .setColor('#5cb85c')
