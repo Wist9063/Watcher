@@ -57,7 +57,9 @@ module.exports = class extends BotEvent {
         embed2.setFooter(`Watcher Event • Message Deleted | Author ID: ${message.author.id} • Message ID: ${message.id}`);
         embed2.setTimestamp();
       } else {
-        textUser = `This message was deleted by **${check.executor.tag}**.\n`;
+        if (message.author.id === check.target.id) {
+          textUser = `This message was deleted by **${check.executor.tag}**.\n`;
+        } else { textUser = '*May have possibly deleted their own message!*\n'; }
 
         embed2.setColor('#DD5449');
         embed2.setAuthor(`${message.author.tag}'s${text} message has been deleted.`, message.author.displayAvatarURL());
