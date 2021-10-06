@@ -15,7 +15,7 @@ module.exports = class extends Command {
     fetch('https://srhpyqt94yxb.statuspage.io/api/v2/status.json')
       .then(res => res.json())
       .then(json => {
-        m.edit(`:satellite_orbital: Heartbeat: **${Math.floor(this.client.ws.ping)}ms** - Message Took **${m.createdTimestamp - message.createdTimestamp}ms** to edit\n:satellite: Discord Status: __${json.status.description}__`);
+        m.edit(`:satellite_orbital: Heartbeat: **${Math.floor(this.client.ws.ping)}ms** - Roundtrip latency: **${m.createdTimestamp - message.createdTimestamp}ms**\n:satellite: Discord Status: __${json.status.description}__`);
       });
   }
 };
