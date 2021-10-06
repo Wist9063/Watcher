@@ -11,7 +11,6 @@ module.exports = class extends BotEvent {
   }
 
   async execute(oldMessage, newMessage) {
-    if (newMessage.author.bot) return;
     if (oldMessage.content === newMessage.content) return;
 
     const b = await db.get(newMessage.guild.id, this.mongod, 'guildSettings');
@@ -29,6 +28,7 @@ module.exports = class extends BotEvent {
       let newContent = newMessage.content;
       if (oldContent.length > 200) newContent = newContent.substring(0, 199) + '...';
       if (oldContent.length > 1000 || newContent.length > 1000) return;
+      const limitSec = 1000;
       
       const embed = new MessageEmbed()
         .setColor('#5bc0de')
@@ -36,7 +36,9 @@ module.exports = class extends BotEvent {
         .setDescription(`Channel: ${oldMessage.channel}\nJump To Message: [Click Here](${newMessage.url})\n\n\`\`\`md\nPrevious Message\n====\n\n< ${oldContent} >\n\nCurrent Message\n====\n\n< ${newContent} >\`\`\``)
         .setFooter(`Watcher Event • Message Edited/Updated | Message ID: ${oldMessage.id}`)
         .setTimestamp();
-      return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed.toJSON()});
+      setTimeout( function() {
+        return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed.toJSON()});
+      }, limitSec);
     } else {
       return;
     }
