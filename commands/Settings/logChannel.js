@@ -50,7 +50,7 @@ module.exports = class extends Command {
       const setChannel = message.guild.channels.cache.get(channel.id);
       if (!setChannel) return message.reply('I couldn\'t locate that channel, please try again.');
 
-      const hook = new WebhookClient(b.wb.wbID, b.wb.wbKey);
+      const hook = new WebhookClient({id: b.wb.wbID, token: b.wb.wbKey});
       hook.delete(`Replacing hook for other log channel. Request made by ${message.author.tag}`);
 
       db.update(message.guild.id, this.client.mongod, 'guildSettings', {wb: {
@@ -74,7 +74,6 @@ module.exports = class extends Command {
         const embed = new MessageEmbed()
           .setColor('#7289DA')
           .setTitle('Watcher is sending logs in this channel.')
-          
           .setDescription(`Watcher was told to send logs in this channel by ${message.author.tag}.`);
 
         wb.send({ embeds: [embed] })
