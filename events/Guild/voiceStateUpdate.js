@@ -24,7 +24,7 @@ module.exports = class extends BotEvent {
       if (voice1 == 'None') {
         const embed = new MessageEmbed()
           .setColor('#5cb85c')
-          .setAuthor(`${newState.member.user.tag} has joined a voice channel.`, newState.member.user.displayAvatarURL())
+          .setAuthor(`${newState.member.user.tag} has joined a voice channel.`, newState.member.user.displayAvatarURL({dynamic: true}))
           .setDescription(`**${newState.member.user.tag}** ${newState.member.nickname ? '*(__' + newState.member.nickname + '__)* ' : ''}joined the voice channel **${voice2}** ${newState.channel.parent ? 'in the category' : '.'} ${newState.channel.parent ? '**' + newState.channel.parent.name + '**.' : ''}`)
           .setFooter(`Watcher Event • Voice State Update | User ID: ${newState.member.user.id}`)
           .setTimestamp();
@@ -52,7 +52,7 @@ module.exports = class extends BotEvent {
           .setFooter(`Watcher Event • Voice State Update | User ID: ${newState.member.user.id}`)
           .setTimestamp();
         setTimeout( function() {
-          return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed.toJSON()});
+          return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed.toJSON(), guildId: oldState.guild.id});
         }, limitSec);
       } 
     }

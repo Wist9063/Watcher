@@ -4,7 +4,7 @@ const moment = require('moment-timezone');
 module.exports = class extends BotEvent {
   constructor(client, filePath) {
     super(client, filePath, {
-      name: 'debug'
+      name: 'invalidRequestWarning'
     });
   }
 
