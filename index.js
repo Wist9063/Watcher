@@ -70,7 +70,7 @@ new class extends Client {
     sentry.addBreadcrumb({
       category: 'botLogin',
       message: 'Connected to discord API.',
-      level: sentry.Severity.Info
+      level: 'info'
     }); 
   }
 
@@ -118,7 +118,7 @@ new class extends Client {
       sentry.addBreadcrumb({
         category: 'initEvent',
         message: 'initialized commands.',
-        level: sentry.Severity.Info
+        level: 'info'
       });
     });
   }
@@ -133,7 +133,7 @@ new class extends Client {
       sentry.addBreadcrumb({
         category: 'initEvent',
         message: 'initialized events.',
-        level: sentry.Severity.Info
+        level: 'info'
       });
     });
   }
