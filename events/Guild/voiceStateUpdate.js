@@ -24,9 +24,9 @@ module.exports = class extends BotEvent {
       if (voice1 == 'None') {
         const embed = new MessageEmbed()
           .setColor('#5cb85c')
-          .setAuthor(`${newState.member.user.tag} has joined a voice channel.`, newState.member.user.displayAvatarURL({dynamic: true}))
+          .setAuthor({name : `${newState.member.user.tag} has joined a voice channel.`, iconURL: newState.member.user.displayAvatarURL({dynamic: true})})
           .setDescription(`**${newState.member.user.tag}** ${newState.member.nickname ? '*(__' + newState.member.nickname + '__)* ' : ''}joined the voice channel **${voice2}** ${newState.channel.parent ? 'in the category' : '.'} ${newState.channel.parent ? '**' + newState.channel.parent.name + '**.' : ''}`)
-          .setFooter(`Watcher Event • Voice State Update | User ID: ${newState.member.user.id}`)
+          .setFooter({text: `Watcher Event • Voice State Update | User ID: ${newState.member.user.id}`})
           .setTimestamp();
         setTimeout( function() {
           return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed.toJSON()});
@@ -34,9 +34,9 @@ module.exports = class extends BotEvent {
       } else if (voice2 == 'Left') {
         const embed = new MessageEmbed()
           .setColor('#DD5449')
-          .setAuthor(`${oldState.member.user.tag} has left a voice channel.`, oldState.member.user.displayAvatarURL())
+          .setAuthor({name : `${oldState.member.user.tag} has left a voice channel.`, iconURL: oldState.member.user.displayAvatarURL({dynamic: true})})
           .setDescription(`**${oldState.member.user.tag}** ${newState.member.nickname ? '*(__' + newState.member.nickname + '__)* ' : ''}left the voice channel **${voice1}** ${oldState.channel.parent ? 'in the category' : '.'} ${oldState.channel.parent ? '**' + oldState.channel.parent.name + '**.' : ''}`)
-          .setFooter(`Watcher Event • Voice State Update | User ID: ${oldState.member.user.id}`)
+          .setFooter({text: `Watcher Event • Voice State Update | User ID: ${oldState.member.user.id}`})
           .setTimestamp();
         setTimeout( function() {
           return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed.toJSON()});
@@ -48,8 +48,8 @@ module.exports = class extends BotEvent {
         const embed = new MessageEmbed()
           .setColor('#5bc0de')
           .setDescription(`${oldState.member.user.tag} ${newState.member.nickname ? '*(__' + newState.member.nickname + '__)* ' : ''}has moved from **${voice1}** ${oldState.channel.parent ? 'in the category' : ''} ${oldState.channel.parent ? '**' + oldState.channel.parent.name + '**' : 'to'} ${oldState.channel.parent ? 'to' : ''} **${newState.channel.name}** ${newPar}`)
-          .setAuthor(`${newState.member.user.tag} has moved to another voice channel.`, newState.member.user.displayAvatarURL())
-          .setFooter(`Watcher Event • Voice State Update | User ID: ${newState.member.user.id}`)
+          .setAuthor({name : `${newState.member.user.tag} has moved to another voice channel.`, iconURL: newState.member.user.displayAvatarURL({dynamic: true})})
+          .setFooter({text: `Watcher Event • Voice State Update | User ID: ${newState.member.user.id}`})
           .setTimestamp();
         setTimeout( function() {
           return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed.toJSON(), guildId: oldState.guild.id});

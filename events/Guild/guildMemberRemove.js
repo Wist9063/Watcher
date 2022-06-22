@@ -32,14 +32,14 @@ module.exports = class extends BotEvent {
 
       if (check === null|| !fetchedLogs) {
         embed.setColor('#DD5449')
-          .setAuthor(`${member.user.tag} has been kicked from the server.`, member.user.displayAvatarURL({ dynamic: true }))
-          .setDescription(`<@${member.id}> has been kicked from the server by ${check.executor}\n__Reason:__ ${check.reason ? check.reason : 'No Reason Found'}\n**${guild.name}** now has __${guild.memberCount}__ members.\nThis user was kicked on \`${moment(new Date).format('MMMM Do, YYYY, h:mm:ss A')} (Pacific Standard Time)\``)
-          .setFooter(`Watcher Event • User Kicked | ID: ${member.user.id}`);
+          .setAuthor({name : `${member.user.tag} has left the server.`, iconURL: member.user.displayAvatarURL({dynamic: true})})
+          .setDescription(`<@${member.id}> has left the server by ${check.executor}\n__Reason:__ ${check.reason ? check.reason : 'No Reason Found'}\n**${guild.name}** now has __${guild.memberCount}__ members.\nThis user was kicked on \`${moment(new Date).format('MMMM Do, YYYY, h:mm:ss A')} (Pacific Standard Time)\``)
+          .setFooter({text: `Watcher Event • User Kicked | ID: ${member.user.id}`});
       } else {
         embed.setColor('#DD5449')
-          .setAuthor(`${member.user.tag} has left the server from the server.`, member.user.displayAvatarURL({ dynamic: true }))
+          .setAuthor({name : `${member.user.tag} has been kicked the server.`, iconURL: member.user.displayAvatarURL({dynamic: true})})
           .setDescription(`<@${member.id}>\n**${guild.name}** now has __${guild.memberCount}__ members.\nThis user joined discord on \`${moment(new Date).format('MMMM Do, YYYY, h:mm:ss A')} (Pacific Standard Time)\``)
-          .setFooter(`Watcher Event • User Left | ID: ${member.user.id}`);
+          .setFooter({text: `Watcher Event • User Left | ID: ${member.user.id}`});
       }
 
       return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed.toJSON()});

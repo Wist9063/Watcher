@@ -31,7 +31,7 @@ module.exports = class extends Command {
       .addField('🗒 Guild Settings', `**guildBanAdd**: ${a.events.guildBanAdd ? check : tick}\n**guidBanRemove**: ${a.events.guildBanRemove ? check : tick}\n**guildMemberAdd**: ${a.events.guildMemberAdd ? check : tick}\n**guildMemberUpdate**: ${a.events.guildMemberUpdate ? check : tick}\n**guildMemberRemove**: ${a.events.guildMemberRemove ? check : tick}\n**roleCreate**: ${a.events.roleCreate ? check : tick}\n**roleDelete**: ${a.events.roleDelete ? check : tick}`, true)
       .addField('⚙ Channel Settings', `**channelCreate**: ${a.events.channelCreate ? check : tick}\n**channelDelete**: ${a.events.channelDelete ? check : tick}`, true)
       .addField('👀 Watcher Settings', `**Log Channel**: ${b.wb.channelID ? `<#${b.wb.channelID}>` :  'None set.'}`, true)
-      .setFooter('w!<setting> <off/on> - Edit a setting, or run w!enable-all to turn all settings on, and w!disable-all to turn all settings off.');
+      .setFooter({text : 'w!<setting> <off/on> - Edit a setting, or run w!enable-all to turn all settings on, and w!disable-all to turn all settings off.'});
 
     return await message.reply({ content: `${check} **Displaying module information for \`${content ? this.client.guilds.resolve(content).name : message.guild.name}\`**.`, embeds: [embed], allowedMentions: { repliedUser: false }}).catch(e => {throw e;});
   }

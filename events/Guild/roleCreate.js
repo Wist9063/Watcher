@@ -23,7 +23,7 @@ module.exports = class extends BotEvent {
         .setColor('#5cb85c')
         .setTitle(`The role "${role.name}" has been created.`)
         .setDescription(`**Name:** \`${role.name}\`\n**Hex Color:** \`${role.hexColor}\`\n**Position:** \`${role.position}\`\n**Mentionable?** \`${role.mentionable ? 'True' : 'False'}\`\n**Created At:** ${moment(role.createdAt).format('MMMM Do YYYY, h:mm:ss A')} (Pacific Standard Time)`)
-        .setFooter(`Watcher Event • Role Created | Role ID: ${role.id}`)
+        .setFooter({text: `Watcher Event • Role Created | Role ID: ${role.id}`})
         .setTimestamp();
       return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed.toJSON()});
     } else {

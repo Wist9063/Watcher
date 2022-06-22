@@ -32,9 +32,9 @@ module.exports = class extends BotEvent {
       
       const embed = new MessageEmbed()
         .setColor('#5bc0de')
-        .setAuthor(`${newMessage.author.tag} has edited a message.`, newMessage.author.displayAvatarURL())
+        .setAuthor({name : `${newMessage.author.tag} has edited a message.`, iconURL: newMessage.author.displayAvatarURL({dynamic: true})})
         .setDescription(`Channel: ${oldMessage.channel}\nJump To Message: [Click Here](${newMessage.url})\n\n\`\`\`md\nPrevious Message\n====\n\n< ${oldContent} >\n\nCurrent Message\n====\n\n< ${newContent} >\`\`\``)
-        .setFooter(`Watcher Event • Message Edited/Updated | Message ID: ${oldMessage.id}`)
+        .setFooter({text : `Watcher Event • Message Edited/Updated | Message ID: ${oldMessage.id}`})
         .setTimestamp();
       setTimeout( function() {
         return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed.toJSON()});

@@ -29,16 +29,16 @@ module.exports = class extends BotEvent {
       if (banLog.target.id === ban.user.id) {
         embed
           .setColor('#DD5449')
-          .setAuthor(`${ban.user.tag} has been banned from the server.`, ban.user.displayAvatarURL())
+          .setAuthor({name : `${ban.user.tag} has been banned from the server.`, iconURL: ban.user.displayAvatarURL({dynamic: true})})
           .setDescription(`${ban.user} was banned by ${banLog.executor.tag}\n__Reason:__ ${banLog.reason ? banLog.reason : 'No Reason Provided'}\nThis member was banned at \`${moment(new Date).format('MMMM Do YYYY, h:mm:ss A')} (Pacific Standard Time)\``)
-          .setFooter(`Watcher Event • Member Banned | Banned User's ID: ${ban.user.id} | Banned By (ID): ${banLog.executor.id}`)
+          .setFooter({text: `Watcher Event • Member Banned | Banned User's ID: ${ban.user.id} | Banned By (ID): ${banLog.executor.id}`})
           .setTimestamp();
       } else {
         embed
           .setColor('#DD5449')
-          .setAuthor(`${ban.user.tag} has been banned from the server.`, ban.user.displayAvatarURL())
+          .setAuthor({name : `${ban.user.tag} has been banned from the server.`, iconURL: ban.user.displayAvatarURL({dynamic: true})})
           .setDescription(`__Reason:__ ${ban.reason ? ban.reason : 'No Reason Provided'}\nThis member was banned at \`${moment(new Date).format('MMMM Do YYYY, h:mm:ss A')} (Pacific Standard Time)\`\n*Could not fetch audit log data for this ban*`)
-          .setFooter(`Watcher Event • Member Banned | Banned User's ID: ${ban.user.id}.`)
+          .setFooter({text: `Watcher Event • Member Banned | Banned User's ID: ${ban.user.id}.`})
           .setTimestamp();
       }
       

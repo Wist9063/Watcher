@@ -21,9 +21,9 @@ module.exports = class extends BotEvent {
 
       const embed = new MessageEmbed()
         .setColor('#5cb85c')
-        .setAuthor(`${ban.user.tag} has been unbanned from the server.`, ban.user.displayAvatarURL())
+        .setAuthor({name : `${ban.user.tag} has been unbanned from the server.`, iconURL: ban.user.displayAvatarURL({dynamic: true})})
         .setDescription(`__Reason For Ban:__ ${ban.reason ? ban.reason : 'No Reason Provided'}\nThis user was unbanned at \`${moment(new Date).format('MMMM Do YYYY, h:mm:ss A')} (Pacific Standard Time)\``)
-        .setFooter(`Watcher Event • Member Unbanned | User ID: ${ban.user.id}.`)
+        .setFooter({text: `Watcher Event • Member Unbanned | User ID: ${ban.user.id}.`})
         .setTimestamp();
       return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed.toJSON()});
     } else {

@@ -28,7 +28,7 @@ module.exports = class extends Command {
 
     if (user) {
       const embed = new Discord.MessageEmbed()
-        .setAuthor(user.tag)
+        .setAuthor({name : user.tag})
         .setImage(user.avatarURL({ 'size': 2048, dynamic: true }));
       return await message.channel.send({ embeds: [embed] });
     } else if (!user) {
@@ -36,12 +36,12 @@ module.exports = class extends Command {
       const value = args[1];
       if (!value) {
         const embed = new Discord.MessageEmbed()
-          .setAuthor(message.author.tag)
+          .setAuthor({name : message.author.tag})
           .setImage(message.author.avatarURL({ 'size': 2048, dynamic: true }));
         return await message.channel.send({ embeds: [embed] });
       } else if (search.username.toLowerCase().includes(value.toLowerCase())) {
         const embed = new Discord.MessageEmbed()
-          .setAuthor(search.tag)
+          .setAuthor({name : search.tag})
           .setImage(search.avatarURL({ 'size': 2048, dynamic: true }));
         return message.channel.send({ embeds: [embed] });
       } else {

@@ -22,9 +22,9 @@ module.exports = class extends BotEvent {
 
       const embed = new MessageEmbed()
         .setColor('#5cb85c')
-        .setAuthor(`${member.user.tag} has joined the server.`, member.user.displayAvatarURL({ dynamic: true }))
+        .setAuthor({name : `${member.user.tag} has joined the server.`, iconURL: member.user.displayAvatarURL({dynamic: true})})
         .setDescription(`<@${member.id}>\n**${guild.name}** now has __${guild.memberCount}__ members.\nJoined discord on \`${moment(member.user.createdAt).format('MMMM Do, YYYY, h:mm:ss A')} (Pacific Standard Time)\`\nThat was **${moment(member.user.createdAt).fromNow()}**.`)
-        .setFooter(`Watcher Event • User Joined | User ID: ${member.user.id}`)
+        .setFooter({text: `Watcher Event • User Joined | User ID: ${member.user.id}`})
         .setTimestamp();
       return sender({webhook: {id: b.wb.wbID, token: b.wb.wbKey}, embed: embed.toJSON()});
     } else {

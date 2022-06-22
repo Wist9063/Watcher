@@ -37,7 +37,7 @@ module.exports = class extends Command {
         .setColor('#7289DA')
         .setTitle(`Server information for __${message.guild.name}__`)
         .setDescription(`There are **${message.guild.members.cache.filter(m => !m.user.bot).size}** users and **${message.guild.members.cache.filter(m => m.user.bot).size}** bot${message.guild.members.cache.filter(m => m.user.bot).size == 1 ? '' : 's'}. In total, there are **${message.guild.members.cache.size}** members.\nServer Owned By: **${owner.user.username}#${owner.user.discriminator}** (ID: ${owner.user.id})`)
-        .setFooter(`Guild ID: ${message.guild.id}`)
+        .setFooter({text: `Guild ID: ${message.guild.id}`})
         .addField('❯❯ Verification Level', veri, true)
         .addField('❯❯ Explicit Content Fliter', ex, true)
         .addField('❯❯ Guild Created At', `\`${moment(message.guild.createdAt).format('MMMM Do YYYY, h:mm:ss A')} (Pacific Standard Time)\` `, false)
