@@ -1,6 +1,5 @@
-/* Copyright (C) Cloud Development 2017-2021 - All Rights Reserved
- * Unauthorized copying of any file in this repo, via any medium is strictly prohibited.
- * Proprietary and confidential.
+/* 
+ *
  * Written by wist9063 <me@joshlol.xyz> & jason.
  * 
  * __/\\\______________/\\\_____________________________________________/\\\______________________________________        
